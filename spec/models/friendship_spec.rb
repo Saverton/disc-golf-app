@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Friendship, type: :model do
+  before :each do
+    User.destroy_all
+  end
+
+  let(:user1) { User.create(username: 'user1', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user1@example.com', zip_code: 19368) }
+  let(:user2) { User.create(username: 'user2', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user2@example.com', zip_code: 19368) }
+
   describe 'validations' do
-    before do
-      User.destroy_all
-      let(:user1) { User.create(username: 'user1', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user1@example.com', zip_code: 19368) }
-      let(:user2) { User.create(username: 'user2', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user2@example.com', zip_code: 19368) }
-    end
 
     it 'cannot create duplicate friendships' do
       friendship1 = Friendship.create(user_id: user1.id, friend_id: user2.id)

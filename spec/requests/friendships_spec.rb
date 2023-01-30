@@ -13,12 +13,21 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/friendships", type: :request do
+  before :each do
+    User.destroy_all
+  end
+
+  let(:user1) { User.create(username: 'user1', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user1@example.com', zip_code: 19368) }
+  let(:user2) { User.create(username: 'user2', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user2@example.com', zip_code: 19368) }
   # This should return the minimal set of attributes required to create a valid
   # Friendship. As you add validations to Friendship, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    {
+      user_id: user1.id,
+      friend_id: user2.id
+    }
+  end
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
@@ -32,53 +41,32 @@ RSpec.describe "/friendships", type: :request do
     {}
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Friendship.create! valid_attributes
-      get friendships_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /show" do
-    it "renders a successful response" do
-      friendship = Friendship.create! valid_attributes
-      get friendship_url(friendship), as: :json
-      expect(response).to be_successful
-    end
-  end
-
   describe "POST /create" do
     context "with valid parameters" do
-      before :each do
-        User.destroy_all
-        let(:user1) { User.create(username: 'user1', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user1@example.com', zip_code: 19368) }
-        let(:user2) { User.create(username: 'user2', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user2@example.com', zip_code: 19368) }
-      end
 
       it "creates a new Friendship" do
         expect {
-          post friendships_url,
+          post '/api/friendships',
                params: { friendship: valid_attributes }, headers: valid_headers, as: :json
         }.to change(Friendship, :count).by(1)
       end
 
       it "renders a JSON response with the new friendship" do
-        post friendships_url,
+        post '/api/friendships',
              params: { friendship: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
 
       it 'creates a pending friendship when no friendship containing both users exists' do
-        friendship1 = Friendship.create(user_id: user1.id, friend_id: user2.id)
+        friendship1 = Friendship.create!(user_id: user1.id, friend_id: user2.id)
 
         expect(friendship1.pending).to be true
       end
 
       it 'creates a non-pending friendship when both users have created a friendship with one another' do
-        friendship1 = Friendship.create(user_id: user1.id, friend_id: user2.id)
-        friendship2 = Friendship.create(user_id: user2.id, friend_id: user1.id)
+        friendship1 = Friendship.create!(user_id: user1.id, friend_id: user2.id)
+        friendship2 = Friendship.create!(user_id: user2.id, friend_id: user1.id)
 
         expect(friendship1.pending).to be false
         expect(friendship2.pending).to be false
@@ -102,46 +90,19 @@ RSpec.describe "/friendships", type: :request do
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested friendship" do
-        friendship = Friendship.create! valid_attributes
-        patch friendship_url(friendship),
-              params: { friendship: new_attributes }, headers: valid_headers, as: :json
-        friendship.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "renders a JSON response with the friendship" do
-        friendship = Friendship.create! valid_attributes
-        patch friendship_url(friendship),
-              params: { friendship: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a JSON response with errors for the friendship" do
-        friendship = Friendship.create! valid_attributes
-        patch friendship_url(friendship),
-              params: { friendship: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-  end
-
   describe "DELETE /destroy" do
     it "destroys the requested friendship" do
       friendship = Friendship.create! valid_attributes
       expect {
         delete friendship_url(friendship), headers: valid_headers, as: :json
       }.to change(Friendship, :count).by(-1)
+    end
+
+    it 'returns 204 no content' do
+      friendship = Friendship.create! valid_attributes
+      delete friendship_url(friendship), headers: valid_headers, as: :json
+
+      expect(response).to have_http_status(:no_content)
     end
   end
 end
