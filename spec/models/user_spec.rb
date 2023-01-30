@@ -111,5 +111,34 @@ RSpec.describe User, type: :model do
         ).to be_invalid
       end
     end
+
+    context 'zip_code' do
+      it 'must exist' do
+        expect(
+          User.create(username: 'test_username', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'test@example.com', zip_code: 19368)
+        ).to be_valid
+        expect(
+          User.create(username: 'test_username_2', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'test2@example.com')
+        ).to be_invalid
+      end
+    end
+  end
+
+  describe 'relationships' do
+
+    let(:user1) { User.create(username: 'user1', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user1@example.com', zip_code: 19368) }
+    let(:user2) { User.create(username: 'user2', password: 'test_pwd', first_name: 'john', last_name: 'doe', email: 'user2@example.com', zip_code: 19368) }
+
+    it 'can access the associated friendships' do
+      friendship = Friendship.create(user_id: user1.id, friend_id: user2.id)
+
+      expect(user1.friendships).to include(friendship)
+    end
+
+    it 'can access associated friend users' do
+      Friendship.create(user_id: user1.id, friend_id: user2.id)
+
+      expect(user1.friends).to include(user2)
+    end
   end
 end
