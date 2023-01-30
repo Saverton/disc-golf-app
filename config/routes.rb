@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  resources :friendships
-  resources :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :api do
+    resources :friendships, only: %i[create destroy]
+    resources :users, only: %i[index show]
+    get '/signup', to: 'users#create'
+    get '/login', to: 'sessions#create'
+    get '/me', to: 'sessions#show'
+    get '/logout', to: 'sessions#destroy'
+  end
 end
