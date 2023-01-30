@@ -1,5 +1,6 @@
 class Api::FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[destroy]
+  before_action :authorize
 
   # POST /friendships
   def create
