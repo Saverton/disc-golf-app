@@ -5,7 +5,11 @@ class Api::UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all.limit(INDEX_LIMIT)
+    @users = if params[:username]
+               User.where('username LIKE ?', "%#{User.sanitize_sql_like(params[:username])}%").limit(INDEX_LIMIT)
+             else
+               User.all.limit(INDEX_LIMIT)
+             end
     render json: @users, status: :ok
   end
 
