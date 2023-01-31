@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { login, logout } from './userSlice';
+import { login } from './userSlice';
+import { Button } from '../../styled-components/Buttons';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -12,7 +13,6 @@ export default function Login() {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.user);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -42,19 +42,6 @@ export default function Login() {
       });
   }
 
-  const handleLogout = () => {
-    fetch('/api/logout', {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          dispatch(logout());
-        } else {
-          res.json().then(console.log);
-        }
-      })
-  }
-
   const errorList = errors.map(e => <li>{e}</li>);
 
   return (
@@ -77,7 +64,8 @@ export default function Login() {
         onChange={handleChange}
       />
       <br />
-      <input
+      <Button
+        as="input"
         type="submit"
         value="login"
       />
@@ -90,9 +78,6 @@ export default function Login() {
           <Link to="/signup">create an account here</Link>!
         </h5>
       </div>
-      {
-        currentUser.id ? <button onClick={handleLogout}>logout</button> : null
-      }
     </form>
   );
 }

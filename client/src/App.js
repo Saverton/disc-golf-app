@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { login } from './features/user/userSlice';
 import NavBar from './components/NavBar';
+import UserStatus from './features/user/UserStatus';
+import { VDiv } from './styled-components/FlexDivs';
 import './App.css';
 
 export default function App() {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,8 +26,10 @@ export default function App() {
   return (
     <>
       <NavBar />
-      <h2>Currently Logged in as: {currentUser.username || 'NOT LOGGED IN'}</h2>
-      <Outlet />
+      <VDiv as="main">
+        <UserStatus />
+        <Outlet />
+      </VDiv>
     </>
   );
 }

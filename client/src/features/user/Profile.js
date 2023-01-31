@@ -55,7 +55,7 @@ export default function Profile() {
       })
   }
 
-  console.log(user);
+  // console.log(user);
   const friendsList = user?.friends || [];
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];

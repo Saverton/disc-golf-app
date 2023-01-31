@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '../../styled-components/Buttons';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -110,7 +111,8 @@ export default function Signup() {
         onChange={handleChange}
       />
       <br />
-      <input
+      <Button
+        as="input"
         type="submit"
         value="sign up"
       />
