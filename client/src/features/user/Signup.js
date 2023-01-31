@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -116,6 +117,12 @@ export default function Signup() {
       <ul>
         {errorList}
       </ul>
+      <div>
+        <h5>
+          Already have an account?{' '}
+          <Link to="/login">sign in here</Link>!
+        </h5>
+      </div>
     </form>
   );
 }

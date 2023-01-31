@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function UserList({ users, onClickUser }) {
+export default function UserList({ users }) {
   const usersList = users.map((u, idx) => (
     <li key={`user-${idx}`}>
       {u.username}
-      <button onClick={() => onClickUser(u.id)}>View Profile</button>
+      <Link to={`/users/${u.id}`}>View Profile</Link>
     </li>
   ));
 

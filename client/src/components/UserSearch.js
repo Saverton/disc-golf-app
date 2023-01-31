@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 
-export default function UserSearch({ handleClickUser }) {
+export default function UserSearch() {
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
 
-  const fetchUsers = () => {
-    fetch(`/api/users?username=${search}`)
+  const fetchUsers = (searchText = '') => {
+    fetch(`/api/users?username=${searchText}`)
       .then(res => {
         if (res.ok) {
           res.json().then(setUsers);
@@ -16,6 +16,7 @@ export default function UserSearch({ handleClickUser }) {
       });
   }
 
+  // performs a query for users with no search term first
   useEffect(fetchUsers, []);
 
   const handleChange = e => {
@@ -24,7 +25,7 @@ export default function UserSearch({ handleClickUser }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    fetchUsers();
+    fetchUsers(search);
   }
 
   return (
@@ -43,7 +44,7 @@ export default function UserSearch({ handleClickUser }) {
           value="search"
         />
       </form>
-      <UserList users={users} onClickUser={handleClickUser} />
+      <UserList users={users} />
     </section>
   );
 }

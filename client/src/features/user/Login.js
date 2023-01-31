@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { login, logout } from './userSlice';
 
 const DEFAULT_FORM_DATA = {
@@ -83,6 +84,12 @@ export default function Login() {
       <ul>
         {errorList}
       </ul>
+      <div>
+        <h5>
+          Don't have an account?{' '}
+          <Link to="/signup">create an account here</Link>!
+        </h5>
+      </div>
       {
         currentUser.id ? <button onClick={handleLogout}>logout</button> : null
       }

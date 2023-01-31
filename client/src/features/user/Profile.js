@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import UserList from '../../components/UserList';
 
-export default function Profile({ userId }) {
+export default function Profile() {
   const [user, setUser] = useState({});
   const currentUser = useSelector(state => state.user);
+  const { id }  = useParams();
 
   useEffect(() => {
-    fetch(`/api/users/${userId}`)
+    fetch(`/api/users/${id}`)
       .then(res => {
         if (res.ok) {
           res.json().then(setUser);
@@ -15,7 +17,7 @@ export default function Profile({ userId }) {
           res.json().then(console.log);
         }
       });
-  }, [userId])
+  }, [id])
 
   const handleAddFriend = () => {
     fetch('/api/friendships', {
@@ -24,7 +26,7 @@ export default function Profile({ userId }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        friend_id: userId,
+        friend_id: id,
         user_id: currentUser.id
       })
     })
@@ -53,7 +55,6 @@ export default function Profile({ userId }) {
       })
   }
 
-  console.log(user);
   const friendsList = user?.friends || [];
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];
@@ -94,11 +95,11 @@ export default function Profile({ userId }) {
       <h5>{user?.first_name} {user?.last_name}</h5>
       {
         // Conditionally show the 'Add Friend' button or a message based on friend status.
-        userId !== currentUser.id ? friendManager() : null
+        parseInt(id) !== currentUser.id ? friendManager() : null
       }
       {
         // Only show the user's email, zip code, and friends list if the current user is friends with this user.
-        user?.friendship?.status === 'friends' || userId === currentUser.id
+        user?.friendship?.status === 'friends' || parseInt(id) === currentUser.id
         ? (<>
           <h5>Email: {user?.email}</h5>
           <h5>Zip code: {user?.zip_code}</h5>
