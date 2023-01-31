@@ -1,6 +1,7 @@
 class Api::FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[destroy]
-  before_action :authorize
+  before_action :authorize, only: %i[create]
+  before_action :authorize_destroy, only: %i[destroy]
 
   # POST /friendships
   def create
@@ -9,7 +10,7 @@ class Api::FriendshipsController < ApplicationController
 
     if @friendship.save
       check_mutual_friendship
-      render json: @friendship, status: :created
+      render json: @friendship.friend, serializer: VerboseUserSerializer, status: :created, logged_in_as: session[:user_id]
     else
       render json: @friendship.errors, status: :unprocessable_entity
     end
@@ -17,7 +18,7 @@ class Api::FriendshipsController < ApplicationController
 
   # DELETE /friendships/1
   def destroy
-    inverse.destroy
+    inverse&.destroy
     @friendship.destroy
     head :no_content
   end
@@ -43,7 +44,14 @@ class Api::FriendshipsController < ApplicationController
     inverse_friendship.update(pending: false)
   end
 
+  # return the reverse direction of the friendship, only works if mutual
   def inverse
     Friendship.find_by(user_id: @friendship.friend_id, friend_id: @friendship.user_id)
+  end
+
+  def authorize_destroy
+    unless session[:user_id] && [@friendship[:user_id], @friendship[:friend_id], params[:user_id]].include?(session[:user_id])
+      unauthorized
+    end
   end
 end

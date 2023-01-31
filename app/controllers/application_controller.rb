@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorize
-    return unauthorized unless session[:user_id] == params[:user_id]
+    return unauthorized unless session[:user_id] && session[:user_id] == params[:user_id]
   end
 
   def unprocessable_entity(invalid)

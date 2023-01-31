@@ -30,25 +30,94 @@ export default function Profile({ userId }) {
     })
       .then(res => {
         if (res.ok) {
-          console.log('added');
+          res.json().then(setUser);
         } else {
           res.json().then(console.log);
         }
       })
   }
 
-  const friendsList = user?.friends?.filter(f => !f.pending) || [];
+  const handleRemoveFriend = () => {
+    fetch(`/api/friendships/${user.friendship.id}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if (res.ok) {
+          setUser({...user, friendship: {
+            id: null,
+            status: false
+          }});
+        } else {
+          res.json().then(console.log);
+        }
+      })
+  }
+
+  console.log(user);
+  const friendsList = user?.friends || [];
+  const outgoingFriendsList = user?.outgoing_friends || [];
+  const incomingFriendsList = user?.incoming_friends || [];
+
+  const friendManager = () => {
+    switch (user?.friendship?.status) {
+      case 'friends':
+        return (
+          <>
+            <h5>You are friends with {user.username}</h5>
+            <button onClick={handleRemoveFriend}>Remove Friend</button>
+          </>
+        );
+      case 'pending-outgoing':
+        return (
+          <>
+            <h5>You have sent a friend request to {user.username}</h5>
+            <button onClick={handleRemoveFriend}>Cancel Request</button>
+          </>
+        );
+      case 'pending-incoming':
+        return (
+          <>
+            <h5>{user.username} would like to become friends</h5>
+            <button onClick={handleAddFriend}>Accept Friend Request</button>
+            <button onClick={handleRemoveFriend}>Reject Friend Request</button>
+          </>
+        );
+      default:
+        return <button onClick={handleAddFriend}>Add Friend</button>
+    }
+  }
 
   return (
     <section>
       <h1>Profile</h1>
-      <h3>User: {user?.username}</h3>
+      <h3>Username: {user?.username}</h3>
       <h5>{user?.first_name} {user?.last_name}</h5>
-      <h5>Email: {user?.email}</h5>
-      <h5>Zip code: {user?.zip_code}</h5>
-      {userId !== currentUser.id ? <button onClick={handleAddFriend}>Add Friend</button> : null}
-      <h4>Friends</h4>
-      <UserList users={friendsList} />
+      {
+        // Conditionally show the 'Add Friend' button or a message based on friend status.
+        userId !== currentUser.id ? friendManager() : null
+      }
+      {
+        // Only show the user's email, zip code, and friends list if the current user is friends with this user.
+        user?.friendship?.status === 'friends' || userId === currentUser.id
+        ? (<>
+          <h5>Email: {user?.email}</h5>
+          <h5>Zip code: {user?.zip_code}</h5>
+          <h4>Friends</h4>
+          <UserList users={friendsList} />
+        </>) : null
+      }
+      {
+        // Only show this user's current outgoing and incoming friend requests if they are currently logged in
+        currentUser.id === user?.id
+        ? (
+          <>
+            <h4>Sent Friend Requests</h4>
+            <UserList users={outgoingFriendsList} />
+            <h4>Incoming Friend Requests</h4>
+            <UserList users={incomingFriendsList} />
+          </>
+        ) : null
+      }
     </section>
   );
 }
