@@ -4,6 +4,7 @@ import Login from './features/user/Login';
 import Signup from './features/user/Signup';
 import UserSearch from './components/UserSearch';
 import Profile from './features/user/Profile';
+import Feed from './components/Feed';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'users/:id',
         element: <Profile />
+      },
+      {
+        path: 'feed/',
+        element: <Feed />
       }
     ]
   }

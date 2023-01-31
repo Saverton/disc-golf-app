@@ -2,7 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :friendships, dependent: :destroy
-  has_many :friends, through: :friendships
+  has_many :friends, -> { includes :posts }, through: :friendships
+  has_many :posts
 
   validates_presence_of :username, :password_digest, :first_name, :last_name, :email, :zip_code
   validates :username, uniqueness: true, length: { minimum: 5 }
@@ -26,7 +27,6 @@ class User < ApplicationRecord
   end
 
   def friendship_with(current_user_id)
-    # current_user = User.find_by(id: current_user_id)
     friendship =
       friendships.where(friend_id: current_user_id).or(Friendship.where(friend_id: id, user_id: current_user_id)).first
     friendship_status(friendship)
