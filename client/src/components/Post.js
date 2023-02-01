@@ -7,6 +7,8 @@ export default function Post({ post }) {
   const { id, body, user } = post;
   const currentUser = useSelector(state => state.user);
 
+  console.log(post);
+
   return (
     <div>
       <h3>{user.username}</h3>

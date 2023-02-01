@@ -3,11 +3,13 @@ class Api::PostsController < ApplicationController
   before_action :set_post, only: %i[show update destroy]
   # GET /posts
   def index
-    return render json: Post.limit(10), status: :ok unless session[:user_id]
+    @posts = if session[:user_id].nil?
+               Post.limit(10)
+             else
+               Post.feed_posts(session[:user_id])
+             end
 
-    @posts = Post.feed_posts(session[:user_id])
-
-    render json: @posts, status: :ok
+    render json: @posts, status: :ok, include: ['comments', 'comments.user', 'user']
   end
 
   # GET /users/:user_id/posts/:id
