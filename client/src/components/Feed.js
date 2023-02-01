@@ -5,7 +5,7 @@ export default function Feed() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('/api/feed')
+    fetch('/api/posts')
       .then(res => {
         if (res.ok) {
           res.json().then(setPosts);

@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :posts
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates_presence_of :username, :password_digest, :first_name, :last_name, :email, :zip_code
   validates :username, uniqueness: true, length: { minimum: 5 }

@@ -5,10 +5,12 @@ Rails.application.routes.draw do
       resources :posts, only: %i[show create update destroy]
       resources :comments, only: %i[create update destroy]
     end
+    resources :posts, only: %i[index] do
+      resources :likes, only: %i[create destroy]
+    end
     post '/signup', to: 'users#create'
     post '/login', to: 'sessions#create'
     get '/me', to: 'sessions#show'
     delete '/logout', to: 'sessions#destroy'
-    get '/feed', to: 'posts#index'
   end
 end
