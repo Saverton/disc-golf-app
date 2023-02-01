@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import UserList from '../../components/UserList';
+import Post from '../../components/Post';
 
 export default function Profile() {
   const [user, setUser] = useState({});
@@ -59,6 +60,7 @@ export default function Profile() {
   const friendsList = user?.friends || [];
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];
+  const postsList = (user?.posts || []).map((p, idx) => <Post key={`post-${idx}`} post={{...p, user: {id: user.id, username: user.username}}} />);
 
   const friendManager = () => {
     switch (user?.friendship?.status) {
@@ -120,6 +122,8 @@ export default function Profile() {
           </>
         ) : null
       }
+      <h3>Posts</h3>
+      {postsList}
     </section>
   );
 }

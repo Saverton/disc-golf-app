@@ -7,6 +7,8 @@ const DEFAULT_FORM_DATA = {
 export default function PostForm({ onSubmit, startData }) {
   const [formData, setFormData] = useState(startData || DEFAULT_FORM_DATA);
 
+  // console.log(formData);
+
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData({

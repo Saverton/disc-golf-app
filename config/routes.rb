@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :friendships, only: %i[create destroy]
     resources :users, only: %i[index show] do
-      resources :posts, only: %i[create]
+      resources :posts, only: %i[show create update destroy]
     end
     post '/signup', to: 'users#create'
     post '/login', to: 'sessions#create'

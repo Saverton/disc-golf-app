@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :friendships, dependent: :destroy
-  has_many :friends, -> { includes :posts }, through: :friendships
+  has_many :friends, through: :friendships
   has_many :posts
 
   validates_presence_of :username, :password_digest, :first_name, :last_name, :email, :zip_code

@@ -1,6 +1,8 @@
 class VerboseUserSerializer < ActiveModel::Serializer
   attributes :id, :username, :first_name, :last_name, :email, :zip_code, :friends, :outgoing_friends, :incoming_friends, :friendship
 
+  has_many :posts
+
   def friends
     serialize_each(object.mutual_friends, UserSerializer)
   end

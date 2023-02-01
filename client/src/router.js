@@ -6,6 +6,7 @@ import UserSearch from './components/UserSearch';
 import Profile from './features/user/Profile';
 import Feed from './components/Feed';
 import NewPost from './components/NewPost';
+import EditPost from './components/EditPost';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: 'new_post',
         element: <NewPost />
+      },
+      {
+        path: 'edit_post/:post_id',
+        element: <EditPost />
       }
     ]
   }
