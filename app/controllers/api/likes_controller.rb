@@ -1,10 +1,10 @@
-class LikesController < ApplicationController
+class Api::LikesController < ApplicationController
   before_action :authorize
   before_action :set_like, only: %i[destroy]
 
   def create
     @like = Like.create!(like_params)
-    render json: @like.post, status: :created, serializer: PostSerializer
+    render json: @like, status: :created
   end
 
   def destroy
