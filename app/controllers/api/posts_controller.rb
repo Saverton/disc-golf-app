@@ -1,4 +1,5 @@
 class Api::PostsController < ApplicationController
+  before_action :authorize, only: %i[create]
   # GET /posts
   def index
     return unauthorized unless session[:user_id]
@@ -10,9 +11,7 @@ class Api::PostsController < ApplicationController
 
   # POST /users/:user_id/posts
   def create
-    return unauthorized unless authorize
-
-    @post = Post.create(user_id: params[:user_id])
+    @post = Post.create!(post_params)
     render json: @post, status: :created
   end
 

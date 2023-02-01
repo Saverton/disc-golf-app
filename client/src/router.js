@@ -5,6 +5,7 @@ import Signup from './features/user/Signup';
 import UserSearch from './components/UserSearch';
 import Profile from './features/user/Profile';
 import Feed from './components/Feed';
+import NewPost from './components/NewPost';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'feed/',
         element: <Feed />
+      },
+      {
+        path: 'new_post',
+        element: <NewPost />
       }
     ]
   }
