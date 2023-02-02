@@ -13,7 +13,10 @@ export default function NewPost() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(post)
+      body: JSON.stringify({
+        ...post,
+        course_id: post.course.id
+      })
     })
       .then(res => {
         if (res.ok) {

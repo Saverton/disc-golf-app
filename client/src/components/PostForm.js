@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import CourseSearch from './CourseSearch';
 
 const DEFAULT_FORM_DATA = {
-  body: ''
+  body: '',
+  course: {
+    name: 'None',
+    id: null
+  }
 };
 
 export default function PostForm({ onSubmit, startData }) {
   const [formData, setFormData] = useState(startData || DEFAULT_FORM_DATA);
+  if (!formData.course)
+    formData.course = DEFAULT_FORM_DATA.course;
 
   // console.log(formData);
 
@@ -22,6 +29,13 @@ export default function PostForm({ onSubmit, startData }) {
     onSubmit(formData);
   }
 
+  const handleSelectCourse = course => {
+    setFormData({
+      ...formData,
+      course
+    });
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="body">Post Body</label>
@@ -31,6 +45,12 @@ export default function PostForm({ onSubmit, startData }) {
         value={formData.body}
         onChange={handleChange}
       />
+      <br />
+      <label htmlFor="course">Course Selection</label>
+      <fieldset id="course">
+        <h4>{formData.course?.name}</h4>
+        <CourseSearch onSelect={handleSelectCourse} />
+      </fieldset>
       <br />
       <input
         type="submit"

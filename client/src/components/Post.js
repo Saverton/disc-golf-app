@@ -7,11 +7,12 @@ import Likes from './Likes';
 import { LinkButton } from '../styled-components/Buttons';
 
 export default function Post({ post }) {
-  const { id, body, user } = post;
+  const { id, body, user, course } = post;
   const [comments, setComments] = useState(post.comments);
   const currentUser = useSelector(state => state.user);
 
   // console.log(post);
+
   const addComment = newComment => {
     setComments(c => [...c, newComment]);
   }
@@ -24,12 +25,19 @@ export default function Post({ post }) {
     setComments(comments => comments.filter(c => c.id !== deletedId));
   }
 
-  const commentsList = comments.map((c, idx) => <Comment key={`comment-${id}.${idx}`} comment={c} onUpdate={updateComment} onDelete={deleteComment} />);
+  const commentsList = comments.map((c, idx) => (
+    <Comment
+      key={`comment-${id}.${idx}`}
+      comment={c} onUpdate={updateComment}
+      onDelete={deleteComment}
+    />
+  ));
 
   return (
     <div>
       <h3>{user.username}</h3>
       <p>{body}</p>
+      { course ? <p>at: <strong>{course.name}</strong></p> : null }
       <Likes post={post} />
       {
         currentUser.id === user.id

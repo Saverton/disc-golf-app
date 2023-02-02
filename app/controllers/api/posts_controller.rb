@@ -42,10 +42,10 @@ class Api::PostsController < ApplicationController
   end
 
   def post_create_params
-    params.permit(:user_id, :body)
+    params.permit(:user_id, :body, :course_id)
   end
 
   def post_update_params
-    params.permit(:body)
+    params.permit(:body, :course_id)
   end
 end

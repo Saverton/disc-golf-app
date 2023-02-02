@@ -10,6 +10,8 @@ export default function EditPost() {
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.user);
 
+  // console.log(post);
+
   useEffect(() => {
     fetch(`/api/users/${currentUser.id}/posts/${postId}`)
       .then(res => {
