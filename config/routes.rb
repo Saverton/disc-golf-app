@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :posts, only: %i[index] do
       resources :likes, only: %i[create destroy]
     end
+    resources :courses, only: %i[index show create]
     post '/signup', to: 'users#create'
     post '/login', to: 'sessions#create'
     get '/me', to: 'sessions#show'
