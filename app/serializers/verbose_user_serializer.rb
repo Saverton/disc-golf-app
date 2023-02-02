@@ -1,4 +1,4 @@
-class VerboseUserSerializer < ActiveModel::Serializer
+class VerboseUserSerializer < ParentSerializer
   attributes :id, :username, :first_name, :last_name, :email, :zip_code, :friends, :outgoing_friends, :incoming_friends, :friendship
 
   has_many :posts
@@ -27,9 +27,5 @@ class VerboseUserSerializer < ActiveModel::Serializer
 
   def authorize_current
     instance_options[:logged_in_as] == object.id
-  end
-
-  def serialize_each(data, serializer)
-    ActiveModelSerializers::SerializableResource.new(data, each_serializer: serializer)
   end
 end

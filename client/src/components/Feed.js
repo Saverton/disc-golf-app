@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Post from './Post';
+import PostList from './PostList';
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
@@ -15,11 +15,10 @@ export default function Feed() {
       })
   }, [])
 
-  const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} />);
 
   return (
     <main>
-      {postsList}
+      <PostList posts={posts} />
     </main>
   );
 }

@@ -1,3 +1,3 @@
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ParentSerializer
   attributes :id, :username
 end

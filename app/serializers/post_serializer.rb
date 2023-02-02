@@ -1,4 +1,4 @@
-class PostSerializer < ActiveModel::Serializer
+class PostSerializer < ParentSerializer
   attributes :id, :body, :created_at, :likes, :liked_by_current_user
 
   belongs_to :user

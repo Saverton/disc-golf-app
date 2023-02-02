@@ -12,6 +12,7 @@ export default function NavBar() {
       <HDiv as="nav">
         <NavButton as={NavLink} to="/feed">Feed</NavButton>
         <NavButton as={NavLink} to="/new_post">Post</NavButton>
+        <NavButton as={NavLink} to="/courses">Courses</NavButton>
         <NavButton as={NavLink} to="/users" end>Find Friends</NavButton>
         {
           currentUser.id

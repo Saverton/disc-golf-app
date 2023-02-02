@@ -1,0 +1,38 @@
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import PostList from './PostList';
+
+export default function CourseDetail() {
+  const { id } = useParams();
+  const [course, setCourse] = useState({});
+
+  useEffect(() => {
+    fetch(`/api/courses/${id}`)
+      .then(res => {
+        if (res.ok) {
+          res.json().then(setCourse);
+        } else {
+          res.json().then(console.log);
+        }
+      })
+  }, [id]);
+
+  console.log(course);
+
+  if (Object.keys(course).length === 0) {
+    return <main><h1>Loading...</h1></main>;
+  }
+
+  return (
+    <main>
+      <h1>{course.name}</h1>
+      <h3>{course.address}</h3>
+      <h3>{course.num_holes} holes</h3>
+      <p>{course.description}</p>
+      <div>
+        <h3>Recent posts about {course.name}</h3>
+        <PostList posts={course.posts} />
+      </div>
+    </main>
+  );
+}

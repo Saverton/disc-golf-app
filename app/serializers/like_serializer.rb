@@ -1,3 +1,3 @@
-class LikeSerializer < ActiveModel::Serializer
+class LikeSerializer < ParentSerializer
   attributes :id
 end

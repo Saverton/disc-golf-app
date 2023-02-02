@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  has_many :posts
+
   validates_presence_of :name, :address
   validates :name, uniqueness: {
     message: 'That course has already been posted! If you are certain that this is a new course, try being more specific in the name.' 
