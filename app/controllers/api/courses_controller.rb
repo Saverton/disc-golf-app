@@ -18,7 +18,7 @@ class Api::CoursesController < ApplicationController
 
   # GET /courses/:id - returns a specific course given its id.
   def show
-    render json: @course, status: :ok
+    render json: @course, status: :ok, serializer: VerboseCourseSerializer
   end
 
   # POST /courses - creates a new course given the appropriate parameters.

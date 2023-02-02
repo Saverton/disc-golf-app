@@ -9,7 +9,7 @@ class Api::PostsController < ApplicationController
                Post.feed_posts(session[:user_id])
              end
 
-    render json: @posts, status: :ok, include: ['comments', 'comments.user', 'user'], logged_in_as: session[:user_id]
+    render json: @posts, status: :ok, include: ['comments', 'comments.user', 'user', 'course'], logged_in_as: session[:user_id]
   end
 
   # GET /users/:user_id/posts/:id

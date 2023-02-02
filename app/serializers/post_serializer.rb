@@ -2,6 +2,7 @@ class PostSerializer < ActiveModel::Serializer
   attributes :id, :body, :created_at, :likes, :liked_by_current_user
 
   belongs_to :user
+  belongs_to :course
   has_many :comments
 
   def likes

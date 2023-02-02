@@ -15,7 +15,7 @@ class Api::UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user, serializer: VerboseUserSerializer, status: :ok, logged_in_as: session[:user_id], include: ['posts', 'posts.comments', 'posts.comments.user']
+    render json: @user, serializer: VerboseUserSerializer, status: :ok, logged_in_as: session[:user_id], include: ['posts', 'posts.comments', 'posts.comments.user', 'posts.course']
   end
 
   # POST /users
