@@ -7,6 +7,7 @@ import Profile from './features/user/Profile';
 import Feed from './components/Feed';
 import NewPost from './components/NewPost';
 import EditPost from './components/EditPost';
+import Courses from './components/Courses';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: 'edit_post/:post_id',
         element: <EditPost />
+      },
+      {
+        path: 'courses',
+        element: <Courses />
       }
     ]
   }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
+import SearchForm from './SearchForm';
 
 export default function UserSearch() {
-  const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
 
   const fetchUsers = (searchText = '') => {
@@ -19,31 +19,9 @@ export default function UserSearch() {
   // performs a query for users with no search term first
   useEffect(fetchUsers, []);
 
-  const handleChange = e => {
-    setSearch(e.target.value);
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    fetchUsers(search);
-  }
-
   return (
-    <section onSubmit={handleSubmit}>
-      <form>
-        <label htmlFor="search">Search by Username : </label>
-        <input
-          type="text"
-          id="search"
-          value={search}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          type="submit"
-          value="search"
-        />
-      </form>
+    <section>
+      <SearchForm onSubmit={fetchUsers} />
       <UserList users={users} />
     </section>
   );
