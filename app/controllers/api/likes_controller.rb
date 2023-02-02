@@ -4,6 +4,7 @@ class Api::LikesController < ApplicationController
 
   def create
     @like = Like.create!(like_params)
+
     render json: @like, status: :created
   end
 
@@ -15,7 +16,7 @@ class Api::LikesController < ApplicationController
   private
 
   def like_params
-    params.permit(:user_id, :post_id)
+    params.permit(:user_id, :likable_id, :likable_type)
   end
 
   def set_like

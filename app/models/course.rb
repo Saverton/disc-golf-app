@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   has_many :posts
+  has_many :likes, as: :likable
 
   validates_presence_of :name, :address
   validates :name, uniqueness: {

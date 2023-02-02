@@ -4,9 +4,9 @@ Rails.application.routes.draw do
     resources :users, only: %i[index show] do
       resources :posts, only: %i[show create update destroy]
       resources :comments, only: %i[create update destroy]
+      resources :likes, only: %i[create destroy]
     end
     resources :posts, only: %i[index] do
-      resources :likes, only: %i[create destroy]
     end
     resources :courses, only: %i[index show create]
     post '/signup', to: 'users#create'

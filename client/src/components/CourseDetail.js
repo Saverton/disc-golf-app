@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PostList from './PostList';
+import Likes from './Likes';
 
 export default function CourseDetail() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ export default function CourseDetail() {
       })
   }, [id]);
 
-  console.log(course);
+  // console.log(course);
 
   if (Object.keys(course).length === 0) {
     return <main><h1>Loading...</h1></main>;
@@ -29,6 +30,7 @@ export default function CourseDetail() {
       <h3>{course.address}</h3>
       <h3>{course.num_holes} holes</h3>
       <p>{course.description}</p>
+      <Likes likable={course} type="Course" />
       <div>
         <h3>Recent posts about {course.name}</h3>
         <PostList posts={course.posts} />

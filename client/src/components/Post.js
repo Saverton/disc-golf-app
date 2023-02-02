@@ -38,7 +38,7 @@ export default function Post({ post }) {
       <h3>{user.username}</h3>
       <p>{body}</p>
       { course ? <p>at: <strong>{course.name}</strong></p> : null }
-      <Likes post={post} />
+      <Likes likable={post} type="Post" />
       {
         currentUser.id === user.id
         ? <LinkButton as={Link} to={`/edit_post/${id}`}>Edit</LinkButton>

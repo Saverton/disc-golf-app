@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-export default function Likes({ post }) {
-  const { id } = post;
+export default function Likes({ likable, type }) {
+  const { id } = likable;
   const [{ likes, liked }, setLikeData] = useState({
-    likes: post.likes,
-    liked: post.liked_by_current_user
+    likes: likable.likes,
+    liked: likable.liked_by_current_user
   });
   const currentUser = useSelector(state => state.user);
 
   const handleLike = () => {
-    fetch(`/api/posts/${id}/likes`, {
+    fetch(`/api/users/${currentUser.id}/likes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        user_id: currentUser.id
+        likable_type: type,
+        likable_id: id
       })
     })
       .then(res => {
@@ -23,16 +24,12 @@ export default function Likes({ post }) {
         } else {
           res.json().then(console.log);
         }
-      })
+      });
   }
 
   const handleUnlike = () => {
-    fetch(`/api/posts/${id}/likes/${liked}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: currentUser.id
-      })
+    fetch(`/api/users/${currentUser.id}/likes/${liked}`, {
+      method: 'DELETE'
     })
       .then(res => {
         if (res.ok) {
@@ -40,7 +37,7 @@ export default function Likes({ post }) {
         } else {
           res.json().then(console.log);
         }
-      })
+      });
   }
 
   return (

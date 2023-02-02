@@ -18,7 +18,10 @@ class Api::CoursesController < ApplicationController
 
   # GET /courses/:id - returns a specific course given its id.
   def show
-    render json: @course, status: :ok, serializer: VerboseCourseSerializer, include: ['posts', 'posts.user', 'posts.comments', 'posts.comments.user', 'posts.course']
+    render json: @course, status: :ok,
+           serializer: VerboseCourseSerializer,
+           include: ['posts', 'posts.user', 'posts.comments', 'posts.comments.user', 'posts.course'],
+           logged_in_as: session[:user_id]
   end
 
   # POST /courses - creates a new course given the appropriate parameters.
