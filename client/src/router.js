@@ -9,6 +9,7 @@ import NewPost from './components/NewPost';
 import EditPost from './components/EditPost';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
+import NewCourse from './components/NewCourse';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: 'courses/:id',
         element: <CourseDetail />
+      },
+      {
+        path: 'new_course',
+        element: <NewCourse />
       }
     ]
   }
