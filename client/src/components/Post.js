@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import NewComment from './NewComment';
-import Comment from './Comment';
+import CommentsSection from './CommentsSection';
 import Likes from './Likes';
 import { Feed, Icon } from 'semantic-ui-react';
 
@@ -25,14 +24,6 @@ export default function Post({ post }) {
     setComments(comments => comments.filter(c => c.id !== deletedId));
   }
 
-  const commentsList = comments.map((c, idx) => (
-    <Comment
-      key={`comment-${id}.${idx}`}
-      comment={c} onUpdate={updateComment}
-      onDelete={deleteComment}
-    />
-  ));
-
   return (
     <Feed.Event>
       <Feed.Label>
@@ -41,7 +32,7 @@ export default function Post({ post }) {
       <Feed.Content>
         <Feed.Summary>
           <Feed.User>{user.username}</Feed.User>
-          { course ? <span> at <a>{course.name}</a></span> : null }
+          { course ? <span> at <Link to={`/courses/${course.id}`}>{course.name}</Link></span> : null }
         </Feed.Summary>
         <Feed.Extra text>
           {body}
@@ -55,10 +46,7 @@ export default function Post({ post }) {
               </Link>
             : null
           }
-          <NewComment postId={id} onSubmit={addComment} />
-          <ul>
-            {commentsList}
-          </ul>
+          <CommentsSection comments={comments} onUpdate={updateComment} onDelete={deleteComment} addComment={addComment} postId={id} />
         </Feed.Meta>
       </Feed.Content>
     </Feed.Event>

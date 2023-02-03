@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 
-export default function NewComment({ postId, onSubmit }) {
+export default function NewComment({ postId, onSubmit, onCancel }) {
   const currentUser = useSelector(state => state.user);
 
   const handleSubmit = body => {
@@ -23,6 +23,6 @@ export default function NewComment({ postId, onSubmit }) {
   }
 
   return (
-    <CommentForm onSubmit={handleSubmit} />
+    <CommentForm onSubmit={handleSubmit} onCancel={onCancel} />
   );
 }

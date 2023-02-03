@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
-import { Button } from '../styled-components/Buttons';
+import { Comment as CommentUI, Button, Icon } from 'semantic-ui-react';
 
 export default function Comment({ comment, onUpdate, onDelete }) {
   const { id, body, user } = comment;
@@ -46,27 +46,33 @@ export default function Comment({ comment, onUpdate, onDelete }) {
   }
 
   return (
-    <li>
-      {
-        editing
-        ? (
-          <>
-            <CommentForm comment={comment} onSubmit={handleUpdateComment} />
-            <Button onClick={disableEdit}>Cancel</Button>
-          </>
-        )
-        : <p><strong>{user.username}</strong>: {body}</p>
-      }
-      {
-        (currentUser.id === user.id && !editing)
-        ? (
-          <>
-            <Button onClick={enableEdit}>Edit</Button>
-            <Button onClick={handleDelete}>Delete</Button>
-          </>
-        )
-        : null
-      }
-    </li>
+    <CommentUI>
+      <CommentUI.Content>
+        <CommentUI.Author>{user.username}</CommentUI.Author>
+        {
+          editing
+          ? (
+            <CommentForm comment={comment} onSubmit={handleUpdateComment} onCancel={disableEdit} />
+          )
+          : (
+            <CommentUI.Text>{body}</CommentUI.Text>
+          )
+        }
+        {
+          (currentUser.id === user.id && !editing)
+          ? (
+            <CommentUI.Actions>
+              <CommentUI.Action onClick={enableEdit} fluid >
+                <Icon name="pencil" />
+              </CommentUI.Action>
+              <CommentUI.Action onClick={handleDelete} fluid >
+                <Icon name="trash" />
+              </CommentUI.Action>
+            </CommentUI.Actions>
+          )
+          : null
+        }
+      </CommentUI.Content>
+    </CommentUI>
   );
 }

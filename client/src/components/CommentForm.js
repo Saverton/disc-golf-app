@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Form } from 'semantic-ui-react';
 
-export default function CommentForm({ comment, onSubmit }) {
+export default function CommentForm({ comment, onSubmit, onCancel }) {
   const [body, setBody] = useState(comment?.body || '');
 
   const handleChange = e => {
@@ -14,16 +15,21 @@ export default function CommentForm({ comment, onSubmit }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
+    <Form onSubmit={handleSubmit} size="tiny">
+      <Form.TextArea
+        rows={2}
         value={body}
         onChange={handleChange}
         placeholder="enter comment..."
       />
-      <input
-        type="submit"
-        value="Post"
-      />
-    </form>
+      <Form.Group>
+        <Form.Button type="submit" size="tiny">
+          Post
+        </Form.Button>
+        <Form.Button onClick={onCancel} size="tiny" type="button">
+          Cancel
+        </Form.Button>
+      </Form.Group>
+    </Form>
   );
 }
