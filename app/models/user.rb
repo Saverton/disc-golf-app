@@ -7,14 +7,17 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  validates_presence_of :username, :password_digest, :first_name, :last_name, :email, :zip_code
+  validates_presence_of :first_name, :last_name
   validates :username, uniqueness: true, length: { minimum: 5 }
-  validates :password, length: { minimum: 8 }
-  validates :email, uniqueness: true, format:
-    {
-      with: /\A[a-zA-Z0-9]+([-._][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.\w{2,}\z/,
-      message: 'email must follow standard format, i.e. test@example.com'
-    }
+  validates :password, length: { minimum: 8, message: 'must be at least 8 characters long' }, confirmation: true
+  validates :email, uniqueness: true, format: {
+    with: /\A[a-zA-Z0-9]+([-._][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.\w{2,}\z/,
+    message: 'must be in a valid format'
+  }
+  validates :zip_code, format: {
+    with: /\d{5}/,
+    message: 'must be valid'
+  }
 
   def mutual_friends(limit = 10)
     friendships.where(pending: false).limit(limit).map(&:friend)
