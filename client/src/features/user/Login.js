@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login } from './userSlice';
-import { Button } from '../../styled-components/Buttons';
+import { Button, Input, Form } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -11,6 +11,7 @@ const DEFAULT_FORM_DATA = {
 
 export default function Login() {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
 
@@ -24,6 +25,7 @@ export default function Login() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setLoading(true);
     fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -32,6 +34,7 @@ export default function Login() {
       body: JSON.stringify(formData)
     })
       .then(res => {
+        setLoading(false);
         if (res.ok) {
           // set current user
           res.json().then(userData => dispatch(login(userData)));
@@ -44,40 +47,43 @@ export default function Login() {
 
   const errorList = errors.map(e => <li>{e}</li>);
 
+
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-      />
-      <br />
-      <label htmlFor="password">password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <br />
-      <Button
-        as="input"
-        type="submit"
-        value="login"
-      />
-      <ul>
-        {errorList}
-      </ul>
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        loading={loading}
+        size="large"
+      >
+        <Form.Field
+          control={Input}
+          label="Username"
+          name="username"
+          placeholder="username"
+          value={formData.username}
+          onChange={handleChange}
+        />
+        <Form.Field
+          control={Input}
+          label="Password"
+          type="password"
+          name="password"
+          placeholder="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <Button type="submit" >Login</Button>
+        <ul>
+          {errorList}
+        </ul>
+      </Form>
       <div>
         <h5>
           Don't have an account?{' '}
           <Link to="/signup">create an account here</Link>!
         </h5>
       </div>
-    </form>
+    </>
   );
 }

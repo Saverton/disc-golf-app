@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../../styled-components/Buttons';
+import { Button, Form, Input } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -44,87 +44,90 @@ export default function Signup() {
       });
   }
 
-  const errorList = errors.map(e => <li>{e}</li>);
+  const getErrors = name => (
+    errors[name]?.length > 0
+    ? {
+      content: errors[name].join(', ')
+    }
+    : false
+  );
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">username</label>
-      <input
-        type="text"
-        id="username"
+    <Form onSubmit={handleSubmit} size="large">
+      <Form.Field
+        control={Input}
         name="username"
+        label="Username"
+        placeholder="username"
         value={formData.username}
         onChange={handleChange}
+        error={getErrors('username')}
       />
-      <br />
-      <label htmlFor="password">password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <br />
-      <label htmlFor="password_confirmation">password confirmation</label>
-      <input
-        type="password"
-        id="password_confirmation"
-        name="password_confirmation"
-        value={formData.password_confirmation}
-        onChange={handleChange}
-      />
-      <br />
-      <label htmlFor="first_name">first name</label>
-      <input
-        type="text"
-        id="first_name"
-        name="first_name"
-        value={formData.first_name}
-        onChange={handleChange}
-      />
-      <br />
-      <label htmlFor="last_name">last name</label>
-      <input
-        type="text"
-        id="last_name"
-        name="last_name"
-        value={formData.last_name}
-        onChange={handleChange}
-      />
-      <br />
-      <label htmlFor="email">email</label>
-      <input
-        type="text"
-        id="email"
-        name="email"
+      <Form.Group unstackable widths={2}>
+        <Form.Field
+          control={Input}
+          name="password"
+          label="Password"
+          placeholder="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={getErrors('password')}
+        />
+        <Form.Field
+          control={Input}
+          name="password_confirmation"
+          label="Password Confirmation"
+          placeholder="password"
+          value={formData.password_confirmation}
+          onChange={handleChange}
+          error={getErrors('password_confirmation')}
+        />
+      </Form.Group>
+      <Form.Group unstackable widths={2}>
+        <Form.Field
+          control={Input}
+          name="first_name"
+          label="First Name"
+          placeholder="John"
+          value={formData.first_name}
+          onChange={handleChange}
+          error={getErrors('first_name')}
+        />
+        <Form.Field
+          control={Input}
+          name="last_name"
+          label="Last Name"
+          placeholder="Smith"
+          value={formData.last_name}
+          onChange={handleChange}
+          error={getErrors('last_name')}
+        />
+      </Form.Group>
+      <Form.Field
+        control={Input}
+        label="Email"
+        placeholder="joe@schmoe.com"
         value={formData.email}
         onChange={handleChange}
+        error={getErrors('email')}
       />
-      <br />
-      <label htmlFor="zip_code">zip code</label>
-      <input
-        type="text"
-        id="zip_code"
+      <Form.Field
+        control={Input}
+        label="Zip Code"
         name="zip_code"
+        placeholder="19348"
+        pattern="\d{5}"
         value={formData.zip_code}
         onChange={handleChange}
+        error={getErrors('zip_code')}
       />
-      <br />
-      <Button
-        as="input"
-        type="submit"
-        value="sign up"
-      />
-      <ul>
-        {errorList}
-      </ul>
+      <Button type="submit">Sign Up</Button>
       <div>
         <h5>
           Already have an account?{' '}
           <Link to="/login">sign in here</Link>!
         </h5>
       </div>
-    </form>
+    </Form>
   );
 }

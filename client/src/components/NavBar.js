@@ -1,26 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { NavButton } from '../styled-components/Buttons';
-import { HDiv } from '../styled-components/FlexDivs';
+import { Menu } from 'semantic-ui-react';
 
 export default function NavBar() {
   const currentUser = useSelector(state => state.user);
 
   return (
-    <>
-      <HDiv as="nav">
-        <NavButton as={NavLink} to="/feed">Feed</NavButton>
-        <NavButton as={NavLink} to="/new_post">Post</NavButton>
-        <NavButton as={NavLink} to="/courses">Courses</NavButton>
-        <NavButton as={NavLink} to="/users" end>Find Friends</NavButton>
-        {
-          currentUser.id
-          ? <NavButton as={NavLink} to={`/users/${currentUser.id}`}>Profile</NavButton>
-          : <NavButton as={NavLink} to="/login">Login</NavButton>
-        }
-      </HDiv>
-      <hr />
-    </>
+    <Menu as="nav" fluid widths={5}>
+      <Menu.Item as={NavLink} to="/feed">Feed</Menu.Item>
+      <Menu.Item as={NavLink} to="/new_post">Post</Menu.Item>
+      <Menu.Item as={NavLink} to="/courses">Courses</Menu.Item>
+      <Menu.Item as={NavLink} to="/users" end>Find Friends</Menu.Item>
+      {
+        currentUser.id
+        ? <Menu.Item as={NavLink} to={`/users/${currentUser.id}`}>Profile</Menu.Item>
+        : <Menu.Item as={NavLink} to="/login">Login</Menu.Item>
+      }
+    </Menu>
   );
 }

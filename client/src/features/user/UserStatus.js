@@ -1,14 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { logout } from './userSlice';
-import { Button } from '../../styled-components/Buttons';
+import { Icon, Button, Dropdown } from 'semantic-ui-react';
 
 export default function UserStatus() {
   const currentUser = useSelector(state => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
+  const trigger = (
+    <span>
+      <Icon name="user" /> Welcome, <strong>{currentUser.username}</strong>
+    </span>
+  );
+
   const handleLogout = () => {
     fetch('/api/logout', {
       method: 'DELETE'
@@ -25,9 +31,22 @@ export default function UserStatus() {
 
   return (
     <>
-      <h2>Currently Logged in as: {currentUser.username || 'NOT LOGGED IN'}</h2>
       {
-        currentUser.id ? <Button onClick={handleLogout}>logout</Button> : null
+        currentUser.id
+        ? (
+          <Dropdown trigger={trigger} button>
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to={`/users/${currentUser.id}`}>
+                Profile
+              </Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>
+                Logout
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <Button>Sign In</Button>
+        )
       }
     </>
   );
