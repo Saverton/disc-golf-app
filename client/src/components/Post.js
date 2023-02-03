@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import NewComment from './NewComment';
 import Comment from './Comment';
 import Likes from './Likes';
-import { LinkButton } from '../styled-components/Buttons';
+import { Feed, Icon } from 'semantic-ui-react';
 
 export default function Post({ post }) {
   const { id, body, user, course } = post;
@@ -34,20 +34,33 @@ export default function Post({ post }) {
   ));
 
   return (
-    <div>
-      <h3>{user.username}</h3>
-      <p>{body}</p>
-      { course ? <p>at: <strong>{course.name}</strong></p> : null }
-      <Likes likable={post} type="Post" />
-      {
-        currentUser.id === user.id
-        ? <LinkButton as={Link} to={`/edit_post/${id}`}>Edit</LinkButton>
-        : null
-      }
-      <NewComment postId={id} onSubmit={addComment} />
-      <ul>
-        {commentsList}
-      </ul>
-    </div>
+    <Feed.Event>
+      <Feed.Label>
+        <Icon name="user" />
+      </Feed.Label>
+      <Feed.Content>
+        <Feed.Summary>
+          <Feed.User>{user.username}</Feed.User>
+          { course ? <span> at <a>{course.name}</a></span> : null }
+        </Feed.Summary>
+        <Feed.Extra text>
+          {body}
+        </Feed.Extra>
+        <Feed.Meta>
+          <Likes likable={post} type="Post" />
+          {
+            currentUser.id === user.id
+            ? <Link to={`/edit_post/${id}`}>
+                <Icon name="edit" />
+              </Link>
+            : null
+          }
+          <NewComment postId={id} onSubmit={addComment} />
+          <ul>
+            {commentsList}
+          </ul>
+        </Feed.Meta>
+      </Feed.Content>
+    </Feed.Event>
   );
 }

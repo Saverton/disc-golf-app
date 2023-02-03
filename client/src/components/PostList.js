@@ -1,5 +1,6 @@
 import React from 'react';
 import Post from './Post';
+import { Feed } from 'semantic-ui-react';
 
 export default function PostList({ posts }) {
   const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} />);
@@ -9,8 +10,8 @@ export default function PostList({ posts }) {
   }
 
   return (
-    <>
+    <Feed>
       {postsList}
-    </>
+    </Feed>
   );
 }

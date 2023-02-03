@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Feed, Icon } from 'semantic-ui-react';
 
 export default function Likes({ likable, type }) {
   const { id } = likable;
@@ -41,11 +42,13 @@ export default function Likes({ likable, type }) {
   }
 
   return (
-    <span>
+    <Feed.Like>
       {
-        liked ? <button onClick={handleUnlike}>Unlike</button> : <button onClick={handleLike}>Like</button>
+        liked
+        ? <Icon name="like" color="red" onClick={handleUnlike} />
+        : <Icon name="like" color="grey" onClick={handleLike} />
       }
-      <span> - {likes}</span>
-    </span>
+      {likes} likes
+    </Feed.Like>
   );
 }
