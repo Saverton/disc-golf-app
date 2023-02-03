@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
+import { Grid, Header } from 'semantic-ui-react';
 
 export default function NewPost() {
   const currentUser = useSelector(state => state.user);
@@ -28,9 +29,9 @@ export default function NewPost() {
   }
 
   return (
-    <main>
-      <h2>Create a new Post</h2>
+    <Grid.Column width={10}>
+      <Header size="large" dividing>Create a new Post</Header>
       <PostForm onSubmit={createPost} />
-    </main>
+    </Grid.Column>
   );
 }

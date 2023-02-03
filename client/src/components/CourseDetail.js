@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PostList from './PostList';
 import Likes from './Likes';
+import { Grid } from 'semantic-ui-react';
 
 export default function CourseDetail() {
   const { id } = useParams();
@@ -25,7 +26,7 @@ export default function CourseDetail() {
   }
 
   return (
-    <main>
+    <Grid.Column width={14}>
       <h1>{course.name}</h1>
       <h3>{course.address}</h3>
       <h3>{course.num_holes} holes</h3>
@@ -33,8 +34,10 @@ export default function CourseDetail() {
       <Likes likable={course} type="Course" />
       <div>
         <h3>Recent posts about {course.name}</h3>
-        <PostList posts={course.posts} />
+        <Grid.Row centered>
+          <PostList posts={course.posts} />
+        </Grid.Row>
       </div>
-    </main>
+    </Grid.Column>
   );
 }

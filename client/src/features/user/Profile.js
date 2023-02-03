@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import UserList from '../../components/UserList';
 import PostList from '../../components/PostList';
+import { Grid, Card } from 'semantic-ui-react';
 
 export default function Profile() {
   const [user, setUser] = useState({});
@@ -91,24 +92,27 @@ export default function Profile() {
   }
 
   return (
-    <section>
-      <h1>Profile</h1>
-      <h3>Username: {user?.username}</h3>
-      <h5>{user?.first_name} {user?.last_name}</h5>
-      {
-        // Conditionally show the 'Add Friend' button or a message based on friend status.
-        parseInt(id) !== currentUser.id ? friendManager() : null
-      }
-      {
-        // Only show the user's email, zip code, and friends list if the current user is friends with this user.
-        user?.friendship?.status === 'friends' || parseInt(id) === currentUser.id
-        ? (<>
-          <h5>Email: {user?.email}</h5>
-          <h5>Zip code: {user?.zip_code}</h5>
-          <h4>Friends</h4>
-          <UserList users={friendsList} />
-        </>) : null
-      }
+    <Grid.Column width={10}>
+      <Card>
+        <Card.Content header={`${user?.first_name} ${user?.last_name}`} />
+        <Card.Content content={user?.username} />
+        {
+          // Conditionally show the 'Add Friend' button or a message based on friend status.
+          parseInt(id) !== currentUser.id ? friendManager() : null
+        }
+        {
+          // Only show the user's email, zip code, and friends list if the current user is friends with this user.
+          user?.friendship?.status === 'friends' || parseInt(id) === currentUser.id
+          ? (<>
+            <Card.Content extra>
+              {user?.email}
+              Zip Code: 
+            </Card.Content>
+            <h4>Friends</h4>
+            <UserList users={friendsList} />
+          </>) : null
+        }
+      </Card>
       {
         // Only show this user's current outgoing and incoming friend requests if they are currently logged in
         currentUser.id === user?.id
@@ -123,6 +127,6 @@ export default function Profile() {
       }
       <h3>Posts</h3>
       <PostList posts={user?.posts || []} />
-    </section>
+    </Grid.Column>
   );
 }

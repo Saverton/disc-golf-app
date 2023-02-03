@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Grid, Header } from 'semantic-ui-react';
 import PostList from './PostList';
 
 export default function Feed() {
@@ -17,8 +18,9 @@ export default function Feed() {
 
 
   return (
-    <main>
+    <Grid.Column width={10}>
+      <Header size="large" dividing>Recent Posts</Header>
       <PostList posts={posts} />
-    </main>
+    </Grid.Column>
   );
 }

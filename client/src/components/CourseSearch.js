@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchForm from './SearchForm';
+import CourseList from './CourseList';
 
 export default function CourseSearch({ onSelect }) {
   onSelect ||= () => {}; // TODO: Callback for click in Courses.js
@@ -18,21 +19,10 @@ export default function CourseSearch({ onSelect }) {
 
   useEffect(fetchCourses, []);
 
-  const coursesList = courses.map((c, idx) => (
-    <li
-      key={`course-${idx}`}
-      onClick={() => onSelect(c)}
-    >
-      {c.name}
-    </li>
-  ));
-
   return (
     <section>
       <SearchForm onSubmit={fetchCourses} />
-      <ul>
-        {coursesList}
-      </ul>
+      <CourseList onSelect={onSelect} courses={courses} />
     </section>
   );
 }

@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { login } from './features/user/userSlice';
 import Header from './components/Header';
 import './App.css';
+import { Grid } from 'semantic-ui-react';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ export default function App() {
   return (
     <>
       <Header />
-      <Outlet />
+      <Grid centered>
+        <Outlet />
+      </Grid>
     </>
   );
 }

@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { LinkButton } from '../styled-components/Buttons';
+import { List } from 'semantic-ui-react';
+import UserListItem from './UserListItem';
 
 export default function UserList({ users }) {
   const usersList = users.map((u, idx) => (
-    <li key={`user-${idx}`}>
-      <LinkButton as={Link} to={`/users/${u.id}`}>{u.username}</LinkButton>
-    </li>
+    <UserListItem key={`user-${idx}`} user={u} />
   ));
 
   return (
-    <ul>
+    <List selection size="big">
       {usersList}
-    </ul>
+    </List>
   );
 }

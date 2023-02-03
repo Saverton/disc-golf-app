@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
-import { Comment as CommentUI, Button, Icon } from 'semantic-ui-react';
+import { Comment as CommentUI, Icon } from 'semantic-ui-react';
 
 export default function Comment({ comment, onUpdate, onDelete }) {
   const { id, body, user } = comment;
@@ -62,10 +62,10 @@ export default function Comment({ comment, onUpdate, onDelete }) {
           (currentUser.id === user.id && !editing)
           ? (
             <CommentUI.Actions>
-              <CommentUI.Action onClick={enableEdit} fluid >
+              <CommentUI.Action onClick={enableEdit}>
                 <Icon name="pencil" />
               </CommentUI.Action>
-              <CommentUI.Action onClick={handleDelete} fluid >
+              <CommentUI.Action onClick={handleDelete}>
                 <Icon name="trash" />
               </CommentUI.Action>
             </CommentUI.Actions>

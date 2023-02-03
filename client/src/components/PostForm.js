@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CourseSearch from './CourseSearch';
+import { Form, Label, TextArea } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   body: '',
@@ -37,25 +38,24 @@ export default function PostForm({ onSubmit, startData }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="body">Post Body</label>
-      <textarea
-        id="body"
+    <Form onSubmit={handleSubmit}>
+      <Form.Field
+        control={TextArea}
         name="body"
+        placeholder="Write something..."
         value={formData.body}
         onChange={handleChange}
       />
-      <br />
-      <label htmlFor="course">Course Selection</label>
-      <fieldset id="course">
-        <h4>{formData.course?.name}</h4>
+      <Form.Field>
+        <label>Choose a Course</label>
+        <Label
+          color="blue"
+          icon="map marker"
+          content={formData.course?.name}
+        />
         <CourseSearch onSelect={handleSelectCourse} />
-      </fieldset>
-      <br />
-      <input
-        type="submit"
-        value="Post"
-      />
-    </form>
+      </Form.Field>
+      <Form.Button type="submit">Publish</Form.Button>
+    </Form>
   );
 }

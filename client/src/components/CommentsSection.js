@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Comment from './Comment';
 import NewComment from './NewComment';
-import { Comment as CommentUI, Header, Button, Icon, Divider, Container } from 'semantic-ui-react';
+import { Comment as CommentUI, Header, Icon, Divider, Container } from 'semantic-ui-react';
 
 export default function CommentsSection({ comments, onUpdate, onDelete, addComment, postId }) {
   const [writing, setWriting] = useState();

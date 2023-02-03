@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 import SearchForm from './SearchForm';
+import { Grid, Header } from 'semantic-ui-react';
 
 export default function UserSearch() {
   const [users, setUsers] = useState([]);
@@ -20,9 +21,10 @@ export default function UserSearch() {
   useEffect(fetchUsers, []);
 
   return (
-    <section>
+    <Grid.Column width={10}>
+      <Header size="large" dividing>Find Users</Header>
       <SearchForm onSubmit={fetchUsers} />
       <UserList users={users} />
-    </section>
+    </Grid.Column>
   );
 }
