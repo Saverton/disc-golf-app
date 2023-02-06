@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from './userSlice';
 import { Button, Input, Form, Grid, Header, List } from 'semantic-ui-react';
 
@@ -14,6 +14,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -38,7 +39,7 @@ export default function Login() {
         if (res.ok) {
           // set current user
           res.json().then(userData => dispatch(login(userData)));
-          setFormData(DEFAULT_FORM_DATA);
+          navigate('/feed');
         } else {
           res.json().then(e => setErrors(e.errors));
         }

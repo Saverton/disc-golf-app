@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { Comment as CommentUI, Icon } from 'semantic-ui-react';
 
@@ -48,7 +49,7 @@ export default function Comment({ comment, onUpdate, onDelete }) {
   return (
     <CommentUI>
       <CommentUI.Content>
-        <CommentUI.Author>{user.username}</CommentUI.Author>
+        <CommentUI.Author as={Link} to={`/users/${user.id}`}>{user.username}</CommentUI.Author>
         {
           editing
           ? (

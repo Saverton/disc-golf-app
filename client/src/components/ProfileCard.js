@@ -29,10 +29,12 @@ export default function ProfileCard({ user, setUser }) {
       <FriendManager user={user} setUser={setUser} />
       {
         showPrivateDetails
-        ? (<Card.Content>
-          <Header dividing>Friends</Header>
-          <UserList users={friendsList} size='medium' />
-        </Card.Content>) : null
+        ? (
+          <Card.Content>
+            <Header dividing>Friends</Header>
+            <UserList users={friendsList} size='medium' />
+          </Card.Content>
+        ) : null
       }
     </Card>
   );

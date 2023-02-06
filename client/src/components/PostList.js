@@ -1,13 +1,20 @@
 import React from 'react';
 import Post from './Post';
-import { Feed } from 'semantic-ui-react';
+import { Feed, Loader, Header, Icon } from 'semantic-ui-react';
 
-export default function PostList({ posts }) {
+export default function PostList({ posts, loading }) {
   const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} />);
-
-  if (Object.keys(posts).length === 0) {
-    return <h2>No Posts Found...</h2>
-  }
+  
+  if (loading)
+    return <Loader active>Loading</Loader>;
+  
+  if (Object.keys(posts).length === 0)
+    return (
+      <Header textAlign='center' size='large' icon>
+        <Icon name="frown outline"/>
+        <Header.Content>No Posts Found...</Header.Content>
+      </Header>
+    );
 
   return (
     <Feed>

@@ -30,7 +30,7 @@ export default function UserStatus() {
   }
 
   return (
-    <Grid.Column floated="right" width={2} verticalAlign="middle">
+    <Grid.Column floated="right" width={4} verticalAlign="middle">
       {
         currentUser.id
         ? (

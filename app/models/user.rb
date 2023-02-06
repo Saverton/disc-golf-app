@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
   def friendship_with(current_user_id)
     return { id: nil, status: 'self' } if current_user_id == id
-  
+
     friendship =
       friendships.where(friend_id: current_user_id).or(Friendship.where(friend_id: id, user_id: current_user_id)).first
     friendship_status(friendship)
@@ -41,6 +41,11 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
+  end
+
+  # Return posts in order from most recent to oldest
+  def posts
+    super.all.order(created_at: :desc)
   end
 
   private

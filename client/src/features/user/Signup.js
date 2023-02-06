@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Button, Form, Grid, Input, Header } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
@@ -15,6 +15,7 @@ const DEFAULT_FORM_DATA = {
 export default function Signup() {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -37,7 +38,7 @@ export default function Signup() {
         if (res.ok) {
           // set current user
           res.json().then(console.log);
-          setFormData(DEFAULT_FORM_DATA);
+          navigate('/feed')
         } else {
           res.json().then(setErrors);
         }
