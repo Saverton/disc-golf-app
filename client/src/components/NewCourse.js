@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CourseForm from './CourseForm';
+import { Grid, Header } from 'semantic-ui-react';
 
 export default function NewCourse() {
   const navigate = useNavigate();
@@ -24,12 +25,9 @@ export default function NewCourse() {
   }
 
   return (
-    <main>
-      <h1>Upload a new Disc Golf Course</h1>
-      <CourseForm onSubmit={createCourse} />
-      <ul>
-        {errors.map((e, idx) => <li key={`error-${idx}`}>{e}</li>)}
-      </ul>
-    </main>
+    <Grid.Column width={10}>
+      <Header size="large" dividing>Upload a New Course's Data</Header>
+      <CourseForm onSubmit={createCourse} errors={errors} />
+    </Grid.Column>
   );
 }

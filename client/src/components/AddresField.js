@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   street1: '',
@@ -28,32 +29,27 @@ export default function AddressField({ onChange }) {
 
   return (
     <fieldset>
-      <label htmlFor="street1">Street Address</label>
-      <input
-        type="text"
-        id="street1"
+      <Form.Field
+        control={Input}
+        label="Street Address"
         name="street1"
         placeholder="405 N Walnut Rd"
         required
         value={address.street1}
         onChange={handleChange}
       />
-      <br />
-      <label htmlFor="city">City</label>
-      <input
-        type="text"
-        id="city"
+      <Form.Field
+        control={Input}
+        label="City"
         name="city"
         placeholder="Kennett Square"
         required
         value={address.city}
         onChange={handleChange}
       />
-      <br />
-      <label htmlFor="state">State</label>
-      <input
-        type="text"
-        id="state"
+      <Form.Field
+        control={Input}
+        label="State"
         name="state"
         placeholder="PA"
         required
@@ -61,11 +57,9 @@ export default function AddressField({ onChange }) {
         value={address.state}
         onChange={handleChange}
       />
-      <br />
-      <label htmlFor="zipcode">Street Address</label>
-      <input
-        type="text"
-        id="zipcode"
+      <Form.Field
+        control={Input}
+        label="Zip Code"
         name="zipcode"
         placeholder="19348"
         required
@@ -73,7 +67,6 @@ export default function AddressField({ onChange }) {
         value={address.zipcode}
         onChange={handleChange}
       />
-      <br />
     </fieldset>
   );
 }

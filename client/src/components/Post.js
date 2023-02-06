@@ -5,7 +5,7 @@ import CommentsSection from './CommentsSection';
 import Likes from './Likes';
 import { Feed, Icon } from 'semantic-ui-react';
 
-export default function Post({ post }) {
+export default function Post({ post, index }) {
   const { id, body, user, course } = post;
   const [comments, setComments] = useState(post.comments);
   const currentUser = useSelector(state => state.user);
@@ -25,7 +25,9 @@ export default function Post({ post }) {
   }
 
   return (
-    <Feed.Event>
+    <Feed.Event style={
+      index % 2 == 0 ? {backgroundColor: '#EEE'} : null
+    }>
       <Feed.Label>
         <Icon name="user" />
       </Feed.Label>

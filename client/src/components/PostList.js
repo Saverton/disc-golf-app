@@ -3,7 +3,7 @@ import Post from './Post';
 import { Feed, Loader, Header, Icon } from 'semantic-ui-react';
 
 export default function PostList({ posts, loading }) {
-  const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} />);
+  const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} index={idx} />);
   
   if (loading)
     return <Loader active>Loading</Loader>;
