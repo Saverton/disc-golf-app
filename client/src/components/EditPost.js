@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import PostForm from './PostForm';
-import { Button } from '../styled-components/Buttons';
+import { Button, Grid, Header } from 'semantic-ui-react';
 
 export default function EditPost() {
   const [post, setPost] = useState({});
@@ -54,10 +54,11 @@ export default function EditPost() {
   }
 
   return (
-    <main>
-      <h2>Edit this Post</h2>
+    <Grid.Column width={10}>
+      <Header size="large" dividing>Edit Post</Header>
       {post.id ? <PostForm onSubmit={updatePost} startData={post} /> : <h4>Loading...</h4>}
-      <Button onClick={deletePost}>Delete This Post</Button>
-    </main>
+      <Header size="small">or</Header>
+      <Button onClick={deletePost} negative>Delete This Post</Button>
+    </Grid.Column>
   );
 }

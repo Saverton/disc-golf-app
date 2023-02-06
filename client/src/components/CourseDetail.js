@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import PostList from './PostList';
-import Likes from './Likes';
+import DetailPage from './DetailPage';
+import CourseCard from './CourseCard';
+import CoursePosts from './CoursePosts';
 import { Grid } from 'semantic-ui-react';
 
 export default function CourseDetail() {
@@ -21,23 +22,16 @@ export default function CourseDetail() {
 
   // console.log(course);
 
-  if (Object.keys(course).length === 0) {
+  if (!course?.id) {
     return <main><h1>Loading...</h1></main>;
   }
 
   return (
-    <Grid.Column width={14}>
-      <h1>{course.name}</h1>
-      <h3>{course.address}</h3>
-      <h3>{course.num_holes} holes</h3>
-      <p>{course.description}</p>
-      <Likes likable={course} type="Course" />
-      <div>
-        <h3>Recent posts about {course.name}</h3>
-        <Grid.Row centered>
-          <PostList posts={course.posts} />
-        </Grid.Row>
-      </div>
+    <Grid.Column width={15}>
+      <DetailPage
+        primary={<CourseCard course={course} />}
+        secondary={<CoursePosts course={course} />}
+      />
     </Grid.Column>
   );
 }

@@ -51,7 +51,7 @@ export default function ProfileLists({ user }) {
   }
 
   return (
-    <Grid.Column width={10}>
+    <>
       {/* Secondary Profile view (lists) */}
       <Grid.Row>
         {/* Secondary Profile Navigation */}
@@ -60,6 +60,6 @@ export default function ProfileLists({ user }) {
       <Grid.Row>
         {getList()}
       </Grid.Row>
-    </Grid.Column>
+    </>
   );
 }

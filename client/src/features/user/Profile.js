@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import DetailPage from '../../components/DetailPage';
 import ProfileLists from '../../components/ProfileLists';
 import ProfileCard from '../../components/ProfileCard';
 import { Grid, Header } from 'semantic-ui-react';
@@ -23,14 +24,11 @@ export default function Profile() {
 
   return (
     <Grid.Column width={15}>
-    <Header size="large" dividing>User Profile</Header>
-      <Grid columns={2}>
-        <Grid.Column width={6}>
-          {/* Profile information card */}
-          { user.id ? <ProfileCard user={user} setUser={setUser} /> : null }
-        </Grid.Column>
-        <ProfileLists user={user} />
-      </Grid>
+      <Header size="large" dividing>User Profile</Header>
+      <DetailPage
+        primary={user.id ? <ProfileCard user={user} setUser={setUser} /> : null}
+        secondary={<ProfileLists user={user} />}
+      />
     </Grid.Column>
   );
 }
