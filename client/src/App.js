@@ -22,7 +22,7 @@ export default function App() {
             navigate('/login');
         }
       });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, location.pathname]);
 
   return (
     <>
