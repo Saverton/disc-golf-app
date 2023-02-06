@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { login } from './features/user/userSlice';
 import Header from './components/Header';
 import './App.css';
@@ -9,6 +9,7 @@ import { Grid } from 'semantic-ui-react';
 export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // fetch current user
@@ -17,7 +18,8 @@ export default function App() {
         if (res.ok) {
           res.json().then(userData => dispatch(login(userData)));
         } else {
-          navigate('/login');
+          if (location.pathname === '/')
+            navigate('/login');
         }
       });
   }, [dispatch, navigate]);
