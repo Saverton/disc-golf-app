@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login } from './userSlice';
-import { Button, Input, Form } from 'semantic-ui-react';
+import { Button, Input, Form, Grid, Header, List } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -45,12 +45,18 @@ export default function Login() {
       });
   }
 
-  const errorList = errors.map(e => <li>{e}</li>);
-
-
+  const errorList = errors.map((e, idx)=> (
+    <List.Item key={`error-${idx}`} style={{backgroundColor: 'coral'}}>
+      <List.Icon name="warning" color="red" />
+      <List.Content>
+        {e}
+      </List.Content>
+    </List.Item>
+  ));
 
   return (
-    <>
+    <Grid.Column width={10}>
+      <Header dividing size="large">Sign In</Header>
       <Form
         onSubmit={handleSubmit}
         loading={loading}
@@ -73,10 +79,10 @@ export default function Login() {
           value={formData.password}
           onChange={handleChange}
         />
-        <Button type="submit" >Login</Button>
-        <ul>
+        <List celled>
           {errorList}
-        </ul>
+        </List>
+        <Button type="submit" >Login</Button>
       </Form>
       <div>
         <h5>
@@ -84,6 +90,6 @@ export default function Login() {
           <Link to="/signup">create an account here</Link>!
         </h5>
       </div>
-    </>
+    </Grid.Column>
   );
 }

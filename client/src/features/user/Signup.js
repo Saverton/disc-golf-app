@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Form, Input } from 'semantic-ui-react';
+import { Button, Form, Grid, Input, Header } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -53,81 +53,84 @@ export default function Signup() {
   );
 
   return (
-    <Form onSubmit={handleSubmit} size="large">
-      <Form.Field
-        control={Input}
-        name="username"
-        label="Username"
-        placeholder="username"
-        value={formData.username}
-        onChange={handleChange}
-        error={getErrors('username')}
-      />
-      <Form.Group unstackable widths={2}>
+    <Grid.Column width={10}>
+      <Header dividing size="large">Sign Up</Header>
+      <Form onSubmit={handleSubmit} size="large">
         <Form.Field
           control={Input}
-          name="password"
-          label="Password"
-          placeholder="password"
-          value={formData.password}
+          name="username"
+          label="Username"
+          placeholder="username"
+          value={formData.username}
           onChange={handleChange}
-          error={getErrors('password')}
+          error={getErrors('username')}
+        />
+        <Form.Group unstackable widths={2}>
+          <Form.Field
+            control={Input}
+            name="password"
+            label="Password"
+            placeholder="password"
+            value={formData.password}
+            onChange={handleChange}
+            error={getErrors('password')}
+          />
+          <Form.Field
+            control={Input}
+            name="password_confirmation"
+            label="Password Confirmation"
+            placeholder="password"
+            value={formData.password_confirmation}
+            onChange={handleChange}
+            error={getErrors('password_confirmation')}
+          />
+        </Form.Group>
+        <Form.Group unstackable widths={2}>
+          <Form.Field
+            control={Input}
+            name="first_name"
+            label="First Name"
+            placeholder="John"
+            value={formData.first_name}
+            onChange={handleChange}
+            error={getErrors('first_name')}
+          />
+          <Form.Field
+            control={Input}
+            name="last_name"
+            label="Last Name"
+            placeholder="Smith"
+            value={formData.last_name}
+            onChange={handleChange}
+            error={getErrors('last_name')}
+          />
+        </Form.Group>
+        <Form.Field
+          control={Input}
+          label="Email"
+          placeholder="joe@schmoe.com"
+          value={formData.email}
+          onChange={handleChange}
+          error={getErrors('email')}
         />
         <Form.Field
           control={Input}
-          name="password_confirmation"
-          label="Password Confirmation"
-          placeholder="password"
-          value={formData.password_confirmation}
+          label="Zip Code"
+          name="zip_code"
+          placeholder="19348"
+          pattern="\d{5}"
+          value={formData.zip_code}
           onChange={handleChange}
-          error={getErrors('password_confirmation')}
+          error={getErrors('zip_code')}
         />
-      </Form.Group>
-      <Form.Group unstackable widths={2}>
-        <Form.Field
-          control={Input}
-          name="first_name"
-          label="First Name"
-          placeholder="John"
-          value={formData.first_name}
-          onChange={handleChange}
-          error={getErrors('first_name')}
-        />
-        <Form.Field
-          control={Input}
-          name="last_name"
-          label="Last Name"
-          placeholder="Smith"
-          value={formData.last_name}
-          onChange={handleChange}
-          error={getErrors('last_name')}
-        />
-      </Form.Group>
-      <Form.Field
-        control={Input}
-        label="Email"
-        placeholder="joe@schmoe.com"
-        value={formData.email}
-        onChange={handleChange}
-        error={getErrors('email')}
-      />
-      <Form.Field
-        control={Input}
-        label="Zip Code"
-        name="zip_code"
-        placeholder="19348"
-        pattern="\d{5}"
-        value={formData.zip_code}
-        onChange={handleChange}
-        error={getErrors('zip_code')}
-      />
-      <Button type="submit">Sign Up</Button>
+        <Button type="submit">Sign Up</Button>
+      </Form>
       <div>
         <h5>
           Already have an account?{' '}
           <Link to="/login">sign in here</Link>!
         </h5>
       </div>
-    </Form>
+    </Grid.Column>
   );
 }

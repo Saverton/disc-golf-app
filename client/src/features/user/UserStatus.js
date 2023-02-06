@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { logout } from './userSlice';
-import { Icon, Button, Dropdown } from 'semantic-ui-react';
+import { Icon, Button, Dropdown, Grid } from 'semantic-ui-react';
 
 export default function UserStatus() {
   const currentUser = useSelector(state => state.user);
@@ -30,7 +30,7 @@ export default function UserStatus() {
   }
 
   return (
-    <>
+    <Grid.Column floated="right" width={2} verticalAlign="middle">
       {
         currentUser.id
         ? (
@@ -45,9 +45,9 @@ export default function UserStatus() {
             </Dropdown.Menu>
           </Dropdown>
         ) : (
-          <Button>Sign In</Button>
+          <Button as={Link} to="/login">Sign In</Button>
         )
       }
-    </>
+    </Grid.Column>
   );
 }
