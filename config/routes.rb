@@ -14,4 +14,6 @@ Rails.application.routes.draw do
     get '/me', to: 'sessions#show'
     delete '/logout', to: 'sessions#destroy'
   end
+
+  get '*path', to: 'fallback#index', contraints: ->(req) { !req.xhr? && req.format.html? }
 end
