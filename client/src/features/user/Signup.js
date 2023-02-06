@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { login } from './userSlice';
 import { Button, Form, Grid, Input, Header } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
@@ -16,6 +18,7 @@ export default function Signup() {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -37,8 +40,10 @@ export default function Signup() {
       .then(res => {
         if (res.ok) {
           // set current user
-          res.json().then(console.log);
-          navigate('/feed')
+          res.json().then(userData => {
+            dispatch(login(userData));
+            navigate('/feed')
+          });
         } else {
           res.json().then(setErrors);
         }
@@ -69,6 +74,7 @@ export default function Signup() {
         <Form.Group unstackable widths={2}>
           <Form.Field
             control={Input}
+            type="password"
             name="password"
             label="Password"
             placeholder="password"
@@ -78,6 +84,7 @@ export default function Signup() {
           />
           <Form.Field
             control={Input}
+            type="password"
             name="password_confirmation"
             label="Password Confirmation"
             placeholder="password"
@@ -109,6 +116,7 @@ export default function Signup() {
         <Form.Field
           control={Input}
           label="Email"
+          name="email"
           placeholder="joe@schmoe.com"
           value={formData.email}
           onChange={handleChange}
