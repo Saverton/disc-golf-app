@@ -32,9 +32,15 @@ class User < ApplicationRecord
   end
 
   def friendship_with(current_user_id)
+    return { id: nil, status: 'self' } if current_user_id == id
+  
     friendship =
       friendships.where(friend_id: current_user_id).or(Friendship.where(friend_id: id, user_id: current_user_id)).first
     friendship_status(friendship)
+  end
+
+  def full_name
+    "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
   private

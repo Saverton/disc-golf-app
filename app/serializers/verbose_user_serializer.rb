@@ -1,5 +1,5 @@
 class VerboseUserSerializer < ParentSerializer
-  attributes :id, :username, :first_name, :last_name, :email, :zip_code, :friends, :outgoing_friends, :incoming_friends, :friendship
+  attributes :id, :username, :first_name, :last_name, :email, :zip_code, :friends, :outgoing_friends, :incoming_friends, :friendship, :full_name
 
   has_many :posts
 
@@ -21,6 +21,10 @@ class VerboseUserSerializer < ParentSerializer
 
   def friendship
     object.friendship_with(instance_options[:logged_in_as])
+  end
+
+  def full_name
+    object.full_name
   end
 
   private

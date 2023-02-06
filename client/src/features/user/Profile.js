@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import UserList from '../../components/UserList';
 import PostList from '../../components/PostList';
-import { Grid, Card } from 'semantic-ui-react';
+import ProfileCard from '../../components/ProfileCard';
+import { Grid, Header } from 'semantic-ui-react';
 
 export default function Profile() {
   const [user, setUser] = useState({});
@@ -21,112 +22,42 @@ export default function Profile() {
       });
   }, [id])
 
-  const handleAddFriend = () => {
-    fetch('/api/friendships', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        friend_id: id,
-        user_id: currentUser.id
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          res.json().then(setUser);
-        } else {
-          res.json().then(console.log);
-        }
-      })
-  }
-
-  const handleRemoveFriend = () => {
-    fetch(`/api/friendships/${user.friendship.id}`, {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          setUser({...user, friendship: {
-            id: null,
-            status: false
-          }});
-        } else {
-          res.json().then(console.log);
-        }
-      })
-  }
-
-  // console.log(user);
-  const friendsList = user?.friends || [];
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];
-
-  const friendManager = () => {
-    switch (user?.friendship?.status) {
-      case 'friends':
-        return (
-          <>
-            <h5>You are friends with {user.username}</h5>
-            <button onClick={handleRemoveFriend}>Remove Friend</button>
-          </>
-        );
-      case 'pending-outgoing':
-        return (
-          <>
-            <h5>You have sent a friend request to {user.username}</h5>
-            <button onClick={handleRemoveFriend}>Cancel Request</button>
-          </>
-        );
-      case 'pending-incoming':
-        return (
-          <>
-            <h5>{user.username} would like to become friends</h5>
-            <button onClick={handleAddFriend}>Accept Friend Request</button>
-            <button onClick={handleRemoveFriend}>Reject Friend Request</button>
-          </>
-        );
-      default:
-        return <button onClick={handleAddFriend}>Add Friend</button>
-    }
-  }
+  // console.log(user);
+  
 
   return (
-    <Grid.Column width={10}>
-      <Card>
-        <Card.Content header={`${user?.first_name} ${user?.last_name}`} />
-        <Card.Content content={user?.username} />
-        {
-          // Conditionally show the 'Add Friend' button or a message based on friend status.
-          parseInt(id) !== currentUser.id ? friendManager() : null
-        }
-        {
-          // Only show the user's email, zip code, and friends list if the current user is friends with this user.
-          user?.friendship?.status === 'friends' || parseInt(id) === currentUser.id
-          ? (<>
-            <Card.Content extra>
-              {user?.email}
-              Zip Code: 
-            </Card.Content>
-            <h4>Friends</h4>
-            <UserList users={friendsList} />
-          </>) : null
-        }
-      </Card>
-      {
-        // Only show this user's current outgoing and incoming friend requests if they are currently logged in
-        currentUser.id === user?.id
-        ? (
-          <>
-            <h4>Sent Friend Requests</h4>
-            <UserList users={outgoingFriendsList} />
-            <h4>Incoming Friend Requests</h4>
-            <UserList users={incomingFriendsList} />
-          </>
-        ) : null
-      }
-      <h3>Posts</h3>
-      <PostList posts={user?.posts || []} />
+    <Grid.Column width={15}>
+    <Header size="large" dividing>User Profile</Header>
+      <Grid columns={2}>
+        <Grid.Column width={6}>
+          {/* Profile information card */}
+          { user.id ? <ProfileCard user={user} setUser={setUser} /> : null }
+        </Grid.Column>
+        <Grid.Column width={10}>
+          {/* Secondary Profile view (lists) */}
+          <Grid.Row>
+            {/* Secondary Profile Navigation */}
+          </Grid.Row>
+          <Grid.Row>
+            {
+              // Only show this user's current outgoing and incoming friend requests if they are currently logged in
+              currentUser.id === user?.id
+              ? (
+                <>
+                  <h4>Sent Friend Requests</h4>
+                  <UserList users={outgoingFriendsList} />
+                  <h4>Incoming Friend Requests</h4>
+                  <UserList users={incomingFriendsList} />
+                </>
+              ) : null
+            }
+            <h3>Posts</h3>
+            <PostList posts={user?.posts || []} />
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
     </Grid.Column>
   );
 }
