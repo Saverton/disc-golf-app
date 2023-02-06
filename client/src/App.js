@@ -17,7 +17,7 @@ export default function App() {
         if (res.ok) {
           res.json().then(userData => dispatch(login(userData)));
         } else {
-          // navigate('/login');
+          navigate('/login');
         }
       });
   }, [dispatch, navigate]);
