@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Grid } from 'semantic-ui-react';
 import CommentForm from './CommentForm';
 
 export default function NewComment({ postId, onSubmit, onCancel }) {

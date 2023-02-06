@@ -10,7 +10,9 @@ class Api::FriendshipsController < ApplicationController
 
     if @friendship.save
       check_mutual_friendship
-      render json: @friendship.friend, serializer: VerboseUserSerializer, status: :created, logged_in_as: session[:user_id]
+      render json: @friendship.friend, serializer: VerboseUserSerializer, status: :created, logged_in_as: session[:user_id], include: [
+        'posts', 'posts.user', 'posts.comments', 'posts.comments.user', 'posts.course'
+      ]
     else
       render json: @friendship.errors, status: :unprocessable_entity
     end

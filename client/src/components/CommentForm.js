@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, TextArea } from 'semantic-ui-react';
 
 export default function CommentForm({ comment, onSubmit, onCancel }) {
   const [body, setBody] = useState(comment?.body || '');
@@ -16,7 +16,8 @@ export default function CommentForm({ comment, onSubmit, onCancel }) {
 
   return (
     <Form onSubmit={handleSubmit} size="tiny">
-      <Form.TextArea
+      <Form.Field
+        control={TextArea}
         rows={2}
         value={body}
         onChange={handleChange}

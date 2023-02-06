@@ -24,13 +24,13 @@ export default function CommentsSection({ comments, onUpdate, onDelete, addComme
   ));
 
   return (
-    <Container>
-      <Header as="span" dividing>
+    <Container text>
+      <Header size="small" as="span" dividing>
         Comments{' '}
       </Header>
       { writing
-        ? <Icon name="minus" onClick={disableWriting} />
-        : <Icon name="plus" onClick={enableWriting} />
+        ? <Icon name="minus" onClick={disableWriting} size="small" />
+        : <Icon name="plus" onClick={enableWriting} size="small" />
       }
       { writing
         ? <NewComment postId={postId} onSubmit={addComment} onCancel={disableWriting} />

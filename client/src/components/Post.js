@@ -26,7 +26,7 @@ export default function Post({ post, index }) {
 
   return (
     <Feed.Event style={
-      index % 2 == 0 ? {backgroundColor: '#EEE'} : null
+      index % 2 === 0 ? {backgroundColor: '#EEE'} : null
     }>
       <Feed.Label>
         <Icon name="user" />

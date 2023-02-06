@@ -18,6 +18,9 @@ export default function ProfileLists({ user }) {
   if (isSelf)
     options.push('Incoming Friend Requests', 'Outgoing Friend Requests');
 
+  if (!options.includes(currentList))
+    setCurrentList(options[0]);
+
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];
 
