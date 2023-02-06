@@ -45,7 +45,7 @@ export default function UserStatus() {
             </Dropdown.Menu>
           </Dropdown>
         ) : (
-          <Button as={Link} to="/login">Sign In</Button>
+          <Button as={Link} to="/login" primary>Sign In</Button>
         )
       }
     </Grid.Column>
