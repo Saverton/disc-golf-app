@@ -48,6 +48,15 @@ class User < ApplicationRecord
     super.all.order(created_at: :desc)
   end
 
+  # Returns true/false if the user has any notifications
+  # - pending incoming friend requests
+  def notifications?
+
+    return true if Friendship.where(friend_id: id, pending: true).any?
+
+    false
+  end
+
   private
 
   def friendship_status(friendship)
