@@ -42,7 +42,7 @@ export default function Signup() {
           // set current user
           res.json().then(userData => {
             dispatch(login(userData));
-            navigate('/feed')
+            navigate('/site/feed')
           });
         } else {
           res.json().then(setErrors);
@@ -137,7 +137,7 @@ export default function Signup() {
       <div>
         <h5>
           Already have an account?{' '}
-          <Link to="/login">sign in here</Link>!
+          <Link to="/site/login">sign in here</Link>!
         </h5>
       </div>
     </Grid.Column>

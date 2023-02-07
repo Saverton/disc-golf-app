@@ -10,16 +10,18 @@ export default function NewCourse() {
   const createCourse = courseData => {
     fetch('/api/courses', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(courseData)
+      body: courseData
     })
       .then(res => {
         if (res.ok) {
           res.json().then(course => {
-            navigate(`/courses/${course.id}`);
+            navigate(`/site/courses/${course.id}`);
           });
         } else {
-          res.json().then(setErrors);
+          res.json().then(errs => {
+            setErrors(errs);
+            console.log(errs);
+          });
         }
       })
   }

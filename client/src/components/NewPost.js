@@ -21,7 +21,7 @@ export default function NewPost() {
     })
       .then(res => {
         if (res.ok) {
-          navigate(`/users/${currentUser.id}`);
+          navigate(`/site/users/${currentUser.id}`);
         } else {
           res.json().then(console.log);
         }

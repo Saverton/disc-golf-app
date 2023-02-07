@@ -9,14 +9,14 @@ export default function NavBar() {
   return (
     <Grid.Row width={16}>
       <Menu as="nav" fluid widths={5}>
-        <Menu.Item as={NavLink} to="/feed">Feed</Menu.Item>
-        <Menu.Item as={NavLink} to="/new_post">Post</Menu.Item>
-        <Menu.Item as={NavLink} to="/courses">Courses</Menu.Item>
-        <Menu.Item as={NavLink} to="/users" end>Find Friends</Menu.Item>
+        <Menu.Item as={NavLink} to="/site/feed">Feed</Menu.Item>
+        <Menu.Item as={NavLink} to="/site/new_post">Post</Menu.Item>
+        <Menu.Item as={NavLink} to="/site/courses">Courses</Menu.Item>
+        <Menu.Item as={NavLink} to="/site/users" end>Find Friends</Menu.Item>
         {
           currentUser.id
           ? 
-          <Menu.Item as={NavLink} to={`/users/${currentUser.id}`}>
+          <Menu.Item as={NavLink} to={`/site/users/${currentUser.id}`}>
             {
               currentUser.notifications
               ? 
@@ -31,7 +31,7 @@ export default function NavBar() {
             }
             Profile
           </Menu.Item>
-          : <Menu.Item as={NavLink} to="/login">Login</Menu.Item>
+          : <Menu.Item as={NavLink} to="/site/login">Login</Menu.Item>
         }
       </Menu>
     </Grid.Row>

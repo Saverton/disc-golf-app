@@ -1,5 +1,5 @@
 class VerboseCourseSerializer < ParentSerializer
-  attributes :id, :name, :address, :num_holes, :description, :likes, :liked_by_current_user
+  attributes :id, :name, :address, :num_holes, :description, :likes, :liked_by_current_user, :image_url
 
   POST_LIMIT = 10
 

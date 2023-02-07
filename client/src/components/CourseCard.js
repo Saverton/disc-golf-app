@@ -1,9 +1,9 @@
 import React from 'react';
 import Likes from './Likes';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 
 export default function CourseCard({ course }) {
-  const { name, address, num_holes, description } = course;
+  const { name, address, num_holes, description, image_url } = course;
 
   return (
     <Card>
@@ -18,6 +18,13 @@ export default function CourseCard({ course }) {
           <Likes likable={course} type="Course" />
         </Card.Meta>
       </Card.Content>
+      {
+        image_url ?
+        <Card.Content>
+          <Image src={image_url} alt="course image" />
+        </Card.Content>
+        : null
+      }
     </Card>
   );
 }

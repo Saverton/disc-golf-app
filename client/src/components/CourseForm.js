@@ -26,7 +26,15 @@ export default function CourseForm({ onSubmit, errors }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const data = new FormData();
+
+    data.append("course[image]", e.target.image.files[0]);
+    Object.keys(formData).forEach(key => {
+      data.append(`course[${key}]`, formData[key]);
+    })
+
+    onSubmit(data);
   }
 
   const getErrors = name => (
@@ -80,6 +88,14 @@ export default function CourseForm({ onSubmit, errors }) {
         onChange={handleChange}
         error={getErrors('description')}
       />
+
+      <Form.Field
+        control={Input}
+        type="file"
+        label="Course Image"
+        name="image"
+      />
+
       <Button type="submit" positive>
         Upload
       </Button>

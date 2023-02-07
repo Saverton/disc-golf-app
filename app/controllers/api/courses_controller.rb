@@ -37,6 +37,6 @@ class Api::CoursesController < ApplicationController
   end
 
   def course_params
-    params.permit(:name, :address, :num_holes, :description)
+    params.require(:course).permit(:name, :address, :num_holes, :description, :image)
   end
 end

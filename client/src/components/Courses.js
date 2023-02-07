@@ -7,7 +7,7 @@ export default function Courses() {
   const navigate = useNavigate();
 
   const handleCourseClick = course => {
-    navigate(`/courses/${course.id}`);
+    navigate(`/site/courses/${course.id}`);
   }
 
   return (
@@ -15,7 +15,7 @@ export default function Courses() {
       <Header size="large" dividing>Disc Golf Courses</Header>
       <CourseSearch onSelect={handleCourseClick} />
       <p>Can't find the course you're looking for?</p>
-      <Button as={Link} to="/new_course">Upload a new Course</Button>
+      <Button as={Link} to="/site/new_course">Upload a new Course</Button>
     </Grid.Column>
   );
 }

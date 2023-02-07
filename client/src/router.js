@@ -13,7 +13,7 @@ import NewCourse from './components/NewCourse';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/site',
     element: <App />,
     children: [
       {

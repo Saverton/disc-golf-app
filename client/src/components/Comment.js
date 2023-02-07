@@ -49,7 +49,7 @@ export default function Comment({ comment, onUpdate, onDelete }) {
   return (
     <CommentUI>
       <CommentUI.Content>
-        <CommentUI.Author as={Link} to={`/users/${user.id}`}>{user.username}</CommentUI.Author>
+        <CommentUI.Author as={Link} to={`/site/users/${user.id}`}>{user.username}</CommentUI.Author>
         {
           editing
           ? (
