@@ -16,7 +16,11 @@ export default function App() {
     fetch('/api/me')
       .then(res => {
         if (res.ok) {
-          res.json().then(userData => dispatch(login(userData)));
+          res.json().then(userData => {
+            dispatch(login(userData))
+            if (location.pathname === '/')
+              navigate('/feed')
+          });
         } else {
           if (location.pathname === '/')
             navigate('/login');
