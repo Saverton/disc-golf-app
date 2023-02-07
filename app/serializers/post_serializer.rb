@@ -3,7 +3,7 @@ class PostSerializer < ParentSerializer
 
   belongs_to :user
   belongs_to :course
-  has_many :comments
+  has_many :comments, serializer: CommentSerializer
 
   def likes
     object.likes.size

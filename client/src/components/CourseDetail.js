@@ -20,7 +20,7 @@ export default function CourseDetail() {
       })
   }, [id]);
 
-  // console.log(course);
+  console.log(course);
 
   if (!course?.id) {
     return <main><h1>Loading...</h1></main>;
