@@ -34,7 +34,7 @@ export default function Post({ post, index }) {
       <Feed.Content>
         <Feed.Summary>
           <Feed.User>{user.username}</Feed.User>
-          { course ? <span> at <Link to={`/site/courses/${course.id}`}>{course.name}</Link></span> : null }
+          { course ? <span> at <Link to={`/courses/${course.id}`}>{course.name}</Link></span> : null }
         </Feed.Summary>
         <Feed.Extra text>
           {body}
@@ -43,7 +43,7 @@ export default function Post({ post, index }) {
           <Likes likable={post} type="Post" />
           {
             currentUser.id === user.id
-            ? <Link to={`/site/edit_post/${id}`}>
+            ? <Link to={`/edit_post/${id}`}>
                 <Icon name="edit" />
               </Link>
             : null

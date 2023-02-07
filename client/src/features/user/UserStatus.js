@@ -25,7 +25,7 @@ export default function UserStatus() {
       .then(res => {
         if (res.ok) {
           dispatch(logout());
-          navigate('/site/login');
+          navigate('/login');
         } else {
           res.json().then(console.log);
         }
@@ -39,7 +39,7 @@ export default function UserStatus() {
         ? (
           <Dropdown trigger={trigger} button>
             <Dropdown.Menu>
-              <Dropdown.Item as={Link} to={`/site/users/${currentUser.id}`}>
+              <Dropdown.Item as={Link} to={`/users/${currentUser.id}`}>
                 Profile
                 {
                   currentUser.notifications
@@ -56,7 +56,7 @@ export default function UserStatus() {
             </Dropdown.Menu>
           </Dropdown>
         ) : (
-          <Button as={Link} to="/site/login" primary>Sign In</Button>
+          <Button as={Link} to="/login" primary>Sign In</Button>
         )
       }
     </Grid.Column>

@@ -15,7 +15,7 @@ export default function NewCourse() {
       .then(res => {
         if (res.ok) {
           res.json().then(course => {
-            navigate(`/site/courses/${course.id}`);
+            navigate(`/courses/${course.id}`);
           });
         } else {
           res.json().then(errs => {

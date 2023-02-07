@@ -19,11 +19,11 @@ export default function App() {
           res.json().then(userData => {
             dispatch(login(userData))
             if (location.pathname === '/site')
-              navigate('/site/feed')
+              navigate('/feed')
           });
         } else {
           if (location.pathname === '/site')
-            navigate('/site/login');
+            navigate('/login');
         }
       });
   }, [dispatch, navigate, location.pathname]);

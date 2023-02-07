@@ -39,7 +39,7 @@ export default function Login() {
         if (res.ok) {
           // set current user
           res.json().then(userData => dispatch(login(userData)));
-          navigate('/site/feed');
+          navigate('/feed');
         } else {
           res.json().then(e => setErrors(e.errors));
         }
@@ -88,7 +88,7 @@ export default function Login() {
       <div>
         <h5>
           Don't have an account?{' '}
-          <Link to="/site/signup">create an account here</Link>!
+          <Link to="/signup">create an account here</Link>!
         </h5>
       </div>
     </Grid.Column>
