@@ -21,8 +21,10 @@ class Course < ApplicationRecord
   def acceptable_image
     return unless image.attached?
 
+    pp image.content_type
+
     acceptable_types = ['image/jpeg', 'image/png']
-    return unless acceptable_types.include?(image.content_type)
+    return if acceptable_types.include?(image.content_type)
 
     errors.add(:image, 'must be a JPEG or PNG')
   end
