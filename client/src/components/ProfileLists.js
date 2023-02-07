@@ -12,17 +12,20 @@ export default function ProfileLists({ user }) {
   const isFriend = user?.friendship?.status === 'friends';
   const isSelf = user?.id === currentUser.id
   
-  const options = ['Posts'];
-  if (isFriend || isSelf)
-    options.push('Friends');
-  if (isSelf)
-    options.push('Incoming Friend Requests', 'Outgoing Friend Requests');
-
-  if (!options.includes(currentList))
-    setCurrentList(options[0]);
-
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];
+
+  const options = [{ name: 'Posts' }];
+  if (isFriend || isSelf)
+    options.push({ name: 'Friends'});
+  if (isSelf)
+    options.push(
+      { name: 'Incoming Friend Requests', label: incomingFriendsList.length },
+      { name: 'Outgoing Friend Requests'}
+    );
+
+  if (!options.map(o => o.name).includes(currentList))
+    setCurrentList(options[0].name);
 
   const getList = () => {
     switch(currentList) {

@@ -1,14 +1,18 @@
 import React from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Label } from 'semantic-ui-react';
 export default function ProfileNav({ options, currentChoice, setChoice }) {
   const navOptions = options.map((o, idx) => (
     <Menu.Item
       key={`profile-nav-${idx}`}
-      name={o}
-      active={o === currentChoice}
-      onClick={() => setChoice(o)}
+      name={o.name}
+      active={o.name === currentChoice}
+      onClick={() => setChoice(o.name)}
     >
-      {o}
+      {o.name}
+      {o.label
+        ? <Label circular color="red">{o.label}</Label>
+        : null
+      }
     </Menu.Item>
   ));
 
