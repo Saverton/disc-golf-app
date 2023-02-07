@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   id: null,
-  username: null
+  username: null,
+  notifications: null
 };
 
 export const counterSlice = createSlice({
@@ -10,13 +11,14 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
       state.id = action.payload.id;
       state.username = action.payload.username;
+      state.notifications = action.payload['notifications?'];
     },
     logout: (state) => {
       state.id = null;
       state.username = null;
+      state.notifications = null;
     }
   }
 });

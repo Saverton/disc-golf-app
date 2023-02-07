@@ -11,7 +11,10 @@ export default function UserStatus() {
   
   const trigger = (
     <span>
-      <Icon name="user" /> Welcome, <strong>{currentUser.username}</strong>
+      <Icon
+        name={currentUser.notifications ? 'exclamation circle' : 'user'}
+        color={ currentUser.notifications ? 'red' : 'default'}  
+      /> Welcome, <strong>{currentUser.username}</strong>
     </span>
   );
 
@@ -38,6 +41,14 @@ export default function UserStatus() {
             <Dropdown.Menu>
               <Dropdown.Item as={Link} to={`/users/${currentUser.id}`}>
                 Profile
+                {
+                  currentUser.notifications
+                  ? 
+                  <>
+                    {' '}<Icon name="circle" color="red" size="small"/>
+                  </>
+                  : null
+                }
               </Dropdown.Item>
               <Dropdown.Item onClick={handleLogout}>
                 Logout
