@@ -13,7 +13,9 @@ class Course < ApplicationRecord
   validate :acceptable_image
 
   def image_url
-    Rails.application.routes.url_helpers.url_for(image) if image.attached?
+    return unless image.attached?
+
+    image.url
   end
 
   private
