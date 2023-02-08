@@ -31,7 +31,7 @@ export default function ProfileLists({ user }) {
     switch(currentList) {
       case 'Posts': 
         return (
-          <PostList posts={user?.posts || []} loading={!user?.id} />
+          <PostList />
         );
       case 'Friends':
         return (

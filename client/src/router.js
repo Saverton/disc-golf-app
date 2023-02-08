@@ -3,7 +3,7 @@ import App from './App';
 import Login from './features/user/Login';
 import Signup from './features/user/Signup';
 import UserSearch from './components/UserSearch';
-import Profile from './features/user/Profile';
+import Profile from './components/Profile';
 import Feed from './components/Feed';
 import NewPost from './components/NewPost';
 import EditPost from './components/EditPost';

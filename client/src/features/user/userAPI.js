@@ -1,4 +1,3 @@
-
 function fetchLogin(loginData) {
   return (
     fetch('/api/login', {

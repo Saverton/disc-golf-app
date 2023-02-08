@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setPosts } from '../features/posts/postsSlice';
 import DetailPage from './DetailPage';
 import CourseCard from './CourseCard';
 import CoursePosts from './CoursePosts';
@@ -8,6 +10,7 @@ import { Grid } from 'semantic-ui-react';
 export default function CourseDetail() {
   const { id } = useParams();
   const [course, setCourse] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(`/api/courses/${id}`)
@@ -19,6 +22,10 @@ export default function CourseDetail() {
         }
       })
   }, [id]);
+
+  useEffect(() => {
+    dispatch(setPosts(course?.posts));
+  }, [course, dispatch]);
 
   // console.log(course);
 

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import DetailPage from '../../components/DetailPage';
-import ProfileLists from '../../components/ProfileLists';
-import ProfileCard from '../../components/ProfileCard';
+import { useDispatch } from 'react-redux';
+import { setPosts } from '../features/posts/postsSlice';
+import DetailPage from './DetailPage';
+import ProfileLists from './ProfileLists';
+import ProfileCard from './ProfileCard';
 import { Grid, Header } from 'semantic-ui-react';
 
 export default function Profile() {
   const [user, setUser] = useState({});
   const { id }  = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(`/api/users/${id}`)
@@ -19,6 +22,10 @@ export default function Profile() {
         }
       });
   }, [id])
+
+  useEffect(() => {
+    dispatch(setPosts(user?.posts));
+  }, [user, dispatch]);
 
   // console.log(user);
 

@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchPosts } from '../features/posts/postsSlice';
 import { Grid, Header } from 'semantic-ui-react';
 import PostList from './PostList';
 
 export default function Feed() {
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('/api/posts')
-      .then(res => {
-        if (res.ok) {
-          res.json().then(setPosts);
-        } else {
-          res.json().then(console.log);
-        }
-      })
-  }, [])
-
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Recent Posts</Header>
-      <PostList posts={posts} />
+      <PostList />
     </Grid.Column>
   );
 }
