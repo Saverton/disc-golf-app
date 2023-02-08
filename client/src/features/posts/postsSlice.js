@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import postsAPI from './postsAPI';
+import commentsAPI from './commentsAPI';
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
@@ -8,6 +9,36 @@ export const fetchPosts = createAsyncThunk(
     return response;
   }
 );
+
+export const addComment = createAsyncThunk(
+  'posts/addComment',
+  async (args, thunkAPI) => {
+    const response = await commentsAPI.fetchAddComment(args.userId, args.commentData);
+    if (response.errors)
+      return thunkAPI.rejectWithValue(response);
+    return response;
+  }
+);
+
+export const removeComment = createAsyncThunk(
+  'posts/removeComment',
+  async (args, thunkAPI) => {
+    const response = await commentsAPI.fetchDeleteComment(args.userId, args.commentId);
+    if (response?.errors)
+      return thunkAPI.rejectWithValue(response);
+    return response;
+  }
+);
+
+export const editComment = createAsyncThunk(
+  'posts/editComment',
+  async (args, thunkAPI) => {
+    const response = await commentsAPI.fetchEditComment(args.userId, args.commentId, args.commentData);
+    if (response.errors)
+      return thunkAPI.rejectWithValue(response);
+    return response;
+  }
+)
 
 const initialState = {
   entities: [],
@@ -32,6 +63,26 @@ const postsSlice = createSlice({
       state.errors = [];
     });
 
+    builder.addCase(addComment.fulfilled, (state, action) => {
+      const post = state.entities.find(p => p.id === action.payload['post_id']);
+      post.comments.unshift(action.payload);
+    });
+
+    builder.addCase(removeComment.fulfilled, (state, action) => {
+      const post = state.entities.find(p => p.id === action.payload['post_id']);
+      post.comments = post.comments.filter(c => c.id !== action.payload.id);
+    });
+
+    builder.addCase(editComment.fulfilled, (state, action) => {
+      const post = state.entities.find(p => p.id === action.payload['post_id']);
+      post.comments = post.comments.map(c => {
+        if (c.id === action.payload.id)
+          return action.payload;
+        else
+          return c;
+      });
+    });
+
     builder.addMatcher(
       (action) => action.type?.endsWith('/rejected'),
       (state, action) => {
@@ -41,7 +92,7 @@ const postsSlice = createSlice({
     );
 
     builder.addMatcher(
-      (action) => action.type?.endsWith('/pending'),
+      (action) => action.type?.endsWith('fetchPosts/pending'),
       (state) => {
         state.loading = 'pending';
       }

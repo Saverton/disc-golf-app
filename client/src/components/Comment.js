@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { editComment, removeComment } from '../features/posts/postsSlice';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { Comment as CommentUI, Icon } from 'semantic-ui-react';
 
-export default function Comment({ comment, onUpdate, onDelete }) {
+export default function Comment({ comment, onUpdate }) {
   const { id, body, user } = comment;
   const currentUser = useSelector(state => state.user);
   const [editing, setEditing] = useState(false);
+  const dispatch = useDispatch();
 
   const enableEdit = () => {
     setEditing(true);
@@ -18,32 +20,20 @@ export default function Comment({ comment, onUpdate, onDelete }) {
   }
 
   const handleDelete = () => {
-    fetch(`/api/users/${currentUser.id}/comments/${id}`, {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          onDelete(id);
-        } else {
-          res.json().then(console.log);
-        }
-      });
+    dispatch(removeComment({
+      userId: currentUser.id,
+      commentId: id
+    }));
   }
 
   const handleUpdateComment = body => {
-    fetch(`/api/users/${currentUser.id}/comments/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ body })
-    })
-      .then(res => {
-        if (res.ok) {
-          res.json().then(onUpdate);
-          setEditing(false);
-        } else {
-          res.json().then(console.log);
-        }
-      })
+    dispatch(editComment({
+      userId: currentUser.id,
+      commentId: id,
+      commentData: { body }
+    })).unwrap()
+      .then(() => setEditing(false))
+      .catch(console.error);
   }
 
   return (

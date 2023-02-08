@@ -8,20 +8,7 @@ import { Feed, Icon } from 'semantic-ui-react';
 // TODO: comment refactor to redux
 export default function Post({ post, index }) {
   const { id, body, user, course } = post;
-  const [comments, setComments] = useState(post.comments);
   const currentUser = useSelector(state => state.user);
-
-  const addComment = newComment => {
-    setComments(c => [...c, newComment]);
-  }
-
-  const updateComment = updatedComment => {
-    setComments(comments => comments.map(c => c.id === updatedComment.id ? updatedComment : c));
-  }
-
-  const deleteComment = deletedId => {
-    setComments(comments => comments.filter(c => c.id !== deletedId));
-  }
 
   return (
     <Feed.Event style={
@@ -47,7 +34,8 @@ export default function Post({ post, index }) {
               </Link>
             : null
           }
-          <CommentsSection comments={comments} onUpdate={updateComment} onDelete={deleteComment} addComment={addComment} postId={id} />
+          {/* TODO: remove unnecessary stuff from comments old style */}
+          <CommentsSection comments={post.comments} postId={id} />
         </Feed.Meta>
       </Feed.Content>
     </Feed.Event>
