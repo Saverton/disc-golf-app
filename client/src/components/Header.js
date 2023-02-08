@@ -8,7 +8,7 @@ export default function Header() {
     <Grid as="header" columns={3}>
       <Grid.Row centered>
         <Grid.Column>
-          <Image src={`${process.env['PUBLIC_URL'] || '.'}/we_disc.png`} alt="logo" size="medium"/>
+          <Image src="./we_disc.png" alt="logo" size="medium"/>
         </Grid.Column>
         <UserStatus />
       </Grid.Row>
