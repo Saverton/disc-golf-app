@@ -5,7 +5,7 @@ class Api::UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = if params[:username]
+    @users = if params[:username] && !params[:username].empty?
                User.where('username LIKE ?', "%#{User.sanitize_sql_like(params[:username])}%").limit(INDEX_LIMIT)
              else
                User.all.limit(INDEX_LIMIT)
@@ -24,7 +24,7 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.create!(user_params)
     session[:user_id] = @user.id
-    render json: @user, status: :created
+    render json: @user, serializer: CurrentUserSerializer, status: :created
   end
 
   private
