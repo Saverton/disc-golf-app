@@ -13,24 +13,17 @@ export default function UserStatus() {
     <span>
       <Icon
         name={currentUser.notifications ? 'exclamation circle' : 'user'}
-        color={ currentUser.notifications ? 'red' : 'default'}  
+        color={currentUser.notifications ? 'red' : 'black'}
       /> Welcome, <strong>{currentUser.username}</strong>
     </span>
   );
 
   const handleLogout = () => {
-    fetch('/api/logout', {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          dispatch(logout());
-          navigate('/login');
-        } else {
-          res.json().then(console.log);
-        }
-      })
+    dispatch(logout())
+      .then(() => navigate('/login'))
   }
+
+  // console.log(currentUser);
 
   return (
     <Grid.Column floated="right" width={4} verticalAlign="middle">

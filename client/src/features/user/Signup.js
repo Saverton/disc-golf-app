@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from './userSlice';
+import { signup, resetStatus } from './userSlice';
 import { Button, Form, Grid, Input, Header } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
@@ -16,9 +16,13 @@ const DEFAULT_FORM_DATA = {
 
 export default function Signup() {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
-  const [errors, setErrors] = useState([]);
+  const errors = useSelector(state => state.user.errors);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetStatus());
+  }, [dispatch]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -30,24 +34,9 @@ export default function Signup() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    fetch('/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-      .then(res => {
-        if (res.ok) {
-          // set current user
-          res.json().then(userData => {
-            dispatch(login(userData));
-            navigate('/feed')
-          });
-        } else {
-          res.json().then(setErrors);
-        }
-      });
+    dispatch(signup(formData)).unwrap()
+      .then(() => navigate('/profile'))
+      .catch(console.error);
   }
 
   const getErrors = name => (

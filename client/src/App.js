@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { login } from './features/user/userSlice';
+import { resumeSession } from './features/user/userSlice';
+import { NavigateContext } from './context/NavigateContext';
 import Header from './components/Header';
 import './App.css';
 import { Grid } from 'semantic-ui-react';
@@ -11,29 +12,23 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // User is logged in automatically if the session is not expired.
   useEffect(() => {
-    // fetch current user
-    fetch('/api/me')
-      .then(res => {
-        if (res.ok) {
-          res.json().then(userData => {
-            dispatch(login(userData))
-            if (location.pathname === '/')
-              navigate('/feed')
-          });
-        } else {
-          if (location.pathname === '/')
-            navigate('/login');
-        }
-      });
-  }, [dispatch, navigate, location.pathname]);
+    dispatch(resumeSession());
+  }, [dispatch]);
+
+  // Redirect the user to the main feed page
+  useEffect(() => {
+    if (location.pathname === '/')
+      navigate('/feed');
+  }, [location.pathname, navigate]);
 
   return (
-    <>
+    <NavigateContext.Provider value={navigate}>
       <Header />
       <Grid centered>
         <Outlet />
       </Grid>
-    </>
+    </NavigateContext.Provider>
   );
 }

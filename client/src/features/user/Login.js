@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { login } from './userSlice';
+import React, { useState, useEffect, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { login, resetStatus } from './userSlice';
+import { NavigateContext } from '../../context/NavigateContext';
+import ErrorMessage from '../../components/ErrorMessage';
 import { Button, Input, Form, Grid, Header, List } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
@@ -11,10 +13,15 @@ const DEFAULT_FORM_DATA = {
 
 export default function Login() {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const currentUser = useSelector(state => state.user);
+  const { errors } = currentUser;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useContext(NavigateContext);
+
+
+  useEffect(() => {
+    dispatch(resetStatus());
+  }, [dispatch]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -26,41 +33,28 @@ export default function Login() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setLoading(true);
-    fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-      .then(res => {
-        setLoading(false);
-        if (res.ok) {
-          // set current user
-          res.json().then(userData => dispatch(login(userData)));
-          navigate('/feed');
-        } else {
-          res.json().then(e => setErrors(e.errors));
-        }
-      });
+    dispatch(login(formData)).unwrap()
+      .then(() => navigate('/feed'))
+      .catch(console.error);
   }
 
-  const errorList = errors.map((e, idx)=> (
-    <List.Item key={`error-${idx}`} style={{backgroundColor: 'coral'}}>
-      <List.Icon name="warning" color="red" />
-      <List.Content>
-        {e}
-      </List.Content>
-    </List.Item>
-  ));
+  // console.log(currentUser);
+
+  let errorList;
+  try {
+    errorList = errors.map((e, idx)=> (
+      <ErrorMessage key={`error-${idx}`} error={e} />
+    ));
+  } catch(e) {
+    errorList = [];
+  }
 
   return (
     <Grid.Column width={10}>
       <Header dividing size="large">Sign In</Header>
       <Form
         onSubmit={handleSubmit}
-        loading={loading}
+        loading={currentUser.loading === 'pending'}
         size="large"
       >
         <Form.Field
