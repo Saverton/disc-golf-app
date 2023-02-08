@@ -8,7 +8,7 @@ export default function CoursePosts({ course }) {
       <Header size="large" dividing>
         Recent Posts about {course.name}
       </Header>
-      <PostList posts={course.posts} />
+      <PostList />
     </>
   );
 }

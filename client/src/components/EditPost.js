@@ -1,13 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import { NavigateContext } from '../context/NavigateContext';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPostById, editPost, deletePost } from '../features/posts/postsSlice';
+import { fetchPostById, editPost, deletePost } from '../features/posts/postManagerSlice';
 import { useParams } from 'react-router-dom';
 import PostForm from './PostForm';
 import { Button, Grid, Header } from 'semantic-ui-react';
 
 export default function EditPost() {
-  const post = useSelector(state => state.posts?.entities[0]);
+  const post = useSelector(state => state.postManager.entity);
   const { post_id: postId } = useParams();
   const navigate = useContext(NavigateContext);
   const dispatch = useDispatch();

@@ -13,7 +13,7 @@ const DEFAULT_FORM_DATA = {
 
 export default function PostForm({ onSubmit, startData }) {
   const [formData, setFormData] = useState({...(startData || DEFAULT_FORM_DATA)});
-  const loading = useSelector(state => state.posts.loading);
+  const loading = useSelector(state => state.postManager.loading);
   if (!formData.course)
     formData.course = DEFAULT_FORM_DATA.course;
 
