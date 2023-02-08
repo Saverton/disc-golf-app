@@ -1,64 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
+import { NavigateContext } from '../context/NavigateContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPostById, editPost, deletePost } from '../features/posts/postsSlice';
+import { useParams } from 'react-router-dom';
 import PostForm from './PostForm';
 import { Button, Grid, Header } from 'semantic-ui-react';
 
 export default function EditPost() {
-  const [post, setPost] = useState({});
+  const post = useSelector(state => state.posts?.entities[0]);
   const { post_id: postId } = useParams();
-  const navigate = useNavigate();
-  const currentUser = useSelector(state => state.user);
+  const navigate = useContext(NavigateContext);
+  const dispatch = useDispatch();
+  const { id: userId } = useSelector(state => state.user);
 
   // console.log(post);
 
+  // pull in the data for the post to be edited
   useEffect(() => {
-    fetch(`/api/users/${currentUser.id}/posts/${postId}`)
-      .then(res => {
-        if (res.ok) {
-          res.json().then(setPost);
-        } else {
-          res.json().then(console.log);
-        }
+    dispatch(fetchPostById({
+      userId: userId,
+      postId: postId
+    })).unwrap()
+      .catch(err => {
+        console.error(err);
+        navigate('/login');
       })
-  }, [postId, currentUser.id]);
+  }, [postId, userId, dispatch, navigate]);
 
+  // submit the updates to the database
   const updatePost = updatedPost => {
-    fetch(`/api/users/${currentUser.id}/posts/${post.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updatedPost)
-    })
-      .then(res => {
-        if (res.ok) {
-          navigate(`/users/${currentUser.id}`);
-        } else {
-          res.json().then(console.log);
-        }
-      })
+    dispatch(editPost({
+      postData: updatedPost,
+      postId: postId,
+      userId: userId
+    })).unwrap()
+      .then(() => navigate(`/users/${userId}`))
+      .catch(console.error);
   }
 
-  const deletePost = () => {
-    fetch(`/api/users/${currentUser.id}/posts/${post.id}`, {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          navigate(`/users/${currentUser.id}`);
-        } else {
-          res.json().then(console.log);
-        }
-      })
+  // delete this post from the database
+  const removePost = () => {
+    dispatch(deletePost({
+      postId: postId,
+      userId: userId
+    })).unwrap()
+      .then(() => navigate(`/users/${userId}`))
+      .catch(console.error);
   }
 
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Edit Post</Header>
-      {post.id ? <PostForm onSubmit={updatePost} startData={post} /> : <h4>Loading...</h4>}
+      {post?.id && <PostForm onSubmit={updatePost} startData={post} />}
       <Header size="small">or</Header>
-      <Button onClick={deletePost} negative>Delete This Post</Button>
+      <Button onClick={removePost} negative>Delete This Post</Button>
     </Grid.Column>
   );
 }

@@ -14,7 +14,7 @@ class Api::PostsController < ApplicationController
 
   # GET /users/:user_id/posts/:id
   def show
-    render json: @post, status: :ok
+    render json: @post, status: :ok, include: ['comments', 'comments.user', 'user', 'course']
   end
 
   # POST /users/:user_id/posts

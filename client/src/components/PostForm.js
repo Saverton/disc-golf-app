@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import CourseSearch from './CourseSearch';
 import { Form, Label, TextArea } from 'semantic-ui-react';
 
@@ -11,11 +12,16 @@ const DEFAULT_FORM_DATA = {
 };
 
 export default function PostForm({ onSubmit, startData }) {
-  const [formData, setFormData] = useState(startData || DEFAULT_FORM_DATA);
+  const [formData, setFormData] = useState({...(startData || DEFAULT_FORM_DATA)});
+  const loading = useSelector(state => state.posts.loading);
   if (!formData.course)
     formData.course = DEFAULT_FORM_DATA.course;
 
   // console.log(formData);
+
+  useEffect(() => {
+    setFormData({...(startData || DEFAULT_FORM_DATA)});
+  }, [startData]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -38,7 +44,7 @@ export default function PostForm({ onSubmit, startData }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} loading={loading === 'pending'}>
       <Form.Field
         control={TextArea}
         name="body"

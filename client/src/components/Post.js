@@ -5,12 +5,11 @@ import CommentsSection from './CommentsSection';
 import Likes from './Likes';
 import { Feed, Icon } from 'semantic-ui-react';
 
+// TODO: comment refactor to redux
 export default function Post({ post, index }) {
   const { id, body, user, course } = post;
   const [comments, setComments] = useState(post.comments);
   const currentUser = useSelector(state => state.user);
-
-  // console.log(post);
 
   const addComment = newComment => {
     setComments(c => [...c, newComment]);

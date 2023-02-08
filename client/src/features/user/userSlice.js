@@ -75,9 +75,13 @@ export const userSlice = createSlice({
     builder.addMatcher(
       (action) => action.type?.endsWith('/rejected'),
       (state, action) => {
-      state.errors = action.payload.errors;
-      state.loading = 'failed';
-    });
+        console.log('rejected in user');
+        console.log(action.payload);
+        state.errors = action.payload.errors;
+        state.loading = 'failed';
+      }
+    );
+
     builder.addMatcher(
       (action) => action.type?.endsWith('/pending'),
       (state) => {

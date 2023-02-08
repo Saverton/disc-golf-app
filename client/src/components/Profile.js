@@ -34,7 +34,7 @@ export default function Profile() {
       <Header size="large" dividing>User Profile</Header>
       <DetailPage
         primary={user.id ? <ProfileCard user={user} setUser={setUser} /> : null}
-        secondary={<ProfileLists user={user} />}
+        secondary={<ProfileLists user={user} loading={!user.id} />}
       />
     </Grid.Column>
   );

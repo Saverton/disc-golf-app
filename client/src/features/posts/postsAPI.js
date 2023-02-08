@@ -42,9 +42,12 @@ function fetchEditPost(userId, postId, postData) {
 }
 
 function fetchDeletePost(userId, postId) {
-  fetch(`/api/users/${userId}/posts/${postId}`, {
-    method: 'DELETE'
-  })
+  return (
+    fetch(`/api/users/${userId}/posts/${postId}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.ok ? {} : res.json())
+  );
 }
 
 const postsAPI = {

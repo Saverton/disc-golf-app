@@ -1,37 +1,29 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext } from 'react';
+import { NavigateContext } from '../context/NavigateContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { createPost } from '../features/posts/postsSlice';
 import { useNavigate } from 'react-router-dom';
 import PostForm from './PostForm';
 import { Grid, Header } from 'semantic-ui-react';
 
 export default function NewPost() {
-  const currentUser = useSelector(state => state.user);
-  const navigate = useNavigate();
+  const { id } = useSelector(state => state.user);
+  const navigate = useContext(NavigateContext);
+  const dispatch = useDispatch();
 
-  const createPost = (post) => {
-    fetch(`/api/users/${currentUser.id}/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...post,
-        course_id: post.course.id
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          navigate(`/users/${currentUser.id}`);
-        } else {
-          res.json().then(console.log);
-        }
-      });
+  const addPost = (post) => {
+    dispatch(createPost({
+      userId: id,
+      postData: post
+    })).unwrap()
+      .then(() => navigate(`/users/${id}`))
+      .catch(console.error);
   }
 
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Create a new Post</Header>
-      <PostForm onSubmit={createPost} />
+      <PostForm onSubmit={addPost} />
     </Grid.Column>
   );
 }
