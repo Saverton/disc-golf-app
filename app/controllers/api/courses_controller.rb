@@ -26,7 +26,9 @@ class Api::CoursesController < ApplicationController
 
   # POST /courses - creates a new course given the appropriate parameters.
   def create
-    @course = Course.create!(course_params)
+    creation_params = course_params
+    creation_params.delete(:image) if creation_params[:image] == 'undefined'
+    @course = Course.create!(creation_params)
     render json: @course, status: :created
   end
 

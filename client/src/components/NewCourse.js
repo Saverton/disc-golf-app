@@ -1,35 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addCourse } from '../features/courses/courseManagerSlice';
 import CourseForm from './CourseForm';
 import { Grid, Header } from 'semantic-ui-react';
 
 export default function NewCourse() {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState([]);
+  const dispatch = useDispatch();
 
   const createCourse = courseData => {
-    fetch('/api/courses', {
-      method: 'POST',
-      body: courseData
-    })
+    dispatch(addCourse({courseData})).unwrap()
       .then(res => {
-        if (res.ok) {
-          res.json().then(course => {
-            navigate(`/courses/${course.id}`);
-          });
-        } else {
-          res.json().then(errs => {
-            setErrors(errs);
-            console.log(errs);
-          });
-        }
+        console.log(res);
+        navigate(`/courses/${res.id}`);
       })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Upload a New Course's Data</Header>
-      <CourseForm onSubmit={createCourse} errors={errors} />
+      <CourseForm onSubmit={createCourse} />
     </Grid.Column>
   );
 }

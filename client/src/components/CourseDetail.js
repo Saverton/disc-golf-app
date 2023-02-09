@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPosts } from '../features/posts/postsSlice';
+import { fetchCourseById } from '../features/courses/courseManagerSlice';
 import DetailPage from './DetailPage';
 import CourseCard from './CourseCard';
 import CoursePosts from './CoursePosts';
@@ -9,19 +10,12 @@ import { Grid } from 'semantic-ui-react';
 
 export default function CourseDetail() {
   const { id } = useParams();
-  const [course, setCourse] = useState({});
+  const { entity: course, loading } = useSelector(state => state.courseManager);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`/api/courses/${id}`)
-      .then(res => {
-        if (res.ok) {
-          res.json().then(setCourse);
-        } else {
-          res.json().then(console.log);
-        }
-      })
-  }, [id]);
+    dispatch(fetchCourseById({ courseId: id }));
+  }, [id, dispatch]);
 
   useEffect(() => {
     dispatch(setPosts(course?.posts));
@@ -29,7 +23,7 @@ export default function CourseDetail() {
 
   // console.log(course);
 
-  if (!course?.id) {
+  if (loading === 'pending') {
     return <main><h1>Loading...</h1></main>;
   }
 

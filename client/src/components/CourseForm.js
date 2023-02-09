@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import AddressField from './AddresField';
 import { Button, Form, Input, TextArea } from 'semantic-ui-react';
 
@@ -9,9 +10,15 @@ const DEFAULT_FORM_DATA = {
   description: ''
 };
 
-export default function CourseForm({ onSubmit, errors }) {
+export default function CourseForm({ onSubmit }) {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
+  const errors = useSelector(state => state.courses.errors);
 
+  /**
+   * Updates the form component's state to reflect the form.
+   * @param {String} name (name of the key to update)
+   * @param {*} value (value to assign to key)
+   */
   const updateState = useCallback((name, value) => {
     setFormData(formData => ({
       ...formData,
@@ -19,11 +26,19 @@ export default function CourseForm({ onSubmit, errors }) {
     }));
   }, []);
 
+  /**
+   * Collects change information from the form, passes it to the state update function.
+   * @param {Object} e (event)
+   */
   const handleChange = e => {
     const { name, value } = e.target;
     updateState(name, value);
   }
 
+  /**
+   * Compiles form data into a FormData object, and passes it to the onSubmit callback.
+   * @param {Object} e (event)
+   */
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -37,6 +52,11 @@ export default function CourseForm({ onSubmit, errors }) {
     onSubmit(data);
   }
 
+  /**
+   * Get the errors associated with a certain field on the form.
+   * @param {String} name (name of the error key/field)
+   * @returns {String} comma separated error messages
+   */
   const getErrors = name => (
     errors[name]?.length > 0
     ? {
@@ -94,6 +114,7 @@ export default function CourseForm({ onSubmit, errors }) {
         type="file"
         label="Course Image"
         name="image"
+        error={getErrors('image')}
       />
 
       <Button type="submit" positive>
