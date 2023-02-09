@@ -29,7 +29,7 @@ const coursesSlice = createSlice({
     });
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('courses') && action.type?.endsWith('/rejected'),
+      (action) => action.type?.includes('courses') && action.type?.endsWith('/rejected'),
       (state, action) => {
         state.entities = [];
         state.loading = 'failed';
@@ -38,7 +38,7 @@ const coursesSlice = createSlice({
     );
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('courses') && action.type?.endsWith('/pending'),
+      (action) => action.type?.includes('courses') && action.type?.endsWith('/pending'),
       (state) => {
         state.loading = 'pending';
       }

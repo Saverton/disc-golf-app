@@ -39,7 +39,7 @@ const courseManagerSlice = createSlice({
     });
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('courseManager') && action.type?.endsWith('/rejected'),
+      (action) => action.type?.includes('courseManager') && action.type?.endsWith('/rejected'),
       (state, action) => {
         state.entities = [];
         state.loading = 'failed';
@@ -48,7 +48,7 @@ const courseManagerSlice = createSlice({
     );
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('courseManager') && action.type?.endsWith('/pending'),
+      (action) => action.type?.includes('courseManager') && action.type?.endsWith('/pending'),
       (state) => {
         state.loading = 'pending';
       }

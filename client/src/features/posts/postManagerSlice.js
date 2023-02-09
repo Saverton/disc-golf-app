@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import postsAPI from './postsAPI';
 
 export const createPost = createAsyncThunk(
-  'posts/createPost',
+  'postManager/createPost',
   async (args, thunkAPI) => {
     const response = await postsAPI.fetchCreatePost(args.userId, args.postData);
     if (response.errors)
@@ -12,7 +12,7 @@ export const createPost = createAsyncThunk(
 );
 
 export const fetchPostById = createAsyncThunk(
-  'posts/fetchPostById',
+  'postManager/fetchPostById',
   async (args, thunkAPI) => {
     const response = await postsAPI.fetchPostById(args.userId, args.postId);
     if (response.errors)
@@ -22,7 +22,7 @@ export const fetchPostById = createAsyncThunk(
 );
 
 export const editPost = createAsyncThunk(
-  'posts/editPost',
+  'postManager/editPost',
   async (args, thunkAPI) => {
     const response = await postsAPI.fetchEditPost(args.userId, args.postId, args.postData);
     if (response.errors)
@@ -32,7 +32,7 @@ export const editPost = createAsyncThunk(
 );
 
 export const deletePost = createAsyncThunk(
-  'posts/deletePost',
+  'postManager/deletePost',
   async (args, thunkAPI) => {
     const response = await postsAPI.fetchDeletePost(args.userId, args.postId);
     if (response?.errors)
@@ -74,7 +74,7 @@ const postManagerSlice = createSlice({
       }
     )
     .addMatcher(
-      (action) => action.type?.endsWith('/pending'),
+      (action) => action.type?.includes('postManager') && action.type?.endsWith('/pending'),
       (state) => {
         state.loading = 'pending';
       }

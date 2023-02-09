@@ -39,7 +39,7 @@ const otherUsersSlice = createSlice({
     });
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('otherUsers') && action.type?.endsWith('/pending'),
+      (action) => action.type?.includes('otherUsers') && action.type?.endsWith('/pending'),
       (state) => {
         state.loading = 'pending';
       }

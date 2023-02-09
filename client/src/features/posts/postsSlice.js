@@ -65,7 +65,7 @@ const postsSlice = createSlice({
 
     builder.addCase(addComment.fulfilled, (state, action) => {
       const post = state.entities.find(p => p.id === action.payload['post_id']);
-      post.comments.unshift(action.payload);
+      post.comments.push(action.payload);
     });
 
     builder.addCase(removeComment.fulfilled, (state, action) => {

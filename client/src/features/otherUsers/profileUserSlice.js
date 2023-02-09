@@ -57,7 +57,7 @@ const profileUserSlice = createSlice({
     });
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('profileUser') && action.type.endsWith('/rejected'),
+      (action) => action.type?.includes('profileUser') && action.type.endsWith('/rejected'),
       (state, action) => {
         state.entity = {};
         state.loading = 'failed';
@@ -66,7 +66,7 @@ const profileUserSlice = createSlice({
     )
 
     builder.addMatcher(
-      (action) => action.type?.startsWith('profileUser') && action.type?.endsWith('/pending'),
+      (action) => action.type?.includes('profileUser') && action.type?.endsWith('/pending'),
       (state) => {
         state.loading = 'pending';
       }
