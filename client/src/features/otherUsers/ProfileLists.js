@@ -4,7 +4,7 @@ import UserList from './UserList';
 import PostList from '../posts/PostList';
 import ProfileNav from './ProfileNav';
 import { Grid, Header } from 'semantic-ui-react';
-import Placeholder from '../../components/Placeholder';
+import PostPlaceholders from '../../components/PostPlaceholders';
 
 export default function ProfileLists() {
   const currentUser = useSelector(state => state.user);
@@ -66,7 +66,7 @@ export default function ProfileLists() {
         <ProfileNav options={options} currentChoice={currentList} setChoice={setCurrentList} />
       </Grid.Row>
       <Grid.Row>
-        {loading === 'pending' ? <Placeholder /> : getList()}
+        {loading === 'pending' ? <PostPlaceholders /> : getList()}
       </Grid.Row>
     </>
   );

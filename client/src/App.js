@@ -8,7 +8,6 @@ import './App.css';
 import { Grid } from 'semantic-ui-react';
 
 // TODO: Better loading visualization
-// TODO: fix create post loading
 export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -2,16 +2,27 @@ import React from "react";
 import { useSelector } from 'react-redux';
 import UserList from './UserList';
 import FriendManager from "./FriendManager";
+import CardPlaceholder from "../../components/CardPlaceholder";
 import { Card, Header } from 'semantic-ui-react';
 
+// TODO: make friends list static, renders incorrectly for incoming/outgoing friend requests tabs
 export default function ProfileCard() {
-  const user = useSelector(state => state.profileUser.entity);
+  const { entity: user, loading } = useSelector(state => state.profileUser);
   const currentUser = useSelector(state => state.user);
   const { full_name, username, id, email, zip_code } = user;
   const friendsList = user?.friends || [];
 
   // Should the card display personal details, like the user's email, zip code, and friends list?
   const showPrivateDetails = user.friendship.status === 'friends' || parseInt(id) === currentUser.id;
+
+  if (loading === 'pending')
+    return (
+      <Card>
+        <Card.Content>
+          <CardPlaceholder />
+        </Card.Content>
+      </Card>
+    );
 
   return (
     <Card>

@@ -7,6 +7,7 @@ function fetchCourses(name = '') {
   return (
     fetch(`/api/courses?name=${name}`)
       .then(res => res.json())
+      .catch(err => ({ errors: ['Bad Request'] }))
   );
 }
 

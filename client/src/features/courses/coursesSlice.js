@@ -5,7 +5,7 @@ export const fetchCourses = createAsyncThunk(
   'courses/fetchCourses',
   async (name, thunkAPI) => {
     const response = await coursesAPI.fetchCourses(name);
-    if (response.errors)
+    if (response.error || response.errors)
       return thunkAPI.rejectWithValue(response);
     return response;
   }

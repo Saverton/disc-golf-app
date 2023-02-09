@@ -12,7 +12,8 @@ export default function CourseSearch({ onSelect }) {
    * @param {string} searchText 
    */
   const getCourses = (searchText = '') => {
-    dispatch(fetchCourses(searchText));
+    dispatch(fetchCourses(searchText)).unwrap()
+      .catch(console.error);
   }
 
   useEffect(getCourses, [dispatch]);

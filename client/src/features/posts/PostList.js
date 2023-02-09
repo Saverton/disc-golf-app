@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Post from './Post';
-import Placeholder from '../../components/Placeholder';
+import PostPlaceholders from '../../components/PostPlaceholders';
 import { Feed, Header, Icon } from 'semantic-ui-react';
 
 export default function PostList() {
@@ -10,7 +10,7 @@ export default function PostList() {
   const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} index={idx} />);
   
   if (loading === 'pending')
-    return <Placeholder />;
+    return <PostPlaceholders />;
   
   if (Object.keys(posts).length === 0)
     return (
