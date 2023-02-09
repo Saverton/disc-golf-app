@@ -1,45 +1,23 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createFriendship, deleteFriendship } from '../features/otherUsers/profileUserSlice';
 import { Button, Card, Header } from 'semantic-ui-react';
 
-export default function FriendManager({ user, setUser }) {
+export default function FriendManager() {
   const currentUser = useSelector(state => state.user);
+  const user = useSelector(state => state.profileUser.entity);
   const { id, username } = user;
+  const dispatch = useDispatch();
 
   const handleAddFriend = () => {
-    fetch('/api/friendships', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        friend_id: id,
-        user_id: currentUser.id
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          res.json().then(setUser);
-        } else {
-          res.json().then(console.log);
-        }
-      })
+    dispatch(createFriendship({
+      userId: currentUser.id,
+      friendId: id
+    }));
   }
 
   const handleRemoveFriend = () => {
-    fetch(`/api/friendships/${user.friendship.id}`, {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          setUser({...user, friendship: {
-            id: null,
-            status: false
-          }});
-        } else {
-          res.json().then(console.log);
-        }
-      })
+    dispatch(deleteFriendship({ friendshipId: user.friendship.id }));
   }
 
   const friendManager = () => {

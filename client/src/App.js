@@ -7,6 +7,9 @@ import Header from './components/Header';
 import './App.css';
 import { Grid } from 'semantic-ui-react';
 
+// TODO: sort components into redux feature folders
+// TODO: Better loading visualization
+// TODO: fix create post loading
 export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

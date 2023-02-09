@@ -4,10 +4,11 @@ import UserList from './UserList';
 import FriendManager from "./FriendManager";
 import { Card, Header } from 'semantic-ui-react';
 
-export default function ProfileCard({ user, setUser }) {
+export default function ProfileCard() {
+  const user = useSelector(state => state.profileUser.entity);
+  const currentUser = useSelector(state => state.user);
   const { full_name, username, id, email, zip_code } = user;
   const friendsList = user?.friends || [];
-  const currentUser = useSelector(state => state.user);
 
   // Should the card display personal details, like the user's email, zip code, and friends list?
   const showPrivateDetails = user.friendship.status === 'friends' || parseInt(id) === currentUser.id;
@@ -18,15 +19,14 @@ export default function ProfileCard({ user, setUser }) {
         <Card.Header>{full_name}</Card.Header>
         <Card.Meta>{username}</Card.Meta>
         {
-          showPrivateDetails
-          ? <>
+          showPrivateDetails &&
+          <>
             <Card.Content content={email} />
             <Card.Content content={`Location: ${zip_code}`} /> 
           </>
-          : null
         }
       </Card.Content>
-      <FriendManager user={user} setUser={setUser} />
+      <FriendManager user={user} />
       {
         showPrivateDetails
         ? (

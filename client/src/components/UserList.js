@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUsers } from '../features/otherUsers/otherUsersSlice';
 import UserListItem from './UserListItem';
 import { List, Icon, Header } from 'semantic-ui-react';
 
 export default function UserList({ users, size }) {
-  const usersList = users.map((u, idx) => (
+  // useSelector(state => state.otherUsers.entities);
+
+  // useEffect(() => {
+  //   // TODO: setUsers
+
+  // }, []);
+  const otherUsers = useSelector(state => state.otherUsers.entities);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (users)
+      dispatch(setUsers(users));
+  }, [dispatch, users]);
+
+  const usersList = otherUsers.map((u, idx) => (
     <UserListItem key={`user-${idx}`} user={u} />
   ));
 
-  if (users.length === 0) {
+  if (otherUsers.length === 0) {
     return (
       <Header textAlign='center' size='large' icon>
         <Icon name="users"/>

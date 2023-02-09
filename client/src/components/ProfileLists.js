@@ -6,8 +6,9 @@ import ProfileNav from './ProfileNav';
 import { Grid, Header } from 'semantic-ui-react';
 import Placeholder from './Placeholder';
 
-export default function ProfileLists({ user, loading }) {
+export default function ProfileLists() {
   const currentUser = useSelector(state => state.user);
+  const { entity: user, loading } = useSelector(state => state.profileUser);
   const [currentList, setCurrentList] = useState('Posts');
   
   const isFriend = user?.friendship?.status === 'friends';
@@ -65,7 +66,7 @@ export default function ProfileLists({ user, loading }) {
         <ProfileNav options={options} currentChoice={currentList} setChoice={setCurrentList} />
       </Grid.Row>
       <Grid.Row>
-        {loading ? <Placeholder /> : getList()}
+        {loading === 'pending' ? <Placeholder /> : getList()}
       </Grid.Row>
     </>
   );

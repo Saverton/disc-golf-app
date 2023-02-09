@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOtherUserById } from '../features/otherUsers/profileUserSlice';
 import { setPosts } from '../features/posts/postsSlice';
 import DetailPage from './DetailPage';
 import ProfileLists from './ProfileLists';
@@ -8,19 +9,12 @@ import ProfileCard from './ProfileCard';
 import { Grid, Header } from 'semantic-ui-react';
 
 export default function Profile() {
-  const [user, setUser] = useState({});
+  const user = useSelector(state => state.profileUser.entity);
   const { id }  = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`/api/users/${id}`)
-      .then(res => {
-        if (res.ok) {
-          res.json().then(setUser);
-        } else {
-          res.json().then(console.log);
-        }
-      });
+    dispatch(fetchOtherUserById({ id }));
   }, [id])
 
   useEffect(() => {
@@ -33,8 +27,8 @@ export default function Profile() {
     <Grid.Column width={15}>
       <Header size="large" dividing>User Profile</Header>
       <DetailPage
-        primary={user.id ? <ProfileCard user={user} setUser={setUser} /> : null}
-        secondary={<ProfileLists user={user} loading={!user.id} />}
+        primary={user.id && <ProfileCard  />}
+        secondary={<ProfileLists />}
       />
     </Grid.Column>
   );
