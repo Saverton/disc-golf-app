@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
   # GET /users
   def index
     @users = if params[:username] && !params[:username].empty?
-               User.where('username LIKE ?', "%#{User.sanitize_sql_like(params[:username])}%").limit(INDEX_LIMIT)
+               User.where('lower(username) LIKE ?', "%#{User.sanitize_sql_like(params[:username])}%".downcase).limit(INDEX_LIMIT)
              else
                User.all.limit(INDEX_LIMIT)
              end
