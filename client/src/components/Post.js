@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentsSection from './CommentsSection';
 import Likes from './Likes';
 import { Feed, Icon } from 'semantic-ui-react';
 
-// TODO: comment refactor to redux
 export default function Post({ post, index }) {
   const { id, body, user, course } = post;
   const currentUser = useSelector(state => state.user);
@@ -28,13 +27,11 @@ export default function Post({ post, index }) {
         <Feed.Meta>
           <Likes likable={post} type="Post" />
           {
-            currentUser.id === user.id
-            ? <Link to={`/edit_post/${id}`}>
-                <Icon name="edit" />
-              </Link>
-            : null
+            currentUser.id === user.id &&
+            <Link to={`/edit_post/${id}`}>
+              <Icon name="edit" />
+            </Link>
           }
-          {/* TODO: remove unnecessary stuff from comments old style */}
           <CommentsSection comments={post.comments} postId={id} />
         </Feed.Meta>
       </Feed.Content>

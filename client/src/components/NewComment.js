@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addComment } from '../features/posts/postsSlice';
 import CommentForm from './CommentForm';
 
-export default function NewComment({ postId, onSubmit, onCancel }) {
+export default function NewComment({ postId, onCancel }) {
   const currentUser = useSelector(state => state.user);
   const dispatch = useDispatch();
 
@@ -12,20 +12,6 @@ export default function NewComment({ postId, onSubmit, onCancel }) {
       userId: currentUser.id,
       commentData: { body, post_id: postId }
     }));
-    // fetch(`/api/users/${currentUser.id}/comments`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({body, post_id: postId})
-    // })
-    //   .then(res => {
-    //     if (res.ok) {
-    //       res.json().then(commentData => {
-    //         onSubmit(commentData);
-    //       });
-    //     } else {
-    //       res.json().then(console.log);
-    //     }
-    //   })
   }
 
   return (

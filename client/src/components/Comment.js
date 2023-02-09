@@ -5,19 +5,11 @@ import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { Comment as CommentUI, Icon } from 'semantic-ui-react';
 
-export default function Comment({ comment, onUpdate }) {
+export default function Comment({ comment }) {
   const { id, body, user } = comment;
   const currentUser = useSelector(state => state.user);
   const [editing, setEditing] = useState(false);
   const dispatch = useDispatch();
-
-  const enableEdit = () => {
-    setEditing(true);
-  }
-
-  const disableEdit = () => {
-    setEditing(false);
-  }
 
   const handleDelete = () => {
     dispatch(removeComment({
@@ -43,17 +35,17 @@ export default function Comment({ comment, onUpdate }) {
         {
           editing
           ? (
-            <CommentForm comment={comment} onSubmit={handleUpdateComment} onCancel={disableEdit} />
+            <CommentForm comment={comment} onSubmit={handleUpdateComment} onCancel={() => setEditing(false)} />
           )
           : (
             <CommentUI.Text>{body}</CommentUI.Text>
           )
         }
         {
-          (currentUser.id === user.id && !editing)
-          ? (
+          (currentUser.id === user.id && !editing) &&
+          (
             <CommentUI.Actions>
-              <CommentUI.Action onClick={enableEdit}>
+              <CommentUI.Action onClick={() => setEditing(true)}>
                 <Icon name="pencil" />
               </CommentUI.Action>
               <CommentUI.Action onClick={handleDelete}>
@@ -61,7 +53,6 @@ export default function Comment({ comment, onUpdate }) {
               </CommentUI.Action>
             </CommentUI.Actions>
           )
-          : null
         }
       </CommentUI.Content>
     </CommentUI>
