@@ -1,5 +1,5 @@
 import React from 'react';
-import PostList from './PostList';
+import PostList from '../posts/PostList';
 import { Header } from 'semantic-ui-react';
 
 export default function CoursePosts({ course }) {

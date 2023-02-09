@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createFriendship, deleteFriendship } from '../features/otherUsers/profileUserSlice';
+import { createFriendship, deleteFriendship } from './profileUserSlice';
 import { Button, Card, Header } from 'semantic-ui-react';
 
 export default function FriendManager() {

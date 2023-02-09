@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import AddressField from './AddresField';
+import AddressField from '../../components/AddresField';
 import { Button, Form, Input, TextArea } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {

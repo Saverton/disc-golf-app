@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { NavigateContext } from '../context/NavigateContext';
+import { NavigateContext } from '../../context/NavigateContext';
 import { useSelector, useDispatch } from 'react-redux';
-import { createPost } from '../features/posts/postManagerSlice';
+import { createPost } from './postManagerSlice';
 import PostForm from './PostForm';
 import { Grid, Header } from 'semantic-ui-react';
 

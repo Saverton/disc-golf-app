@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import CourseSearch from './CourseSearch';
+import CourseSearch from '../courses/CourseSearch';
 import { Form, Label, TextArea } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {

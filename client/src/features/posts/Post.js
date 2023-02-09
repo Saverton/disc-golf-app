@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentsSection from './CommentsSection';
-import Likes from './Likes';
+import Likes from '../../components/Likes';
 import { Feed, Icon } from 'semantic-ui-react';
 
 export default function Post({ post, index }) {

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPosts } from '../features/posts/postsSlice';
-import { fetchCourseById } from '../features/courses/courseManagerSlice';
-import DetailPage from './DetailPage';
+import { setPosts } from '../posts/postsSlice';
+import { fetchCourseById } from './courseManagerSlice';
+import DetailPage from '../../components/DetailPage';
 import CourseCard from './CourseCard';
 import CoursePosts from './CoursePosts';
 import { Grid } from 'semantic-ui-react';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchCourses } from '../features/courses/coursesSlice';
-import SearchForm from './SearchForm';
+import { fetchCourses } from './coursesSlice';
+import SearchForm from '../../components/SearchForm';
 import CourseList from './CourseList';
 
 export default function CourseSearch({ onSelect }) {

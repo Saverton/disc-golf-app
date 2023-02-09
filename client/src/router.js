@@ -2,14 +2,14 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import Login from './features/user/Login';
 import Signup from './features/user/Signup';
-import UserSearch from './components/UserSearch';
-import Profile from './components/Profile';
-import Feed from './components/Feed';
-import NewPost from './components/NewPost';
-import EditPost from './components/EditPost';
-import Courses from './components/Courses';
-import CourseDetail from './components/CourseDetail';
-import NewCourse from './components/NewCourse';
+import UserSearch from './features/otherUsers/UserSearch';
+import Profile from './features/otherUsers/Profile';
+import Feed from './features/posts/Feed';
+import NewPost from './features/posts/NewPost';
+import EditPost from './features/posts/EditPost';
+import Courses from './features/courses/Courses';
+import CourseDetail from './features/courses/CourseDetail';
+import NewCourse from './features/courses/NewCourse';
 
 const router = createBrowserRouter([
   {

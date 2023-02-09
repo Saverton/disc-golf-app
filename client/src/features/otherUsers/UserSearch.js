@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchOtherUsersByName } from '../features/otherUsers/otherUsersSlice';
+import { fetchOtherUsersByName } from './otherUsersSlice';
 import UserList from './UserList';
-import SearchForm from './SearchForm';
+import SearchForm from '../../components/SearchForm';
 import { Grid, Header } from 'semantic-ui-react';
 
 export default function UserSearch() {

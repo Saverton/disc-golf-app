@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUsers } from '../features/otherUsers/otherUsersSlice';
+import { setUsers } from './otherUsersSlice';
 import UserListItem from './UserListItem';
 import { List, Icon, Header } from 'semantic-ui-react';
 

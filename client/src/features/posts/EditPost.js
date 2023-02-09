@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
-import { NavigateContext } from '../context/NavigateContext';
+import { NavigateContext } from '../../context/NavigateContext';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPostById, editPost, deletePost } from '../features/posts/postManagerSlice';
+import { fetchPostById, editPost, deletePost } from './postManagerSlice';
 import { useParams } from 'react-router-dom';
 import PostForm from './PostForm';
 import { Button, Grid, Header } from 'semantic-ui-react';

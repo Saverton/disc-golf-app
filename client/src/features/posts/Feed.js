@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchPosts } from '../features/posts/postsSlice';
+import { fetchPosts } from './postsSlice';
 import { Grid, Header } from 'semantic-ui-react';
 import PostList from './PostList';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addComment } from '../features/posts/postsSlice';
+import { addComment } from './postsSlice';
 import CommentForm from './CommentForm';
 
 export default function NewComment({ postId, onCancel }) {

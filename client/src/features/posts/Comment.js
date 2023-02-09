@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { editComment, removeComment } from '../features/posts/postsSlice';
+import { editComment, removeComment } from './postsSlice';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { Comment as CommentUI, Icon } from 'semantic-ui-react';

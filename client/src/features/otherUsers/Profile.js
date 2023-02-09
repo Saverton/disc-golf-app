@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchOtherUserById } from '../features/otherUsers/profileUserSlice';
-import { setPosts } from '../features/posts/postsSlice';
-import DetailPage from './DetailPage';
+import { fetchOtherUserById } from './profileUserSlice';
+import { setPosts } from '../posts/postsSlice';
+import DetailPage from '../../components/DetailPage';
 import ProfileLists from './ProfileLists';
 import ProfileCard from './ProfileCard';
 import { Grid, Header } from 'semantic-ui-react';

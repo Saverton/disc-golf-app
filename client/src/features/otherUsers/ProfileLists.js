@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import UserList from './UserList';
-import PostList from './PostList';
+import PostList from '../posts/PostList';
 import ProfileNav from './ProfileNav';
 import { Grid, Header } from 'semantic-ui-react';
-import Placeholder from './Placeholder';
+import Placeholder from '../../components/Placeholder';
 
 export default function ProfileLists() {
   const currentUser = useSelector(state => state.user);

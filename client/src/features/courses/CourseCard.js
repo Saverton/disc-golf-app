@@ -1,5 +1,5 @@
 import React from 'react';
-import Likes from './Likes';
+import Likes from '../../components/Likes';
 import { Card, Image } from 'semantic-ui-react';
 
 export default function CourseCard({ course }) {

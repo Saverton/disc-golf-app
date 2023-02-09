@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Post from './Post';
-import Placeholder from './Placeholder';
+import Placeholder from '../../components/Placeholder';
 import { Feed, Header, Icon } from 'semantic-ui-react';
 
 export default function PostList() {
