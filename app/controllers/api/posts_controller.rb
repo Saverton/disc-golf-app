@@ -4,7 +4,7 @@ class Api::PostsController < ApplicationController
   # GET /posts
   def index
     @posts = if session[:user_id].nil?
-               Post.limit(10)
+               Post.order(created_at: :desc).limit(10)
              else
                Post.feed_posts(session[:user_id])
              end
