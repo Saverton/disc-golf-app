@@ -51,7 +51,7 @@ export default function EditPost() {
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Edit Post</Header>
-      {post?.id && <PostForm onSubmit={updatePost} startData={post} />}
+      {post?.id && <PostForm onSubmit={updatePost} startData={post} type="edit" />}
       <Header size="small">or</Header>
       <Button onClick={removePost} negative>Delete This Post</Button>
     </Grid.Column>

@@ -11,7 +11,7 @@ const DEFAULT_FORM_DATA = {
   }
 };
 
-export default function PostForm({ onSubmit, startData }) {
+export default function PostForm({ onSubmit, startData, type }) {
   const [formData, setFormData] = useState({...(startData || DEFAULT_FORM_DATA)});
   const loading = useSelector(state => state.postManager.loading);
   if (!formData.course)
@@ -59,22 +59,29 @@ export default function PostForm({ onSubmit, startData }) {
         value={formData.body}
         onChange={handleChange}
       />
-      <Form.Field>
-        <label>Choose a Course</label>
-        <Label
-          color="blue"
-          icon="map marker"
-          content={formData.course?.name}
-        />
-        <CourseSearch onSelect={handleSelectCourse} />
-      </Form.Field>
 
-      <Form.Field
-        control={Input}
-        type="file"
-        label="Post Image"
-        name="image"
-      />
+      {
+        type === 'new' && (
+          <>
+            <Form.Field>
+              <label>Choose a Course</label>
+              <Label
+                color="blue"
+                icon="map marker"
+                content={formData.course?.name}
+              />
+              <CourseSearch onSelect={handleSelectCourse} />
+            </Form.Field>
+
+            <Form.Field
+              control={Input}
+              type="file"
+              label="Post Image"
+              name="image"
+            />
+          </>
+        )
+      }
 
       <Form.Button type="submit">Publish</Form.Button>
     </Form>

@@ -22,7 +22,7 @@ export default function NewPost() {
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Create a new Post</Header>
-      <PostForm onSubmit={addPost} />
+      <PostForm onSubmit={addPost} type="new" />
     </Grid.Column>
   );
 }
