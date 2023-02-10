@@ -1,5 +1,5 @@
 class PostSerializer < ParentSerializer
-  attributes :id, :body, :created_at, :likes, :liked_by_current_user
+  attributes :id, :body, :created_at, :likes, :liked_by_current_user, :image_url
 
   belongs_to :user
   belongs_to :course

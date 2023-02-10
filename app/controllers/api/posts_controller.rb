@@ -19,7 +19,9 @@ class Api::PostsController < ApplicationController
 
   # POST /users/:user_id/posts
   def create
-    @post = Post.create!(post_create_params)
+    creation_params = post_create_params
+    creation_params.delete(:image) if creation_params[:image] == 'undefined'
+    @post = Post.create!(creation_params)
     render json: @post, status: :created
   end
 
