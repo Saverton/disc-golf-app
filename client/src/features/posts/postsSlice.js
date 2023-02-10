@@ -38,13 +38,13 @@ export const editComment = createAsyncThunk(
       return thunkAPI.rejectWithValue(response);
     return response;
   }
-)
+);
 
 const initialState = {
   entities: [],
   loading: 'idle',
   errors: []
-}
+};
 
 const postsSlice = createSlice({
   name: 'posts',

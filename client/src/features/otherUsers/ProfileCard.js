@@ -43,7 +43,7 @@ export default function ProfileCard() {
         ? (
           <Card.Content>
             <Header dividing>Friends</Header>
-            <UserList users={friendsList} size='medium' />
+            <UserList users={friendsList} size='medium' dontReload/>
           </Card.Content>
         ) : null
       }

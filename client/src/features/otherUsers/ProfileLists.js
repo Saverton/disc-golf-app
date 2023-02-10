@@ -12,10 +12,11 @@ export default function ProfileLists() {
   const [currentList, setCurrentList] = useState('Posts');
   
   const isFriend = user?.friendship?.status === 'friends';
-  const isSelf = user?.id === currentUser.id
-  
+  const isSelf = user?.id === currentUser.id;
+
   const outgoingFriendsList = user?.outgoing_friends || [];
   const incomingFriendsList = user?.incoming_friends || [];
+  const friendsList = user?.friends || [];
 
   const options = [{ name: 'Posts' }];
   if (isFriend || isSelf)
@@ -38,19 +39,19 @@ export default function ProfileLists() {
       case 'Friends':
         return (
           isFriend || isSelf
-          ? <UserList users={user?.friends || []} />
+          ? <UserList users={friendsList} />
           : <Header>You don't have access to this user's friends list because you aren't friends</Header>
         );
       case 'Incoming Friend Requests':
         return (
           isSelf
-          ? <UserList users={incomingFriendsList || []} />
+          ? <UserList users={incomingFriendsList} />
           : <Header>You don't have access to this user's private information</Header>
         );
       case 'Outgoing Friend Requests':
         return (
           isSelf
-          ? <UserList users={outgoingFriendsList || []} />
+          ? <UserList users={outgoingFriendsList} />
           : <Header>You don't have access to this user's private information</Header>
         );
       default:
