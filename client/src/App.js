@@ -4,6 +4,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { resumeSession } from './features/user/userSlice';
 import { NavigateContext } from './context/NavigateContext';
 import Header from './components/Header';
+import WelcomeModal from './components/WelcomeModal';
 import './App.css';
 import { Grid } from 'semantic-ui-react';
 
@@ -26,6 +27,7 @@ export default function App() {
 
   return (
     <NavigateContext.Provider value={navigate}>
+      <WelcomeModal />
       <Header />
       <Grid centered>
         <Outlet />
