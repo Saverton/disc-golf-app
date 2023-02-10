@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 export default function DetailPage({ primary, secondary }) {
 
   return (
-    <Grid columns={2}>
+    <Grid columns={2} stackable>
       <Grid.Column width={4}>
         {/* Primary details (card) */}
         {primary}
