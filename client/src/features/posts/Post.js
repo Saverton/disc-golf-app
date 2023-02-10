@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentsSection from './CommentsSection';
 import Likes from '../../components/Likes';
-import { Feed, Icon } from 'semantic-ui-react';
+import { Feed, Icon, Image } from 'semantic-ui-react';
 
 export default function Post({ post, index }) {
-  const { id, body, user, course } = post;
+  const { id, body, user, course, image_url: img } = post;
   const currentUser = useSelector(state => state.user);
 
   return (
@@ -21,6 +21,11 @@ export default function Post({ post, index }) {
           <Feed.User>{user.username}</Feed.User>
           { course ? <span> at <Link to={`/courses/${course.id}`}>{course.name}</Link></span> : null }
         </Feed.Summary>
+        { img &&
+          <Feed.Extra>
+            <Image src={img} alt="post image" size="medium"/>
+          </Feed.Extra>
+        }
         <Feed.Extra text>
           {body}
         </Feed.Extra>

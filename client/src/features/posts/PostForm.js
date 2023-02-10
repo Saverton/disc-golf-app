@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import CourseSearch from '../courses/CourseSearch';
-import { Form, Label, TextArea } from 'semantic-ui-react';
+import { Form, Label, TextArea, Input } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   body: '',
@@ -33,7 +33,14 @@ export default function PostForm({ onSubmit, startData }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const data = new FormData();
+
+    data.append("post[image]", e.target.image.files[0]);
+    data.append("post[body]", formData.body);
+    data.append("post[course_id]", formData.course.id || null);
+
+    onSubmit(data);
   }
 
   const handleSelectCourse = course => {
@@ -61,6 +68,14 @@ export default function PostForm({ onSubmit, startData }) {
         />
         <CourseSearch onSelect={handleSelectCourse} />
       </Form.Field>
+
+      <Form.Field
+        control={Input}
+        type="file"
+        label="Post Image"
+        name="image"
+      />
+
       <Form.Button type="submit">Publish</Form.Button>
     </Form>
   );

@@ -21,6 +21,7 @@ class Api::PostsController < ApplicationController
   def create
     creation_params = post_create_params
     creation_params.delete(:image) if creation_params[:image] == 'undefined'
+    creation_params.delete(:course_id) if creation_params[:course_id] == 'null'
     @post = Post.create!(creation_params)
     render json: @post, status: :created
   end
@@ -44,7 +45,8 @@ class Api::PostsController < ApplicationController
   end
 
   def post_create_params
-    params.permit(:user_id, :body, :course_id, :image)
+    permitted = params.permit(:user_id)
+    permitted.merge(params.require(:post).permit(:body, :course_id, :image))
   end
 
   def post_update_params

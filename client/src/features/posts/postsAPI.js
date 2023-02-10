@@ -16,13 +16,7 @@ function fetchCreatePost(userId, postData) {
   return (
     fetch(`/api/users/${userId}/posts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...postData,
-        course_id: postData.course.id
-      })
+      body: postData
     })
       .then(res => res.json())
   );
@@ -32,10 +26,7 @@ function fetchEditPost(userId, postId, postData) {
   return (
     fetch(`/api/users/${userId}/posts/${postId}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(postData)
+      body: postData
     })
       .then(res => res.json())
   );
