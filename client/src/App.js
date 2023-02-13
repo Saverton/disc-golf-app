@@ -34,8 +34,6 @@ export default function App() {
         
         <NavBar />
 
-        <Divider hidden />
-
         <Grid.Row as="main" id="dynamic-main" centered>
           <Outlet />
         </Grid.Row>
