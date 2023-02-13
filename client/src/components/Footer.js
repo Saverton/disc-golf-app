@@ -3,7 +3,7 @@ import { Grid, Header, List, Icon, Label } from 'semantic-ui-react';
 
 function Footer() {
   return (
-    <Grid.Row as="footer" id="page-footer" columns={4} centered color="blue" inverted>
+    <Grid.Row as="footer" id="page-footer" columns={4} centered color="blue">
       <Grid.Column>
         <Header inverted>
           Contact Developer
@@ -11,7 +11,7 @@ function Footer() {
 
         <List>
           <List.Item>
-            <Label as="a" href="https://www.linkedin.com/in/scottmeadows-se/" target="_blank" rel="noreferrer" color="white">
+            <Label as="a" href="https://www.linkedin.com/in/scottmeadows-se/" target="_blank" rel="noreferrer">
               <Icon name="linkedin" />
               <Label.Detail>
                 LinkedIn

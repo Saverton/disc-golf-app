@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Comment from './Comment';
-import { Comment as CommentUI, Header, Button, Icon } from 'semantic-ui-react';
+import { Comment as CommentUI, Header, Button } from 'semantic-ui-react';
 
 export default function CommentsSection({ comments }) {
   const [ numberShown, setNumberShown ] = useState(1);

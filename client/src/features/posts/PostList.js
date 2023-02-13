@@ -8,10 +8,10 @@ export default function PostList({ fallbackComponent }) {
   const { entities: posts, loading } = useSelector(state => state.posts);
 
   const postsList = posts.map((p, idx) => 
-    <>
-      <Post key={`post-${idx}`} post={p} index={idx} />
+    <div key={`post-${idx}`}>
+      <Post post={p} index={idx} />
       <Divider section hidden/>
-    </>
+    </div>
   );
   
   if (loading === 'pending')

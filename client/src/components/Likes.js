@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 
@@ -9,6 +9,13 @@ export default function Likes({ likable, type }) {
     liked: likable.liked_by_current_user
   });
   const currentUser = useSelector(state => state.user);
+
+  useEffect(() => {
+    setLikeData({
+      likes: likable.likes,
+      liked: likable.liked_by_current_user
+    })
+  }, [likable]);
 
   const handleLike = () => {
     fetch(`/api/users/${currentUser.id}/likes`, {
@@ -46,7 +53,7 @@ export default function Likes({ likable, type }) {
       {
         liked
         ? <Icon name="like" color="red" />
-        : <Icon name="like" color="white" />
+        : <Icon name="like" />
       }
       {' '}{likes} like
       {likes !== 1 && 's'}

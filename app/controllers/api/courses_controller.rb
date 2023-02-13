@@ -8,9 +8,9 @@ class Api::CoursesController < ApplicationController
   # params[:name].
   def index
     @courses = if params[:name]
-                 Course.where('lower(name) LIKE ?', "%#{Course.sanitize_sql_like(params[:name])}%".downcase).limit(INDEX_LIMIT)
+                 Course.where('lower(name) LIKE ?', "%#{Course.sanitize_sql_like(params[:name])}%".downcase).order(likes_count: :desc).limit(INDEX_LIMIT)
                else
-                 Course.all.limit(INDEX_LIMIT)
+                 Course.order(likes_count: :desc).limit(INDEX_LIMIT)
                end
 
     render json: @courses, status: :ok

@@ -36,9 +36,9 @@ export default function PostForm({ onSubmit, startData, type }) {
 
     const data = new FormData();
 
-    data.append("post[image]", e.target.image.files[0]);
+    data.append("post[image]", e.target.image?.files[0] || null);
     data.append("post[body]", formData.body);
-    data.append("post[course_id]", formData.course.id || null);
+    data.append("post[course_id]", formData.course?.id || null);
 
     onSubmit(data);
   }

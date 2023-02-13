@@ -50,6 +50,6 @@ class Api::PostsController < ApplicationController
   end
 
   def post_update_params
-    params.permit(:body, :course_id)
+    params.require(:post).permit(:body)
   end
 end
