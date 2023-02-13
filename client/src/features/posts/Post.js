@@ -18,7 +18,7 @@ export default function Post({ post, index }) {
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{user.username}</Feed.User>
+          <Feed.User as={Link} to={`/users/${user.id}`}>{user.username}</Feed.User>
           { course ? <span> at <Link to={`/courses/${course.id}`}>{course.name}</Link></span> : null }
         </Feed.Summary>
         { img &&
