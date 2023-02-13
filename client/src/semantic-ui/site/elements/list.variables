@@ -4,3 +4,5 @@
 
 @selectionListHoverColor: @white;
 @selectionListHoverBackground: @lightBlue;
+
+@itemLinkIconHoverColor: @white;

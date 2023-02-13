@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createFriendship, deleteFriendship } from './profileUserSlice';
+import { resumeSession } from '../user/userSlice';
 import { Button, Card, Header } from 'semantic-ui-react';
 
 export default function FriendManager() {
@@ -13,11 +14,13 @@ export default function FriendManager() {
     dispatch(createFriendship({
       userId: currentUser.id,
       friendId: id
-    }));
+    }))
+      .then(() => dispatch(resumeSession()));
   }
 
   const handleRemoveFriend = () => {
-    dispatch(deleteFriendship({ friendshipId: user.friendship.id }));
+    dispatch(deleteFriendship({ friendshipId: user.friendship.id }))
+      .then(() => dispatch(resumeSession()));
   }
 
   const friendManager = () => {

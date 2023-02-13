@@ -76,7 +76,7 @@ export default function PostForm({ onSubmit, startData, type }) {
             <Form.Field
               control={Input}
               type="file"
-              label="Post Image"
+              label="Post Image (optional)"
               name="image"
             />
           </>

@@ -2,12 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Post from './Post';
 import PostPlaceholders from '../../components/PostPlaceholders';
-import { Feed, Header, Icon} from 'semantic-ui-react';
+import { Feed, Header, Icon, Divider } from 'semantic-ui-react';
 
 export default function PostList({ fallbackComponent }) {
   const { entities: posts, loading } = useSelector(state => state.posts);
 
-  const postsList = posts.map((p, idx) => <Post key={`post-${idx}`} post={p} index={idx} />);
+  const postsList = posts.map((p, idx) => 
+    <>
+      <Post key={`post-${idx}`} post={p} index={idx} />
+      <Divider section hidden/>
+    </>
+  );
   
   if (loading === 'pending')
     return <PostPlaceholders />;
@@ -15,15 +20,21 @@ export default function PostList({ fallbackComponent }) {
   if (Object.keys(posts).length === 0)
     return (
       (fallbackComponent && fallbackComponent()) ||
-      <Header textAlign='center' size='large' icon>
-        <Icon name="frown outline"/>
-        <Header.Content>No Posts Found...</Header.Content>
-      </Header>
+      <>
+        <Divider hidden />
+        <Header textAlign='center' size='large' icon>
+          <Icon name="frown outline"/>
+          <Header.Content>No Posts Found...</Header.Content>
+        </Header>
+      </>
     );
 
   return (
-    <Feed>
-      {postsList}
-    </Feed>
+    <>
+      <Divider hidden />
+      <Feed>
+        {postsList}
+      </Feed>
+    </>
   );
 }

@@ -1,45 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentsSection from './CommentsSection';
 import Likes from '../../components/Likes';
-import { Feed, Icon, Image } from 'semantic-ui-react';
+import NewComment from './NewComment';
+import { Grid, Icon, Image, Header, Button, Divider } from 'semantic-ui-react';
 
-export default function Post({ post, index }) {
-  const { id, body, user, course, image_url: img } = post;
+export default function Post({ post }) {
+  const { id, body, user, course, image_url: img, comments } = post;
   const currentUser = useSelector(state => state.user);
+  const [writing, setWriting] = useState();
 
   return (
-    <Feed.Event style={
-      index % 2 === 0 ? {backgroundColor: '#EEE'} : null
-    }>
-      <Feed.Label>
-        <Icon name="user" />
-      </Feed.Label>
-      <Feed.Content>
-        <Feed.Summary>
-          <Feed.User as={Link} to={`/users/${user.id}`}>{user.username}</Feed.User>
-          { course ? <span> at <Link to={`/courses/${course.id}`}>{course.name}</Link></span> : null }
-        </Feed.Summary>
-        { img &&
-          <Feed.Extra>
-            <Image src={img} alt="post image" size="medium"/>
-          </Feed.Extra>
-        }
-        <Feed.Extra text>
-          {body}
-        </Feed.Extra>
-        <Feed.Meta>
-          <Likes likable={post} type="Post" />
-          {
-            currentUser.id === user.id &&
-            <Link to={`/edit_post/${id}`}>
-              <Icon name="edit" />
-            </Link>
+    <Grid>
+      {/* Post Header */}
+      <Grid.Row>
+        <Grid.Column>
+          <Header as="h3" block>
+            <Icon name="user" />
+            <Header.Content>
+              <Link to={`/users/${user.id}`}>
+                {user.username}
+              </Link>
+
+              { course && 
+                <span> at{' '}
+                  <Link to={`/courses/${course.id}`}>
+                    {course.name}
+                  </Link>
+                </span>
+              }
+            </Header.Content>
+          </Header>
+        </Grid.Column>
+      </Grid.Row>
+
+      {/* Post Content */}
+      <Grid.Row>
+        <Grid.Column>
+          {img && 
+            <>
+              <Image src={img} alt="Post's Image" fluid rounded/>
+              <Divider hidden />
+            </>
           }
-          <CommentsSection comments={post.comments} postId={id} />
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
+
+          <p style={{fontSize: '1.5rem'}}>
+            {body}
+          </p>
+        </Grid.Column>
+      </Grid.Row>
+
+      {/* Post Meta Info */}
+      <Grid.Row centered>
+        <Grid.Column width={15}>
+          <Button.Group fluid color="blue" basic>
+            <Likes likable={post} type="Post" />
+
+            <Button
+              icon={{name: "comment"}}
+              content="Comment"
+              onClick={() => setWriting(w => !w)}
+            />
+
+            { currentUser.id === user.id && 
+              <Button
+                icon={{name: "edit"}}
+                content="Edit"
+                as={Link}
+                to={`/edit_post/${id}`}
+              />
+            }
+          </Button.Group>
+        </Grid.Column>
+      </Grid.Row>
+
+      {/* Comments */}
+      <Grid.Row centered>
+        <Grid.Column width={15}>
+          {writing && <NewComment postId={id} onCancel={() => setWriting(false)} />}
+
+          <CommentsSection comments={comments} postId={id} />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 }
