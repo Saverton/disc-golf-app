@@ -61,7 +61,7 @@ const postManagerSlice = createSlice({
     builder.addMatcher(
       (action) => action.type?.endsWith('/rejected'),
       (state, action) => {
-        state.errors = action.payload.errors;
+        state.errors = action.payload?.errors;
         state.loading = 'failed';
       }
     )

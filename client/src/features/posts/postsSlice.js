@@ -10,6 +10,18 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
+export const loadMorePosts = createAsyncThunk(
+  'posts/loadMorePosts',
+  async (_, thunkAPI) => {
+    const length = thunkAPI.getState().posts.entities.length;
+    if (length % 10 !== 0)
+      return thunkAPI.rejectWithValue({ errors: ['No more posts'] });
+
+    const response = await postsAPI.fetchPosts(length);
+    return response;
+  }
+)
+
 export const addComment = createAsyncThunk(
   'posts/addComment',
   async (args, thunkAPI) => {
@@ -63,6 +75,12 @@ const postsSlice = createSlice({
       state.errors = [];
     });
 
+    builder.addCase(loadMorePosts.fulfilled, (state, action) => {
+      state.entities.push(...action.payload);
+      state.loading = 'succeeded';
+      state.errors = []; 
+    });
+
     builder.addCase(addComment.fulfilled, (state, action) => {
       const post = state.entities.find(p => p.id === action.payload['post_id']);
       post.comments.push(action.payload);
@@ -86,7 +104,7 @@ const postsSlice = createSlice({
     builder.addMatcher(
       (action) => action.type?.endsWith('/rejected'),
       (state, action) => {
-        state.errors = action.payload.errors;
+        state.errors = action.payload?.errors;
         state.loading = 'failed';
       }
     );

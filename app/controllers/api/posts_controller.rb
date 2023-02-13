@@ -4,9 +4,9 @@ class Api::PostsController < ApplicationController
   # GET /posts
   def index
     @posts = if session[:user_id].nil?
-               Post.order(created_at: :desc).limit(10)
+               Post.order(created_at: :desc).limit(10).offset(params[:page] || 0)
              else
-               Post.feed_posts(session[:user_id])
+               Post.feed_posts(session[:user_id], params[:page])
              end
 
     render json: @posts, status: :ok, include: ['comments', 'comments.user', 'user', 'course'], logged_in_as: session[:user_id]

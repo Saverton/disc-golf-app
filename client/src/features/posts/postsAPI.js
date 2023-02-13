@@ -1,6 +1,6 @@
-function fetchPosts() {
+function fetchPosts(page = 0) {
   return (
-    fetch('/api/posts')
+    fetch(`/api/posts?page=${page}`)
       .then(res => res.json())
   );
 }
