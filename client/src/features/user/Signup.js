@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { signup, resetStatus } from './userSlice';
 import { Button, Form, Grid, Input, Header } from 'semantic-ui-react';
+import PasswordInput from '../../components/PasswordInput';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -61,22 +62,14 @@ export default function Signup() {
           error={getErrors('username')}
         />
         <Form.Group unstackable widths={2}>
-          <Form.Field
-            control={Input}
-            type="password"
+          <PasswordInput
             name="password"
-            label="Password"
-            placeholder="password"
             value={formData.password}
             onChange={handleChange}
             error={getErrors('password')}
           />
-          <Form.Field
-            control={Input}
-            type="password"
+          <PasswordInput
             name="password_confirmation"
-            label="Password Confirmation"
-            placeholder="password"
             value={formData.password_confirmation}
             onChange={handleChange}
             error={getErrors('password_confirmation')}

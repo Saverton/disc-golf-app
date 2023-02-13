@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { login, resetStatus } from './userSlice';
 import { NavigateContext } from '../../context/NavigateContext';
 import ErrorMessage from '../../components/ErrorMessage';
+import PasswordInput from '../../components/PasswordInput';
 import { Button, Input, Form, Grid, Header, List } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
@@ -52,6 +53,7 @@ export default function Login() {
   return (
     <Grid.Column width={10}>
       <Header dividing size="large">Sign In</Header>
+
       <Form
         onSubmit={handleSubmit}
         loading={currentUser.loading === 'pending'}
@@ -65,20 +67,20 @@ export default function Login() {
           value={formData.username}
           onChange={handleChange}
         />
-        <Form.Field
-          control={Input}
-          label="Password"
-          type="password"
-          name="password"
-          placeholder="password"
+
+        <PasswordInput
           value={formData.password}
+          name="password"
           onChange={handleChange}
         />
+
         <List celled>
           {errorList}
         </List>
+
         <Button type="submit" >Login</Button>
       </Form>
+
       <div>
         <h5>
           Don't have an account?{' '}
