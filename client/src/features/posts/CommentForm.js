@@ -24,10 +24,10 @@ export default function CommentForm({ comment, onSubmit, onCancel }) {
         placeholder="enter comment..."
       />
       <Form.Group>
-        <Form.Button type="submit" size="tiny">
+        <Form.Button type="submit" size="tiny" primary>
           Post
         </Form.Button>
-        <Form.Button onClick={onCancel} size="tiny" type="button">
+        <Form.Button onClick={onCancel} size="tiny" type="button" secondary>
           Cancel
         </Form.Button>
       </Form.Group>

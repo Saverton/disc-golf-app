@@ -5,7 +5,7 @@ import { login, resetStatus } from './userSlice';
 import { NavigateContext } from '../../context/NavigateContext';
 import ErrorMessage from '../../components/ErrorMessage';
 import PasswordInput from '../../components/PasswordInput';
-import { Button, Input, Form, Grid, Header, List } from 'semantic-ui-react';
+import { Button, Input, Form, Grid, Header, List, Divider } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -78,8 +78,10 @@ export default function Login() {
           {errorList}
         </List>
 
-        <Button type="submit" >Login</Button>
+        <Button type="submit" primary>Login</Button>
       </Form>
+
+      <Divider hidden />
 
       <div>
         <h5>

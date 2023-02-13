@@ -8,7 +8,7 @@ export default function NavBar() {
 
   return (
     <Grid.Row width={16}>
-      <Menu as="nav" fluid widths={5}>
+      <Menu as="nav" fluid widths={5} color="blue" inverted>
         <Menu.Item as={NavLink} to="/feed">Feed</Menu.Item>
         <Menu.Item as={NavLink} to="/new_post">Post</Menu.Item>
         <Menu.Item as={NavLink} to="/courses">Courses</Menu.Item>

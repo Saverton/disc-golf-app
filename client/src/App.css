@@ -40,3 +40,7 @@
 main#dynamic-main {
   min-height: calc(0.5 * 100vh);
 }
+
+footer#page-footer {
+  min-height: calc(0.25 * 100vh);
+}

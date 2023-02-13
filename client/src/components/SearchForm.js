@@ -15,7 +15,7 @@ export default function SearchForm({ onSubmit }) {
   return (
     <Input
       fluid
-      action={{ icon: "search", onClick: handleSubmit, type: "button" }}
+      action={{ icon: "search", onClick: handleSubmit, type: "button", color: "orange" }}
       placeholder="Search..."
       onChange={handleChange}
       value={searchText}

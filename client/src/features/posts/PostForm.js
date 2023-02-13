@@ -83,7 +83,7 @@ export default function PostForm({ onSubmit, startData, type }) {
         )
       }
 
-      <Form.Button type="submit">Publish</Form.Button>
+      <Form.Button type="submit" positive>Publish</Form.Button>
     </Form>
   );
 }

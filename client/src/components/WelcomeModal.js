@@ -58,13 +58,13 @@ function WelcomeModal() {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color="green" onClick={toLogin}>
+        <Button onClick={toLogin} primary>
           Log In
         </Button>
-        <Button color="blue" onClick={toSignup}>
+        <Button onClick={toSignup} primary>
           Sign Up
         </Button>
-        <Button onClick={asGuest}>
+        <Button onClick={asGuest} secondary>
           Continue as Guest
         </Button>
       </Modal.Actions>

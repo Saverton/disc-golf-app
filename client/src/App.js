@@ -6,10 +6,10 @@ import { NavigateContext } from './context/NavigateContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WelcomeModal from './components/WelcomeModal';
+import NavBar from './components/NavBar';
 import './App.css';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Divider } from 'semantic-ui-react';
 
-// TODO: Better loading visualization
 export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,13 +29,21 @@ export default function App() {
   return (
     <NavigateContext.Provider value={navigate}>
       <WelcomeModal />
-      <Header />
-      <main id="dynamic-main">
-        <Grid centered>
+      <Grid doubling>
+        <Header />
+        
+        <NavBar />
+
+        <Divider hidden />
+
+        <Grid.Row as="main" id="dynamic-main" centered>
           <Outlet />
-        </Grid>
-      </main>
-      <Footer />
+        </Grid.Row>
+
+        <Divider hidden />
+
+        <Footer />
+      </Grid>
     </NavigateContext.Provider>
   );
 }

@@ -1,18 +1,17 @@
 import React from 'react';
-import NavBar from './NavBar';
 import UserStatus from '../features/user/UserStatus';
 import { Grid, Image } from 'semantic-ui-react';
 
 export default function Header() {
   return (
-    <Grid as="header" columns={3}>
-      <Grid.Row centered>
-        <Grid.Column>
+      <Grid.Row columns={3}>
+        <Grid.Column width={4}>
           <Image src="./we_disc.png" alt="logo" size="medium"/>
         </Grid.Column>
-        <UserStatus />
+
+        <Grid.Column floated="right" width={4} verticalAlign="middle">
+          <UserStatus />
+        </Grid.Column>
       </Grid.Row>
-      <NavBar />
-    </Grid>
   );
 }

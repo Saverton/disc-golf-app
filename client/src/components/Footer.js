@@ -1,51 +1,57 @@
 import React from 'react';
-import { Divider, Grid, Header, List, Item, Icon } from 'semantic-ui-react';
+import { Grid, Header, List, Icon, Label } from 'semantic-ui-react';
 
 function Footer() {
   return (
-    <footer>
-      <Divider />
-      <Grid centered columns={4} divided="vertically">
-        <Grid.Column>
-          <div>
-            <Header>
-              Contact Developer
-            </Header>
-            <List relaxed>
-              <List.Item>
-                <List.Icon name="linkedin" />
-                <List.Content>
-                  <a href="https://www.linkedin.com/in/scottmeadows-se/" target="_blank" rel="noreferrer">LinkedIn</a>
-                </List.Content>
-              </List.Item>
-              <List.Item>
-                <List.Icon name="github" />
-                <List.Content>
-                  <a href="https://github.com/Saverton" target="_blank" rel="noreferrer">GitHub</a>
-                </List.Content>
-              </List.Item>
-              <List.Item>
-                <List.Icon name="mail" />
-                <List.Content>
-                  <a href="mailto:scottmeadows04@gmail.com">Email</a>
-                </List.Content>
-              </List.Item>
-            </List>
-          </div>
-        </Grid.Column>
-        <Grid.Column>
-          <Header>
-            Report an Issue
-          </Header>
-          <Item>
-            <Item.Content>
+    <Grid.Row as="footer" id="page-footer" columns={4} centered color="blue" inverted>
+      <Grid.Column>
+        <Header inverted>
+          Contact Developer
+        </Header>
+
+        <List>
+          <List.Item>
+            <Label as="a" href="https://www.linkedin.com/in/scottmeadows-se/" target="_blank" rel="noreferrer" color="white">
+              <Icon name="linkedin" />
+              <Label.Detail>
+                LinkedIn
+              </Label.Detail>
+            </Label>
+          </List.Item>
+
+          <List.Item>
+            <Label as="a" href="https://github.com/Saverton" target="_blank" rel="noreferrer">
               <Icon name="github" />
-              <a href="https://github.com/Saverton/disc-golf-app/issues" target="_blank" rel="noreferrer">GitHub Issue Tracker</a>
-            </Item.Content>
-          </Item>
-        </Grid.Column>
-      </Grid>
-    </footer>
+              <Label.Detail>
+                GitHub
+              </Label.Detail>
+            </Label>
+          </List.Item>
+
+          <List.Item>
+            <Label as="a" href="mailto:scottmeadows04@gmail.com">
+              <Icon name="mail" />
+              <Label.Detail>
+                Email
+              </Label.Detail>
+            </Label>
+          </List.Item>
+        </List>
+      </Grid.Column>
+
+      <Grid.Column textAlign='right'>
+        <Header inverted>
+          Report an Issue
+        </Header>
+
+        <Label as="a" href="https://github.com/Saverton/disc-golf-app/issues" target="_blank" rel="noreferrer">
+          <Icon name="github" />
+          <Label.Detail>
+            GitHub Issue Tracker
+          </Label.Detail>
+        </Label>
+      </Grid.Column>
+    </Grid.Row>
   );
 }
 

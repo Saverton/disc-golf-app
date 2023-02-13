@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { signup, resetStatus } from './userSlice';
-import { Button, Form, Grid, Input, Header } from 'semantic-ui-react';
+import { Button, Form, Grid, Input, Header, Divider } from 'semantic-ui-react';
 import PasswordInput from '../../components/PasswordInput';
 
 const DEFAULT_FORM_DATA = {
@@ -114,8 +114,11 @@ export default function Signup() {
           onChange={handleChange}
           error={getErrors('zip_code')}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" primary>Sign Up</Button>
       </Form>
+
+      <Divider hidden />
+
       <div>
         <h5>
           Already have an account?{' '}

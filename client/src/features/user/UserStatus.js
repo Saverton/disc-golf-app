@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { logout } from './userSlice';
-import { Icon, Button, Dropdown, Grid } from 'semantic-ui-react';
+import { Icon, Button, Dropdown } from 'semantic-ui-react';
 
 export default function UserStatus() {
   const currentUser = useSelector(state => state.user);
@@ -25,33 +25,30 @@ export default function UserStatus() {
 
   // console.log(currentUser);
 
-  return (
-    <Grid.Column floated="right" width={4} verticalAlign="middle">
-      {
-        currentUser.id
-        ? (
-          <Dropdown trigger={trigger} button>
-            <Dropdown.Menu>
-              <Dropdown.Item as={Link} to={`/users/${currentUser.id}`}>
-                Profile
-                {
-                  currentUser.notifications
-                  ? 
-                  <>
-                    {' '}<Icon name="circle" color="red" size="small"/>
-                  </>
-                  : null
-                }
-              </Dropdown.Item>
-              <Dropdown.Item onClick={handleLogout}>
-                Logout
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        ) : (
-          <Button as={Link} to="/login" primary>Sign In</Button>
-        )
-      }
-    </Grid.Column>
-  );
+  if (currentUser.id) {
+    return (
+      <Dropdown trigger={trigger} button>
+        <Dropdown.Menu>
+      
+          <Dropdown.Item as={Link} to={`/users/${currentUser.id}`}>
+            Profile
+            {
+              currentUser.notifications
+              ? 
+              <>
+                {' '}<Icon name="circle" color="red" size="small"/>
+              </>
+              : null
+            }
+          </Dropdown.Item>
+
+          <Dropdown.Item onClick={handleLogout}>
+            Logout
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    );
+  } else {
+    return <Button as={Link} to="/login" primary>Sign In</Button>
+  }
 }

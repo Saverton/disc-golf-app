@@ -13,9 +13,13 @@ export default function Courses() {
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Disc Golf Courses</Header>
+
       <CourseSearch onSelect={handleCourseClick} />
+
       <p>Can't find the course you're looking for?</p>
-      <Button as={Link} to="/new_course">Upload a new Course</Button>
+      <Button as={Link} to="/new_course" primary>
+        Upload a new Course
+      </Button>
     </Grid.Column>
   );
 }
