@@ -1,11 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :friendships, dependent: :nullify_then_purge
+  has_many :friendships
   has_many :friends, through: :friendships
-  has_many :posts, dependent: :nullify_then_purge
-  has_many :comments, dependent: :nullify_then_purge
-  has_many :likes, dependent: :nullify_then_purge
+  has_many :posts
+  has_many :comments
+  has_many :likes
 
   validates_presence_of :first_name, :last_name
   validates :username, uniqueness: true, length: { minimum: 5 }

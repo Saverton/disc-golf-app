@@ -2,7 +2,7 @@ class Course < ApplicationRecord
   include ImageAttachable
 
   has_many :posts
-  has_many :likes, as: :likable, dependent: :nullify_then_purge
+  has_many :likes, as: :likable
 
   has_one_attached :image
 
