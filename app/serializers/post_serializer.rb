@@ -1,7 +1,6 @@
 class PostSerializer < ParentSerializer
-  attributes :id, :body, :created_at, :likes, :liked_by_current_user, :image_url
+  attributes :id, :body, :created_at, :likes, :liked_by_current_user, :image_url, :author_username, :user_id
 
-  belongs_to :user
   belongs_to :course
   has_many :comments, serializer: CommentSerializer
 

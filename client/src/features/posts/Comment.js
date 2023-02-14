@@ -6,7 +6,7 @@ import CommentForm from './CommentForm';
 import { Comment as CommentUI, Icon } from 'semantic-ui-react';
 
 export default function Comment({ comment }) {
-  const { id, body, user } = comment;
+  const { id, body, user_id: userId, author_username: username } = comment;
   const currentUser = useSelector(state => state.user);
   const [editing, setEditing] = useState(false);
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function Comment({ comment }) {
   return (
     <CommentUI>
       <CommentUI.Content>
-        <CommentUI.Author as={Link} to={`/users/${user.id}`}>{user.username}</CommentUI.Author>
+        <CommentUI.Author as={Link} to={`/users/${userId}`}>{username}</CommentUI.Author>
         {
           editing
           ? (
@@ -42,7 +42,7 @@ export default function Comment({ comment }) {
           )
         }
         {
-          (currentUser.id === user.id && !editing) &&
+          (currentUser.id === userId && !editing) &&
           (
             <CommentUI.Actions>
               <CommentUI.Action onClick={() => setEditing(true)}>

@@ -4,6 +4,7 @@ class Api::CommentsController < ApplicationController
 
   def create
     @comment = Comment.create!(comment_create_params)
+    @comment.username = @comment.user.username
     render json: @comment, status: :created
   end
 

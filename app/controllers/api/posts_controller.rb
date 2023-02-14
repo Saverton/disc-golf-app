@@ -23,6 +23,7 @@ class Api::PostsController < ApplicationController
     creation_params.delete(:image) if creation_params[:image] == 'undefined'
     creation_params.delete(:course_id) if creation_params[:course_id] == 'null'
     @post = Post.create!(creation_params)
+    @post.username = @post.user.username
     render json: @post, status: :created
   end
 

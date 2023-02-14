@@ -22,4 +22,14 @@ class Post < ApplicationRecord
   def image_url
     super || course&.image_url
   end
+
+  def author_username
+    return username if username
+
+    puts 'cannot find username, caching'
+
+    self.username = user.username
+    save
+    username
+  end
 end

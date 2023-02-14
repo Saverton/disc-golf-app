@@ -7,7 +7,7 @@ import NewComment from './NewComment';
 import { Grid, Icon, Image, Header, Button, Divider } from 'semantic-ui-react';
 
 export default function Post({ post }) {
-  const { id, body, user, course, image_url: img, comments } = post;
+  const { id, body, user_id: userId, author_username: username, course, image_url: img, comments } = post;
   const currentUser = useSelector(state => state.user);
   const [writing, setWriting] = useState();
 
@@ -19,8 +19,8 @@ export default function Post({ post }) {
           <Header as="h3" block>
             <Icon name="user" />
             <Header.Content>
-              <Link to={`/users/${user.id}`}>
-                {user.username}
+              <Link to={`/users/${userId}`}>
+                {username}
               </Link>
 
               { course && 
@@ -63,7 +63,7 @@ export default function Post({ post }) {
               onClick={() => setWriting(w => !w)}
             />
 
-            { currentUser.id === user.id && 
+            { currentUser.id === userId && 
               <Button
                 icon={{name: "edit"}}
                 content="Edit"
