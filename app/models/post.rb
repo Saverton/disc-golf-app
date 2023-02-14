@@ -3,8 +3,8 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :course, optional: true
-  has_many :comments, dependent: :destroy
-  has_many :likes, as: :likable, dependent: :destroy
+  has_many :comments, dependent: :nullify_then_purge
+  has_many :likes, as: :likable, dependent: :nullify_then_purge
 
   has_one_attached :image
 
