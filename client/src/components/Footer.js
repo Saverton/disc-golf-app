@@ -4,7 +4,7 @@ import { Grid, Header, List, Icon, Label } from 'semantic-ui-react';
 function Footer() {
   return (
     <Grid.Row as="footer" id="page-footer" columns={4} centered color="blue">
-      <Grid.Column>
+      <Grid.Column computer={4} mobile={7}>
         <Header inverted>
           Contact Developer
         </Header>
@@ -39,7 +39,7 @@ function Footer() {
         </List>
       </Grid.Column>
 
-      <Grid.Column textAlign='right'>
+      <Grid.Column textAlign='right' computer={4} mobile={7}>
         <Header inverted>
           Report an Issue
         </Header>
@@ -47,7 +47,7 @@ function Footer() {
         <Label as="a" href="https://github.com/Saverton/disc-golf-app/issues" target="_blank" rel="noreferrer">
           <Icon name="github" />
           <Label.Detail>
-            GitHub Issue Tracker
+            Github Bug Tracker
           </Label.Detail>
         </Label>
       </Grid.Column>

@@ -11,7 +11,7 @@ export default function Courses() {
   }
 
   return (
-    <Grid.Column width={10}>
+    <Grid.Column computer={10} mobile={14}>
       <Header size="large" dividing>Disc Golf Courses</Header>
 
       <CourseSearch onSelect={handleCourseClick} />

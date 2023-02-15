@@ -16,7 +16,7 @@ export default function UserSearch() {
   useEffect(fetchUsers, [dispatch]);
 
   return (
-    <Grid.Column width={10}>
+    <Grid.Column computer={10} mobile={14}>
       <Header size="large" dividing>Find Users</Header>
       <SearchForm onSubmit={fetchUsers} />
       <UserList />

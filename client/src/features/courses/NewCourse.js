@@ -31,7 +31,7 @@ export default function NewCourse() {
   }
 
   return (
-    <Grid.Column width={10}>
+    <Grid.Column computer={10} mobile={14}>
       <Header size="large" dividing>Upload a New Course's Data</Header>
       <CourseForm onSubmit={createCourse} />
     </Grid.Column>

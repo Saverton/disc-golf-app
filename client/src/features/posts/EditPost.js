@@ -52,7 +52,7 @@ export default function EditPost() {
   }
 
   return (
-    <Grid.Column width={10}>
+    <Grid.Column computer={10} mobile={14}>
       <Header size="large" dividing>Edit Post</Header>
   
       {post?.id && 

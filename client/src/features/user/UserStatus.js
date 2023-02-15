@@ -23,8 +23,6 @@ export default function UserStatus() {
       .then(() => navigate('/login'))
   }
 
-  // console.log(currentUser);
-
   if (currentUser.id) {
     return (
       <Dropdown trigger={trigger} button>

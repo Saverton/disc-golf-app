@@ -29,7 +29,7 @@ export default function App() {
   return (
     <NavigateContext.Provider value={navigate}>
       <WelcomeModal />
-      <Grid doubling>
+      <Grid>
         <Header />
         
         <NavBar />

@@ -19,7 +19,7 @@ export default function Feed() {
   }, [dispatch]);
 
   return (
-    <Grid.Column width={10}>
+    <Grid.Column computer={10} mobile={14}>
       <Header size="large" dividing>Recent Posts</Header>
 
       <PostList fallbackComponent={NoPostsFeed} />
