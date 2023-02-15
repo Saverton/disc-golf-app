@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { NavigateContext } from '../../context/NavigateContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { createFriendship, deleteFriendship } from './profileUserSlice';
 import { resumeSession } from '../user/userSlice';
@@ -9,8 +10,12 @@ export default function FriendManager() {
   const user = useSelector(state => state.profileUser.entity);
   const { id, username } = user;
   const dispatch = useDispatch();
+  const navigate = useContext(NavigateContext);
 
   const handleAddFriend = () => {
+    // Auto redirect to login if no user is logged in
+    if (!currentUser.id) navigate('/login');
+
     dispatch(createFriendship({
       userId: currentUser.id,
       friendId: id
