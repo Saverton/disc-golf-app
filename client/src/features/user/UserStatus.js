@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { logout } from './userSlice';
-import { Icon, Button, Dropdown } from 'semantic-ui-react';
+import { Icon, Button, Dropdown, Menu } from 'semantic-ui-react';
 
 export default function UserStatus() {
   const currentUser = useSelector(state => state.user);
@@ -18,31 +18,41 @@ export default function UserStatus() {
     </span>
   );
 
+  // Logs out the current user, navigates to sign in page
   const handleLogout = () => {
     dispatch(logout())
       .then(() => navigate('/login'))
+  }
+
+  // Navigates the user to the profile page
+  const handleProfileNavigate = () => {
+    navigate(`/users/${currentUser.id}`)
   }
 
   if (currentUser.id) {
     return (
       <Dropdown trigger={trigger} button>
         <Dropdown.Menu>
-      
-          <Dropdown.Item as={Link} to={`/users/${currentUser.id}`}>
-            Profile
-            {
-              currentUser.notifications
-              ? 
-              <>
-                {' '}<Icon name="circle" color="red" size="small"/>
-              </>
-              : null
-            }
-          </Dropdown.Item>
+          <Button animated="fade" fluid onClick={handleProfileNavigate}>
+            <Button.Content visible>
+              Profile{' '}
+              {
+                currentUser.notifications && <Icon name="circle" color="red" size="small"/>
+              }
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="user circle" />
+            </Button.Content>
+          </Button>
 
-          <Dropdown.Item onClick={handleLogout}>
-            Logout
-          </Dropdown.Item>
+          <Button animated="fade" onClick={handleLogout} fluid>
+            <Button.Content visible>
+              Logout
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="logout" />
+            </Button.Content>
+          </Button>
         </Dropdown.Menu>
       </Dropdown>
     );
