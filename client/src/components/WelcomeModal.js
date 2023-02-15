@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Modal } from 'semantic-ui-react';
 
 function WelcomeModal() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.user);
 
@@ -12,9 +12,9 @@ function WelcomeModal() {
    * Automatically close the modal if the user is logged in through the browser session.
    */
   useEffect(() => {
-    if (currentUser.id)
-      setOpen(false);
-  }, [currentUser]);
+    if (!currentUser.id)
+      setOpen(true);
+  }, [currentUser.id]);
 
   /**
    * Redirect the user to the login page.
@@ -61,7 +61,7 @@ function WelcomeModal() {
         <Button onClick={toLogin} primary>
           Log In
         </Button>
-        <Button onClick={toSignup} primary>
+        <Button onClick={toSignup} color="blue">
           Sign Up
         </Button>
         <Button onClick={asGuest} secondary>
