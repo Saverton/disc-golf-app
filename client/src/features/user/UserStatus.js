@@ -33,7 +33,7 @@ export default function UserStatus() {
     return (
       <Dropdown trigger={trigger} button>
         <Dropdown.Menu>
-          <Button animated="fade" fluid onClick={handleProfileNavigate}>
+          <Button animated="fade" fluid onClick={handleProfileNavigate} basic>
             <Button.Content visible>
               Profile{' '}
               {
@@ -41,11 +41,11 @@ export default function UserStatus() {
               }
             </Button.Content>
             <Button.Content hidden>
-              <Icon name="user circle" />
+              <Icon name="address card" />
             </Button.Content>
           </Button>
 
-          <Button animated="fade" onClick={handleLogout} fluid>
+          <Button animated="fade" onClick={handleLogout} fluid basic>
             <Button.Content visible>
               Logout
             </Button.Content>

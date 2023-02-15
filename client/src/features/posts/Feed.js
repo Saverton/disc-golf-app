@@ -8,7 +8,7 @@ import NoPostsFeed from './NoPostsFeed';
 
 export default function Feed() {
   const dispatch = useDispatch();
-  const errors = useSelector(state => state.posts.errors);
+  const { loading, errors } = useSelector(state => state.posts);
 
   function onLoadClick() {
     dispatch(loadMorePosts());
@@ -17,6 +17,8 @@ export default function Feed() {
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
+
+  const isLoading = loading === 'pending';
 
   return (
     <Grid.Column computer={10} mobile={14}>
@@ -29,14 +31,14 @@ export default function Feed() {
           <Message.Header>{errors.join(', ')}</Message.Header>
         </Message>
 
-        <Button onClick={onLoadClick} animated="fade">
+        <Button onClick={onLoadClick} animated="fade" disabled={isLoading}>
           <Button.Content visible content="Load More" />
           <Button.Content hidden>
             <Icon name="sync" />
           </Button.Content>
         </Button>
 
-        <Button as={Link} to={'/users'} animated="fade">
+        <Button as={Link} to={'/users'} animated="fade" disabled={isLoading}>
           <Button.Content visible content="Find Friends" />
           <Button.Content hidden>
             <Icon name="users" />

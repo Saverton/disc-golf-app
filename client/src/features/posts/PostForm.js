@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import CourseSearch from '../courses/CourseSearch';
-import { Form, Label, TextArea, Input } from 'semantic-ui-react';
+import { Form, Label, TextArea, Input, Button, Icon } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   body: '',
@@ -83,7 +83,12 @@ export default function PostForm({ onSubmit, startData, type }) {
         )
       }
 
-      <Form.Button type="submit" positive>Publish</Form.Button>
+      <Button type="submit" positive animated="fade">
+        <Button.Content visible content="Publish" />
+        <Button.Content hidden>
+          <Icon name="upload" />
+        </Button.Content>
+      </Button>
     </Form>
   );
 }

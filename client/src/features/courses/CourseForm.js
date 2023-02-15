@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import AddressField from '../../components/AddresField';
-import { Button, Form, Input, TextArea } from 'semantic-ui-react';
+import { Button, Form, Icon, Input, TextArea } from 'semantic-ui-react';
 
 const DEFAULT_FORM_DATA = {
   name: '',
@@ -117,8 +117,11 @@ export default function CourseForm({ onSubmit }) {
         error={getErrors('image')}
       />
 
-      <Button type="submit" positive>
-        Upload
+      <Button type="submit" positive animated="fade">
+        <Button.Content visible content="Upload" />
+        <Button.Content hidden>
+          <Icon name="upload" />
+        </Button.Content>
       </Button>
     </Form>
   );
