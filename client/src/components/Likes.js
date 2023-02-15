@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
+import { NavigateContext } from '../context/NavigateContext';
 import { Button, Icon } from 'semantic-ui-react';
 
 export default function Likes({ likable, type }) {
@@ -9,6 +10,7 @@ export default function Likes({ likable, type }) {
     liked: likable.liked_by_current_user
   });
   const currentUser = useSelector(state => state.user);
+  const navigate = useContext(NavigateContext);
 
   useEffect(() => {
     setLikeData({
@@ -18,6 +20,9 @@ export default function Likes({ likable, type }) {
   }, [likable]);
 
   const handleLike = () => {
+    // Boot user to login if not logged in
+    if (!currentUser.id) return navigate('/login');
+
     fetch(`/api/users/${currentUser.id}/likes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

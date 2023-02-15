@@ -14,7 +14,7 @@ export default function FriendManager() {
 
   const handleAddFriend = () => {
     // Auto redirect to login if no user is logged in
-    if (!currentUser.id) navigate('/login');
+    if (!currentUser.id) return navigate('/login');
 
     dispatch(createFriendship({
       userId: currentUser.id,
