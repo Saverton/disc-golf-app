@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import otherUsersAPI from "./otherUsersAPI";
+import otherUsersAPI from "../../fetchAPIs/otherUsersAPI";
 
 export const fetchOtherUserById = createAsyncThunk(
   'profileUser/fetchOtherUserById',

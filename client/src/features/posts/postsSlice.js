@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import postsAPI from './postsAPI';
-import commentsAPI from './commentsAPI';
+import postsAPI from '../../fetchAPIs/postsAPI';
+import commentsAPI from '../../fetchAPIs/commentsAPI';
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',

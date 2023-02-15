@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import postsAPI from './postsAPI';
+import postsAPI from '../../fetchAPIs/postsAPI';
 
 export const createPost = createAsyncThunk(
   'postManager/createPost',

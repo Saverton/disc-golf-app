@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchLogin, fetchLogout, fetchSignup, fetchMe } from './userAPI';
+import { fetchLogin, fetchLogout, fetchSignup, fetchMe } from '../../fetchAPIs/userAPI';
 
 export const login = createAsyncThunk(
   'user/login',

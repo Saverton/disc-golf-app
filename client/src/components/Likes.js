@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { NavigateContext } from '../context/NavigateContext';
 import { Button, Icon } from 'semantic-ui-react';
+import { likesAPI } from '../fetchAPIs/likesAPI';
 
 export default function Likes({ likable, type }) {
   const { id } = likable;
@@ -19,38 +20,28 @@ export default function Likes({ likable, type }) {
     })
   }, [likable]);
 
+  /**
+   * Add a new like to the database, then update the DOM accordingly.
+   */
   const handleLike = () => {
-    // Boot user to login if not logged in
-    if (!currentUser.id) return navigate('/login');
-
-    fetch(`/api/users/${currentUser.id}/likes`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        likable_type: type,
-        likable_id: id
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          res.json().then(like => setLikeData(data => ({likes: data.likes + 1, liked: like.id})));
-        } else {
-          res.json().then(console.log);
-        }
-      });
+    likesAPI.addLike(
+      currentUser.id,
+      { id, type }
+    ).then(likeData => {
+      setLikeData(data => ({ likes: data.likes + 1, liked: likeData.id}));
+    });
   }
 
+  /**
+   * Remove the like on the database, then update the DOM accordingly.
+   */
   const handleUnlike = () => {
-    fetch(`/api/users/${currentUser.id}/likes/${liked}`, {
-      method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          setLikeData(data => ({likes: data.likes - 1, liked: false}));
-        } else {
-          res.json().then(console.log);
-        }
-      });
+    likesAPI.removeLike(
+      currentUser.id,
+      liked
+    ).then(
+      _ => setLikeData(data => ({ likes: data.likes - 1, liked: false }))
+    );
   }
 
   return (
