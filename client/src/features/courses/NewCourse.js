@@ -1,14 +1,24 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useContext } from 'react';
+import { NavigateContext } from '../../context/NavigateContext';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCourse } from './courseManagerSlice';
 import CourseForm from './CourseForm';
 import { Grid, Header } from 'semantic-ui-react';
 
 export default function NewCourse() {
-  const navigate = useNavigate();
+  const navigate = useContext(NavigateContext);
   const dispatch = useDispatch();
+  const id = useSelector(state => state.user.id);
 
+  // Redirect user to the login page if not logged in
+  useEffect(() => {
+    if (!id) navigate('/login');
+  }, [id]);
+
+  /**
+   * Add a new Disc Golf Course to the Database, redirect user to the course's page if successful.
+   * @param {FormData} courseData 
+   */
   const createCourse = courseData => {
     dispatch(addCourse({courseData})).unwrap()
       .then(res => {
