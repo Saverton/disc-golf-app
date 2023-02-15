@@ -40,7 +40,18 @@ export default function Post({ post }) {
         <Grid.Column>
           {img && 
             <>
-              <Image src={img} alt="Post's Image" fluid rounded/>
+              <Image 
+                src={img}
+                alt="Post's Image"
+                fluid
+                centered
+                rounded
+                style={{
+                  maxHeight: '75vh',
+                  objectFit: 'contain'
+                }}
+              />
+
               <Divider hidden />
             </>
           }
