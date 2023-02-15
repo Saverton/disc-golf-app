@@ -22,7 +22,6 @@ export default function NewCourse() {
   const createCourse = courseData => {
     dispatch(addCourse({courseData})).unwrap()
       .then(res => {
-        console.log(res);
         navigate(`/courses/${res.id}`);
       })
       .catch(err => {

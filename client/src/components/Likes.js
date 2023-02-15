@@ -24,6 +24,8 @@ export default function Likes({ likable, type }) {
    * Add a new like to the database, then update the DOM accordingly.
    */
   const handleLike = () => {
+    if (!currentUser.id) return navigate('/login');
+
     likesAPI.addLike(
       currentUser.id,
       { id, type }

@@ -50,7 +50,7 @@ export default function UserStatus() {
               Logout
             </Button.Content>
             <Button.Content hidden>
-              <Icon name="logout" />
+              <Icon name="sign out" />
             </Button.Content>
           </Button>
         </Dropdown.Menu>

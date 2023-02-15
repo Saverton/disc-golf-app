@@ -20,7 +20,7 @@ class Api::PostsController < ApplicationController
   # POST /users/:user_id/posts
   def create
     creation_params = post_create_params
-    creation_params.delete(:image) if creation_params[:image] == 'undefined'
+    creation_params.delete(:image) if creation_params[:image] == 'null'
     creation_params.delete(:course_id) if creation_params[:course_id] == 'null'
     @post = Post.create!(creation_params)
     @post.username = @post.user.username

@@ -36,7 +36,7 @@ export default function Signup() {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(signup(formData)).unwrap()
-      .then(() => navigate('/profile'))
+      .then(user => navigate(`/users/${user.id}`))
       .catch(console.error);
   }
 
