@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSelector } from 'react-redux';
+import { NavigateContext } from '../../context/NavigateContext';
 import { Link } from 'react-router-dom';
 import CommentsSection from './CommentsSection';
 import Likes from '../../components/Likes';
@@ -10,6 +11,17 @@ export default function Post({ post }) {
   const { id, body, user_id: userId, author_username: username, course, image_url: img, comments } = post;
   const currentUser = useSelector(state => state.user);
   const [writing, setWriting] = useState();
+  const navigate = useContext(NavigateContext);
+
+  /**
+   * If the user is logged in, open the comment writing form.
+   * Otherwise, redirect to the login page.
+   */
+  function handleCommentClick() {
+    if (!currentUser.id) return navigate('/login');
+
+    setWriting(writing => !writing);
+  }
 
   return (
     <Grid>
@@ -71,7 +83,7 @@ export default function Post({ post }) {
             <Button
               icon={{name: "comment"}}
               content="Comment"
-              onClick={() => setWriting(w => !w)}
+              onClick={handleCommentClick}
             />
 
             { currentUser.id === userId && 
