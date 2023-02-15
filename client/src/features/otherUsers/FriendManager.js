@@ -3,6 +3,7 @@ import { NavigateContext } from '../../context/NavigateContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { createFriendship, deleteFriendship } from './profileUserSlice';
 import { resumeSession } from '../user/userSlice';
+import FriendButton from '../../components/FriendButton';
 import { Button, Card, Header } from 'semantic-ui-react';
 
 export default function FriendManager() {
@@ -36,14 +37,14 @@ export default function FriendManager() {
         return (
           <>
             <Header>You are friends with {username}</Header>
-            <Button onClick={handleRemoveFriend} negative>Remove Friend</Button>
+            <FriendButton text="Remove Friend" negative onClick={handleRemoveFriend} />
           </>
         );
       case 'pending-outgoing':
         return (
           <>
             <Header>You have sent a friend request to {username}</Header>
-            <Button onClick={handleRemoveFriend} negative>Cancel Request</Button>
+            <FriendButton text="Cancel Request" negative onClick={handleRemoveFriend} />
           </>
         );
       case 'pending-incoming':
@@ -51,8 +52,8 @@ export default function FriendManager() {
           <>
             <Header>{username} would like to become friends</Header>
             <Button.Group>
-              <Button onClick={handleAddFriend} positive>Accept</Button>
-              <Button onClick={handleRemoveFriend} negative>Reject</Button>
+              <FriendButton text="Accept" positive onClick={handleAddFriend} />
+              <FriendButton text="Reject" negative onClick={handleRemoveFriend} />
             </Button.Group>
           </>
         );
