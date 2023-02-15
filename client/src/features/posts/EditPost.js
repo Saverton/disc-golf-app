@@ -13,7 +13,10 @@ export default function EditPost() {
   const dispatch = useDispatch();
   const { id: userId } = useSelector(state => state.user);
 
-  // console.log(post);
+  // Boot the user to the login screen if not logged in.
+  useEffect(() => {
+    if (!userId) navigate('/login');
+  }, [userId]);
 
   // pull in the data for the post to be edited
   useEffect(() => {
@@ -51,7 +54,15 @@ export default function EditPost() {
   return (
     <Grid.Column width={10}>
       <Header size="large" dividing>Edit Post</Header>
-      {post?.id && <PostForm onSubmit={updatePost} startData={post} type="edit" />}
+  
+      {post?.id && 
+        <PostForm
+          onSubmit={updatePost}
+          startData={post}
+          type="edit"
+        />
+      }
+
       <Header size="small">or</Header>
       <Button onClick={removePost} negative>Delete This Post</Button>
     </Grid.Column>
