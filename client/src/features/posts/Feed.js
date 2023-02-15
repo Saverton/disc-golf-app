@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPosts, loadMorePosts } from './postsSlice';
-import { Grid, Header, Message, Button } from 'semantic-ui-react';
+import { Grid, Header, Message, Button, Icon } from 'semantic-ui-react';
 import PostList from './PostList';
 import NoPostsFeed from './NoPostsFeed';
 
@@ -28,8 +28,20 @@ export default function Feed() {
         <Message hidden={errors.length === 0} error>
           <Message.Header>{errors.join(', ')}</Message.Header>
         </Message>
-        <Button onClick={onLoadClick}>Load More...</Button>
-        <Button as={Link} to={'/users'}>Find Friends</Button>
+
+        <Button onClick={onLoadClick} animated="fade">
+          <Button.Content visible content="Load More" />
+          <Button.Content hidden>
+            <Icon name="sync" />
+          </Button.Content>
+        </Button>
+
+        <Button as={Link} to={'/users'} animated="fade">
+          <Button.Content visible content="Find Friends" />
+          <Button.Content hidden>
+            <Icon name="users" />
+          </Button.Content>
+        </Button>
       </Header>
     </Grid.Column>
   );
