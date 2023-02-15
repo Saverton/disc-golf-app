@@ -4,7 +4,7 @@ import { Grid, Image } from 'semantic-ui-react';
 
 export default function Header() {
   return (
-      <Grid.Row columns={3} textAlign="center">
+      <Grid.Row columns={3} textAlign="center" as="header" id="page-header">
         <Grid.Column width={6} verticalAlign="middle">
           <Image src="./we_disc.png" alt="logo" size="medium"/>
         </Grid.Column>

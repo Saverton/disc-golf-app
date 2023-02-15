@@ -1,3 +1,14 @@
+header#page-header {
+  min-height: calc(0.15 * 100vh);
+}
+
+div#page-navigation {
+  min-height: calc(0.1 * 100vh);
+  position: sticky;
+  top: -14px;
+  z-index: 100;
+}
+
 main#dynamic-main {
   min-height: calc(0.5 * 100vh);
 }

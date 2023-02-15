@@ -7,7 +7,7 @@ export default function NavBar() {
   const currentUser = useSelector(state => state.user);
 
   return (
-    <Grid.Row>
+    <Grid.Row as="div" id="page-navigation">
       <Menu as="nav" fluid widths={6} color="blue" inverted>
         <Menu.Item as={NavLink} to="/feed">Feed</Menu.Item>
 
